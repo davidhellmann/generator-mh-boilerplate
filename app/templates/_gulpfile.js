@@ -1,4 +1,5 @@
 var pkg = require('./package.json');
+var config = require('./config.json');
 
 /*------------------------------------*\
     Inhalte
@@ -16,7 +17,7 @@ var pkg = require('./package.json');
 
 // Config
 
-var vhost = 'martin-boilerplate.dev';
+var vhost = 'vhost.dev';
 // define if wordpress
 var themeName = '<%= pkg.name %>';
 
@@ -31,32 +32,28 @@ var autoprefixer_browsers = [
 \*------------------------------------*/
 
 
-var src = 'src/',
+var src = config.src.src,
     srcAssets = src;
-    srcBower = 'bower_components/',
-    srcTemplates = srcAssets + 'templates/'
-    srcCss = srcAssets + 'scss/',
-    srcJs = srcAssets + 'js/',
-    srcJsMySource = srcJs + 'my-source/',
-    srcJsJson = srcJs + 'json/',
-    srcImages = srcAssets + 'images/',
-    srcSvg = srcImages + 'svg/',
-    srcSvgSingle = srcSvg + 'single/',
-    srcSvgSprite = srcSvg + 'sprite/',
-    <%= if (projectUsage == 'HTML Prototype') { %>
-    dist = 'dist/',<% } if (projectUsage == 'Wordpress') { %>
-    dist = 'dist/wp-content/themes' + themeName + '/', <% } if projectUsage == 'Craft' %>
-    dist = 'dist/public/', <% if (projectUsage == 'laravel') { %>}
-    dist = 'dist/public/', <% } %>
+    srcBower = src + config.src.bower,
+    srcTemplates = srcAssets + config.src.templates
+    srcCss = srcAssets + config.src.css,
+    srcJs = srcAssets + config.src.js.base,
+    srcJsMySource = srcJs + config.src.js.mysource,
+    srcJsJson = srcJs + config.src.js.json,
+    srcImages = srcAssets + config.src.images.base,
+    srcSvg = srcImages + config.src.images.svg.base,
+    srcSvgSingle = srcSvg + config.src.images.svg.single,
+    srcSvgSprite = srcSvg + config.src.images.svg.sprite,
+    dist = config.dist.dist,
     distAssets = dist + 'assets/',
-    distCss = distAssets + 'css/',
-    distJs = distAssets + 'js/',
-    distImages = distAssets + 'images/',
-    distHtmlImages = distImages + 'htmlimages/',
-    distCssImages = distImages + 'cssimages/',
-    distSvg = distImages + 'svg/',
-    distSvgSingle = distSvg + 'single/',
-    distSvgSprite = distSvg + 'sprite/';
+    distCss = distAssets config.dist.css,
+    distJs = distAssets + config.dist.js,
+    distImages = distAssets + config.dist.images.base,
+    distHtmlImages = distImages + config.dist.images.bitmap.htmlimages,
+    distCssImages = distImages + config.dist.images.bitmap.cssimages,
+    distSvg = distImages + config.dist.images.svg.base,
+    distSvgSingle = distSvg + config.dist.images.svg.single,
+    distSvgSprite = distSvg + config.dist.images.svg.sprite;
 
 /**
  like:

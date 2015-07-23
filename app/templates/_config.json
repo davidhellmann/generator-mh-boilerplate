@@ -1,0 +1,47 @@
+{
+  "src": {
+    "src": "src/",
+    "assets": "",
+    "bower": "bower_components/",
+    "templates": "templates/",
+    "css": "scss/",
+    "js": {
+      "base": "js/",
+      "mysource": "my-source/",
+      "json": "json/"
+    },
+    "images": {
+      "base": "images/",
+      "svg": {
+        "base": "svg/",
+        "single": "single/",
+        "sprite": "sprite/"
+      },
+      "bitmap": {
+        "cssimages": "cssimages/",
+        "htmlimages": "htmlimages/"
+      }
+    }
+  },
+  "dist": {
+    <% if (projectUsage == 'HTML Prototype') { %>
+    "dist": "dist/",<%% } if (projectUsage == 'Wordpress') { %>
+    "dist": "dist/wp-content/themes/<%= projectName %>/", <%% } if projectUsage == 'Craft' %>
+    "dist": "dist/public/", <% if (projectUsage == 'laravel') { %>
+    "dist": "dist/public/", <% } %>
+    "css": "css/",
+    "js": "js/",
+    "images": {
+      "base": "images",
+      "svg": {
+        "base": "svg/",
+        "single": "single/",
+        "sprite": "sprite/"
+      },
+      "bitmap": {
+        "cssimages": "cssimages/",
+        "htmlimages": "htmlimages/"
+      }
+    }
+  }
+}
