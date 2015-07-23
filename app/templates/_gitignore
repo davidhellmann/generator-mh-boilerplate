@@ -1,0 +1,119 @@
+###############################################################################
+##                                                                            #
+##       GIT IGNORE FOR WORDPRESS SITES                                       #
+##       ------------------------------                                       #
+##       By: BigWilliam <hello@bigwilliam.com>                                #
+##       License: MIT - aka you can use/modify this how you want :)           #
+##                                                                            #
+###############################################################################
+
+###############################################################################
+##                                                                            #
+##       NOTE: TO STOP TRACKING A FILE AFTER IGNORING IT,                     #
+##             USE THESE GIT COMMANDS:                                        #
+##                                                                            #
+##             git rm --cached <file>                                         #
+##             git add . # or git add <file>                                  #
+##                                                                            #
+###############################################################################
+
+
+## OS and Utility Stuff ##
+
+#==================#
+#     OS Files     #
+#==================#
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+*[Tt]humbs.db
+*.Trashes
+*.sassc
+*.css.map
+.idea/
+
+#==================#
+#    Log files     #
+#==================#
+*.log
+error_log
+access_log
+.sass-cache
+
+#===================================#
+#       npm Files             #
+#===================================#
+node_modules
+bower_components
+.grunt
+
+
+#===================================#
+#          sublime files            #
+#===================================#
+*.sublime-project
+*.sublime-workspace
+.sublime-gulp.cache
+Package Syncing.last-run
+
+## Main Stuff ##
+
+<% if (projectUsage == 'laravel') { %>
+
+#===================================#
+#     Laravel IGNORE                #
+#===================================#
+dist//bootstrap/compiled.php
+dist//vendor/
+dist/composer.phar
+dist/composer.lock
+dist/.env.*.php
+dist/.env.php
+dist/Thumbs.db
+dist/.env
+
+
+<% } if (projectUsage == 'Wordpress') { %>
+#===================================#
+#     Theme IGNORE                  #
+#===================================#
+
+### WordPress ###
+dist/*.log
+dist/.htaccess
+dist/sitemap.xml
+dist/sitemap.xml.gz
+dist/wp-config.php
+dist/wp-content/advanced-cache.php
+dist/wp-content/backup-db/
+dist/wp-content/backups/
+dist/wp-content/blogs.dir/
+dist/wp-content/cache/
+dist/wp-content/upgrade/
+dist/wp-content/uploads/
+dist/wp-content/wp-cache-config.php
+
+<% } if (projectUsage == 'Craft') { %>
+#===================================#
+#     Craft CMS                  #
+#===================================#
+dist/craft/storage/*
+!dist/craft/storage/logo/*
+<% } %>
+
+
+#===================================#
+#     PROJECT SPECIFIC STUFF        #
+#===================================#
+
+README.html
+
+
+## Depreciated stuff, keeping here for reference ##
+
+##### design files #####
+*.psd
+.idea
