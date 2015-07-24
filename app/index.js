@@ -14,6 +14,8 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
   askFor: function() {
     var done = this.async();
 
+    console.log(this.yeoman);
+
     var prompts = [
       {
         type: 'input',
@@ -25,6 +27,19 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
         name: 'projectDescription',
         message: 'Short description of the Project`',
         default: 'undefined'
+      },{
+        type: 'confirm',
+        name: 'projectProxyQuestion',
+        message: 'Do you already know the vhost for your Project?',
+        default: false
+      },{
+        when: function(response) {
+          return response.projectProxyQuestion;
+        },
+        type: 'input',
+        name: 'projectProxy',
+        message: 'Enter the vhost for your Project',
+        default: 'project.dev'
       },{
         type: 'list',
         name: 'projectUsage',
@@ -64,8 +79,14 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
     ];
 
     this.prompt(prompts, function(props) {
+      var proxyUsage = props.projectProxyQuestion;
+
       this.projectName = props.projectName;
       this.projectDescription = props.projectDescription;
+      if (proxyUsage) {
+        this.projectProxy = props.projectProy;
+      }
+      console.log(this.projectProxy);
       this.projectUsage = props.projectUsage;
       this.projectVersion = props.projectVersion;
       this.projectAuthor = props.projectAuthor;
@@ -77,7 +98,6 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
   },
 
   app: function() {
-
     // move src folder
     this.directory('src/js/', 'src/js/');
     this.directory('src/scss/', 'src/scss/');
@@ -97,6 +117,20 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
 
   install: function () {
     // this.installDependencies();
+    var proxy;
+    if (this.projectProxy) {
+      proxy = this.projectProxy;
+    } else {
+      proxy = 'localhost';
+    }
+
+    if (this.projectUsage == 'laravel') {
+      this.spawnCommand('laravel', ['new', 'dist']);
+    } else if (this.projectUsage == 'Wordpress') {
+      this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]);
+    }
+
+    // this.spawnCommand('git', ['init']);
   }
 });
 
