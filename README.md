@@ -10,3 +10,6 @@ When you choose Wordpress the installer will do a fresh install of Wordpress via
 
 ## Laravel
 For laravel you need to follow these instructions first [http://laravel.com/docs/5.1/installation](http://laravel.com/docs/5.1/installation) because it uses the laravel bin to create a new laravel installation
+
+## Craft
+After intializing install craft in the dist folder

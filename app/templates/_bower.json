@@ -11,6 +11,6 @@
     "tests"
   ],
   "dependencies": {
-    "include-media": "~1.1.2",
-  },
+    "include-media": "~1.1.2"
+  }
 }

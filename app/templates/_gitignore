@@ -33,6 +33,7 @@ ehthumbs.db
 *.Trashes
 *.sassc
 *.css.map
+*.js.map
 .idea/
 
 #==================#
@@ -66,8 +67,8 @@ Package Syncing.last-run
 #===================================#
 #     Laravel IGNORE                #
 #===================================#
-dist//bootstrap/compiled.php
-dist//vendor/
+dist/bootstrap/compiled.php
+dist/vendor/
 dist/composer.phar
 dist/composer.lock
 dist/.env.*.php
@@ -82,19 +83,20 @@ dist/.env
 #===================================#
 
 ### WordPress ###
-dist/*.log
-dist/.htaccess
-dist/sitemap.xml
-dist/sitemap.xml.gz
-dist/wp-config.php
-dist/wp-content/advanced-cache.php
-dist/wp-content/backup-db/
-dist/wp-content/backups/
-dist/wp-content/blogs.dir/
-dist/wp-content/cache/
-dist/wp-content/upgrade/
-dist/wp-content/uploads/
-dist/wp-content/wp-cache-config.php
+dist/*
+!favicon.ico
+!favicon.png
+!robots.txt
+!humans.txt
+
+# ignore the wp-content
+dist/wp-content/*
+
+# do not ignore the theme!
+!dist/wp-content/themes/<%= projectName %>
+
+# add more things which should not be ignore if necessary
+# !dist/wp-content/specificPlugin
 
 <% } if (projectUsage == 'Craft') { %>
 #===================================#

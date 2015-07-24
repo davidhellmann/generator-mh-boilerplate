@@ -17,10 +17,7 @@ var config = require('./config.json');
 
 // Config
 
-var vhost = 'vhost.dev';
-// define if wordpress
-var themeName = '<%= pkg.name %>';
-
+var vhost = config.proxy;
 
 var autoprefixer_browsers = [
   'ie >= 9',
@@ -46,7 +43,7 @@ var src = config.src.src,
     srcSvgSprite = srcSvg + config.src.images.svg.sprite,
     dist = config.dist.dist,
     distAssets = dist + 'assets/',
-    distCss = distAssets config.dist.css,
+    distCss = distAssets + config.dist.css,
     distJs = distAssets + config.dist.js,
     distImages = distAssets + config.dist.images.base,
     distHtmlImages = distImages + config.dist.images.bitmap.htmlimages,

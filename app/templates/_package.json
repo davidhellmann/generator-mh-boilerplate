@@ -1,13 +1,13 @@
 {
   "name": "<%= projectName %>",
   "version": "<%= projectVersion %>",
-  "description": "<% projectDescription %>",
+  "description": "<%= projectDescription %>",
   "author": {
     "name": "<%= projectAuthor %>",
     "email": "<%= projectMail %>",
     "url": "<%= projectUrl %>"
   },
-  "repository": "<% projectRepo %>",
+  "repository": "<%= projectRepo %>",
   "devDependencies": {
     "bower": "^1.4.1",
     "browser-sync": "^2.8.0",

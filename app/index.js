@@ -79,14 +79,11 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
     ];
 
     this.prompt(prompts, function(props) {
-      var proxyUsage = props.projectProxyQuestion;
 
       this.projectName = props.projectName;
       this.projectDescription = props.projectDescription;
-      if (proxyUsage) {
-        this.projectProxy = props.projectProy;
-      }
-      console.log(this.projectProxy);
+      this.projectProxyQuestion = props.projectProxyQuestion;
+      this.projectProxy = props.projectProxy;
       this.projectUsage = props.projectUsage;
       this.projectVersion = props.projectVersion;
       this.projectAuthor = props.projectAuthor;
@@ -109,6 +106,7 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
   projectfiles: function() {
     this.copy('_package.json', 'package.json');
     this.copy('_bower.json', 'bower.json');
+    this.copy('_config.json', 'config.json');
     this.copy('_gulpfile.js', 'gulpfile.js');
     this.copy('_gitignore', '.gitignore');
     this.copy('editorconfig', '.editorconfig');
@@ -116,21 +114,19 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
   },
 
   install: function () {
-    // this.installDependencies();
-    var proxy;
-    if (this.projectProxy) {
-      proxy = this.projectProxy;
-    } else {
-      proxy = 'localhost';
-    }
-
     if (this.projectUsage == 'laravel') {
       this.spawnCommand('laravel', ['new', 'dist']);
     } else if (this.projectUsage == 'Wordpress') {
       this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]);
     }
 
-    // this.spawnCommand('git', ['init']);
+    this.installDependencies({
+      skipInstall: this.options['skip-install'],
+      callback: function () {
+        this.spawnCommand('git', ['init']);
+        this.spawnCommand('gulp', ['init']);
+      }.bind(this) // bind the callback to the parent scope
+    });
   }
 });
 
