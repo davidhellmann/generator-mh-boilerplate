@@ -4,6 +4,15 @@ This is kind of special and mostly suited for my own requirements
 Thanks to [Sascha Fuchs](https://github.com/gisu) for the help and his framework
 [Kittn](http://kittn.de/) for the inspiration
 
+--
+Using functions of Hugo Giraudel
+http://hugogiraudel.com/2013/08/05/offsets-sass-mixin/
+http://www.sitepoint.com/sass-mixin-css-triangles/
+
+Using the REM Calc function of Foundation by zurb
+http://foundation.zurb.com
+--
+
 
 ## Wordpress
 When you choose Wordpress the installer will do a fresh install of Wordpress via the WP-CLI tool, you need to install this tool [http://wp-cli.org/](http://wp-cli.org/)

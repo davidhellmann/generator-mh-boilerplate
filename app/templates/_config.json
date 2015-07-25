@@ -26,7 +26,7 @@
     }
   },
   "dist": {
-    <% if (projectUsage == 'HTML Prototype') { %>
+    <% if (projectUsage == 'HTML Protoypes') { %>
     "dist": "dist/",<% } if (projectUsage == 'Wordpress') { %>
     "dist": "dist/wp-content/themes/<%= projectName %>/", <% } if (projectUsage == 'Craft') { %>
     "dist": "dist/public/", <% } if (projectUsage == 'laravel') { %>

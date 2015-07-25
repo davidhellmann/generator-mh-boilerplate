@@ -14,7 +14,20 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
   askFor: function() {
     var done = this.async();
 
-    console.log(this.yeoman);
+    // Have Yeoman greet the user.
+    this.log(yosay(
+      'Welcome to the impressive ' + chalk.red('mh-boilerplate') + ' generator!'
+    ));
+
+    var warning =
+    '\n This generator is customized for my own needs!'
+    + '\n So it may not be the right thing for you!'
+    + '\n Keep this in mind when you go further and please read the Readme'
+    + '\n'
+    + '\n Also this is very early version and maybe there are some bugs :)'
+    + '\n';
+
+    console.log(chalk.bold.red(warning));
 
     var prompts = [
       {
@@ -38,8 +51,7 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
         },
         type: 'input',
         name: 'projectProxy',
-        message: 'Enter the vhost for your Project',
-        default: 'project.dev'
+        message: 'Enter the vhost for your Project'
       },{
         type: 'list',
         name: 'projectUsage',
