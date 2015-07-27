@@ -110,7 +110,7 @@ dist/craft/storage/*
 #===================================#
 #     PROJECT SPECIFIC STUFF        #
 #===================================#
-
+dist/
 README.html
 
 
