@@ -34,7 +34,7 @@
     "css": "css/",
     "js": "js/",
     "images": {
-      "base": "images",
+      "base": "images/",
       "svg": {
         "base": "svg/",
         "single": "single/",

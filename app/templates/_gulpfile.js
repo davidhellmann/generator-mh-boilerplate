@@ -146,6 +146,7 @@ gulp.task('templates', function() {
   }))
   .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
   .pipe(gulp.dest(dist))
+  .pipe($.notify('moved Template Files'))
   .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
 });
 
@@ -225,6 +226,7 @@ gulp.task('js-move', function() {
   jsSources.copyjs.forEach(function(item) {
     gulp.src(item.src)
     .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
+    .pipe($.if('**/*.js', $.uglify()))
     .pipe($.uglify())
     .pipe(gulp.dest(distJs))
     .pipe($.size({
