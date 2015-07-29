@@ -63,6 +63,22 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
           "laravel"
         ]
       },{
+        when: function(response) {
+          return response.projectUsage === 'Wordpress';
+        },
+        type: 'confirm',
+        name: 'projectInstallWordpress',
+        message: 'Do yo want to install Wordpress?',
+        default: false
+      },{
+        when: function(response) {
+          return response.projectUsage === 'laravel';
+        },
+        type: 'confirm',
+        name: 'projectInstallLaravel',
+        message: 'Do you want to install Laravel?',
+        default: false
+      },{
         type: 'input',
         name: 'projectVersion',
         message: 'Project Version Number',
@@ -97,6 +113,8 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
       this.projectProxyQuestion = props.projectProxyQuestion;
       this.projectProxy = props.projectProxy;
       this.projectUsage = props.projectUsage;
+      this.projectInstallWordpress = props.projectInstallWordpress;
+      this.projectInstallLaravel = props.projectInstallLaravel;
       this.projectVersion = props.projectVersion;
       this.projectAuthor = props.projectAuthor;
       this.projectMail = props.projectMail;
@@ -126,9 +144,9 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
   },
 
   install: function () {
-    if (this.projectUsage == 'laravel') {
+    if (this.projectInstallLaravel) {
       this.spawnCommand('laravel', ['new', 'dist']);
-    } else if (this.projectUsage == 'Wordpress') {
+    } else if (this.projectInstallWordpress) {
       this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]);
     }
 
