@@ -159,6 +159,7 @@ gulp.task('sass', function() {
   gulp.src(srcCss + 'style.scss')
   .pipe($.plumber())
   .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
+  .pipe($.sourcemaps.init())
   .pipe($.sass.sync({
     outputStyle: 'compressed',
     precision: 10,
