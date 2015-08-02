@@ -240,6 +240,7 @@ gulp.task('js-move', function() {
 // combine my own scripts
 gulp.task('js-scripts', function() {
   gulp.src(srcJsMySource + '**/*.js')
+  .pipe($.plumber())
   .pipe($.jshint())
   .pipe($.jshint.reporter('jshint-stylish'))
   .pipe($.sourcemaps.init())
