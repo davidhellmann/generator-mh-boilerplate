@@ -75,6 +75,8 @@ dist/.env.*.php
 dist/.env.php
 dist/Thumbs.db
 dist/.env
+dist/public/
+dist/resources/views/
 
 
 <% } if (projectUsage == 'Wordpress') { %>

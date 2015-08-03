@@ -1,6 +1,7 @@
 {
   <% if (projectProxyQuestion) { %>
   "proxy": "<%= projectProxy %>", <% } %>
+  "projectType": "<%= projectUsage %>",
   "src": {
     "src": "src/",
     "assets": "",
@@ -27,10 +28,14 @@
   },
   "dist": {
     <% if (projectUsage == 'HTML Protoypes') { %>
-    "dist": "dist/",<% } if (projectUsage == 'Wordpress') { %>
-    "dist": "dist/wp-content/themes/<%= projectName %>/", <% } if (projectUsage == 'Craft') { %>
-    "dist": "dist/public/", <% } if (projectUsage == 'laravel') { %>
-    "dist": "dist/public/", <% } %>
+    "dist": "dist/",
+    "templates": "dist/"<% } if (projectUsage == 'Wordpress') { %>
+    "dist": "dist/wp-content/themes/<%= projectName %>/",
+    "templates": "dist/wp-content/themes/<%= projectName %>/",<% } if (projectUsage == 'Craft') { %>
+    "dist": "dist/public/",
+    "templates": "dist/public/", <% } if (projectUsage == 'laravel') { %>
+    "dist": "dist/public/",
+    "templates": "dist/resources/views/", <% } %>
     "css": "css/",
     "js": "js/",
     "images": {

@@ -1,6 +1,6 @@
 'use strict';
-var util = require('util');
 var path = require('path');
+var util = require('util');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
@@ -107,7 +107,14 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
     ];
 
     this.prompt(prompts, function(props) {
-
+      var projectType = props.projectUsage;
+      function projectType (type) {
+        return projectType.indexOf(type) !== -1;
+      }
+      this.projectTypeWordpress = projectType('Wordpress');
+      this.projectTypeLaravel = projectType('laravel');
+      this.projectTypeHtml = projectType('HTML Protoypes')
+      this.projectTypeCraft = projectType('Craft')
       this.projectName = props.projectName;
       this.projectDescription = props.projectDescription;
       this.projectProxyQuestion = props.projectProxyQuestion;
@@ -133,30 +140,48 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
 
   },
 
+
+
   projectfiles: function() {
+    if (this.projectTypeWordpress) {
+      this.copy('_gulpfile.js', 'gulpfile.js', {
+        projectType: this.projectTypeWordpress
+      });
+    } else if (this.projectTypeLaravel) {
+      this.copy('_gulpfile.js', 'gulpfile.js', {
+        projectType: this.projectTypeLaravel
+      });
+    } else if (this.projectTypeHtml) {
+      this.copy('_gulpfile.js', 'gulpfile.js', {
+        projectType: this.projectTypeHtml
+      });
+    } else if (this.projectTypeCraft) {
+      this.copy('_gulpfile.js', 'gulpfile.js', {
+        projectType: this.projectTypeCraft
+      });
+    }
     this.copy('_package.json', 'package.json');
     this.copy('_bower.json', 'bower.json');
     this.copy('_config.json', 'config.json');
-    this.copy('_gulpfile.js', 'gulpfile.js');
     this.copy('_gitignore', '.gitignore');
     this.copy('editorconfig', '.editorconfig');
     this.copy('jshintrc', '.jshintrc');
   },
 
   install: function () {
-    if (this.projectInstallLaravel) {
-      this.spawnCommand('laravel', ['new', 'dist']);
-    } else if (this.projectInstallWordpress) {
-      this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]);
-    }
-
-    this.installDependencies({
-      skipInstall: this.options['skip-install'],
-      callback: function () {
-        this.spawnCommand('git', ['init']);
-        this.spawnCommand('gulp', ['init']);
-      }.bind(this) // bind the callback to the parent scope
-    });
+    // if (this.projectInstallLaravel) {
+    //   this.spawnCommand('laravel', ['new', 'dist']);
+    // } else if (this.projectInstallWordpress) {
+    //   this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]);
+    // }
+    //
+    // this.installDependencies({
+    //   skipInstall: this.options['skip-install'],
+    //   callback: function () {
+    //     this.spawnCommand('git', ['init']);
+    //     this.spawnCommand('gulp', ['init']);
+    //   }.bind(this) // bind the callback to the parent scope
+    // });
   }
 });
 

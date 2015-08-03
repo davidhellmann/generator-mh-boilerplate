@@ -43,6 +43,7 @@ var src = config.src.src,
     srcSvgSprite = srcSvg + config.src.images.svg.sprite,
     dist = config.dist.dist,
     distAssets = dist + 'assets/',
+    distTemplates = config.dist.templates,
     distCss = distAssets + config.dist.css,
     distJs = distAssets + config.dist.js,
     distImages = distAssets + config.dist.images.base,
@@ -141,11 +142,11 @@ gulp.task('bs-reload', function() {
 
 gulp.task('templates', function() {
   gulp.src(srcTemplates + '**/*.php')
-  .pipe($.changed(dist, {
+  .pipe($.changed(distTemplates, {
     extension: '.php'
   }))
   .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
-  .pipe(gulp.dest(dist))
+  .pipe(gulp.dest(distTemplates))
   .pipe($.notify('moved Template Files'))
   .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
 });
@@ -349,10 +350,17 @@ gulp.task('svg-sprite', function() {
 /*------------------------------------*\
   #clean
 \*------------------------------------*/
+var directoryToClean;
+
+if (config.projectType == 'laravel') {
+  directoryToClean = dist + 'assets/**/*'
+} else {
+  directoryToClean = dist + '**/*'
+}
 
 gulp.task('clean:dist', function(cb) {
   del([
-    dist + '**/*'
+    directoryToClean
   ], {
     force: true
   }, cb);
@@ -400,6 +408,9 @@ gulp.task('watch', function() {
   gulp.watch(srcSvgSprite + '**/*.svg', ['svg-sprite']);
 
  // reload task
+ <% if (projectUsage === 'laravel') { -%>
+   gulp.watch(distTemplates + '**/*');
+ <% } -%>
   gulp.watch(dist + '**/*.{php,html,js,jpg,png,svg}', ['bs-reload']);
 });
 
