@@ -107,14 +107,6 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
     ];
 
     this.prompt(prompts, function(props) {
-      var projectType = props.projectUsage;
-      function projectType (type) {
-        return projectType.indexOf(type) !== -1;
-      }
-      this.projectTypeWordpress = projectType('Wordpress');
-      this.projectTypeLaravel = projectType('laravel');
-      this.projectTypeHtml = projectType('HTML Protoypes')
-      this.projectTypeCraft = projectType('Craft')
       this.projectName = props.projectName;
       this.projectDescription = props.projectDescription;
       this.projectProxyQuestion = props.projectProxyQuestion;
@@ -143,25 +135,10 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
 
 
   projectfiles: function() {
-    if (this.projectTypeWordpress) {
-      this.copy('_gulpfile.js', 'gulpfile.js', {
-        projectType: this.projectTypeWordpress
-      });
-    } else if (this.projectTypeLaravel) {
-      this.copy('_gulpfile.js', 'gulpfile.js', {
-        projectType: this.projectTypeLaravel
-      });
-    } else if (this.projectTypeHtml) {
-      this.copy('_gulpfile.js', 'gulpfile.js', {
-        projectType: this.projectTypeHtml
-      });
-    } else if (this.projectTypeCraft) {
-      this.copy('_gulpfile.js', 'gulpfile.js', {
-        projectType: this.projectTypeCraft
-      });
-    }
     this.copy('_package.json', 'package.json');
     this.copy('_bower.json', 'bower.json');
+    this.copy('_gulpfile.js', 'gulpfile.js');
+    this.copy('_gulpfile.test.js', 'gulpfile.test.js');
     this.copy('_config.json', 'config.json');
     this.copy('_gitignore', '.gitignore');
     this.copy('editorconfig', '.editorconfig');

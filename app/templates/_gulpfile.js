@@ -177,7 +177,7 @@ gulp.task('sass', function() {
   .pipe($.sourcemaps.write('.'))
   .pipe(gulp.dest(distCss))
   .pipe($.filter('**/*.css'))
-  .pipe($.notify('Compiled <% file.relative %>'))
+  .pipe($.notify('Compiled <%%= file.relative %>'))
   .pipe($.size({
     title: 'styles'
   }))
@@ -352,11 +352,11 @@ gulp.task('svg-sprite', function() {
 \*------------------------------------*/
 var directoryToClean;
 
-if (config.projectType == 'laravel') {
+<% if (projectUsage == 'laravel') { %>
   directoryToClean = dist + 'assets/**/*'
-} else {
+<% } else { %>
   directoryToClean = dist + '**/*'
-}
+<% } %>
 
 gulp.task('clean:dist', function(cb) {
   del([
@@ -408,9 +408,9 @@ gulp.task('watch', function() {
   gulp.watch(srcSvgSprite + '**/*.svg', ['svg-sprite']);
 
  // reload task
- <% if (projectUsage === 'laravel') { -%>
-   gulp.watch(distTemplates + '**/*');
- <% } -%>
+  <% if( projectUsage == 'laravel') { %>
+    gulp.watch(distTemplates + '**/*', ['bs-reload']);
+  <% } %>
   gulp.watch(dist + '**/*.{php,html,js,jpg,png,svg}', ['bs-reload']);
 });
 
