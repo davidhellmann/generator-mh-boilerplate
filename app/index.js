@@ -79,6 +79,14 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
         message: 'Do you want to install Laravel?',
         default: false
       },{
+        when: function(response) {
+          return response.projectUsage === 'laravel';
+        },
+        type: 'confirm',
+        name: 'projectInstallLaravelFormBoilerplate',
+        message: 'Do you want to install Laravel Form Boilerplate?',
+        default: false
+      },{
         type: 'input',
         name: 'projectVersion',
         message: 'Project Version Number',
@@ -114,6 +122,7 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
       this.projectUsage = props.projectUsage;
       this.projectInstallWordpress = props.projectInstallWordpress;
       this.projectInstallLaravel = props.projectInstallLaravel;
+      this.projectInstallLaravelFormBoilerplate = props.projectInstallLaravelFormBoilerplate;
       this.projectVersion = props.projectVersion;
       this.projectAuthor = props.projectAuthor;
       this.projectMail = props.projectMail;
@@ -121,6 +130,7 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
       this.projectRepo = props.projectRepo;
       done();
     }.bind(this));
+
   },
 
   app: function() {
@@ -145,11 +155,18 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
   },
 
   install: function () {
+
+    var done = this.async();
+    var that = this;
+
     if (this.projectInstallLaravel) {
-      this.spawnCommand('laravel', ['new', 'dist']);
+      this.spawnCommand('laravel', ['new', 'dist']).on('close', function() {
+        done();
+      });
     } else if (this.projectInstallWordpress) {
       this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]);
     }
+
 
     this.installDependencies({
       skipInstall: this.options['skip-install'],
@@ -158,6 +175,10 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
         this.spawnCommand('gulp', ['init']);
       }.bind(this) // bind the callback to the parent scope
     });
+
+    if (this.projectInstallLaravelFormBoilerplate) {
+      that.composeWith('mh-boilerplate:laravel-forms');
+    }
   }
 });
 
