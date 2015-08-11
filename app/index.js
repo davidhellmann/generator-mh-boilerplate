@@ -138,7 +138,6 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
     this.copy('_package.json', 'package.json');
     this.copy('_bower.json', 'bower.json');
     this.copy('_gulpfile.js', 'gulpfile.js');
-    this.copy('_gulpfile.test.js', 'gulpfile.test.js');
     this.copy('_config.json', 'config.json');
     this.copy('_gitignore', '.gitignore');
     this.copy('editorconfig', '.editorconfig');
@@ -146,19 +145,19 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
   },
 
   install: function () {
-    // if (this.projectInstallLaravel) {
-    //   this.spawnCommand('laravel', ['new', 'dist']);
-    // } else if (this.projectInstallWordpress) {
-    //   this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]);
-    // }
-    //
-    // this.installDependencies({
-    //   skipInstall: this.options['skip-install'],
-    //   callback: function () {
-    //     this.spawnCommand('git', ['init']);
-    //     this.spawnCommand('gulp', ['init']);
-    //   }.bind(this) // bind the callback to the parent scope
-    // });
+    if (this.projectInstallLaravel) {
+      this.spawnCommand('laravel', ['new', 'dist']);
+    } else if (this.projectInstallWordpress) {
+      this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]);
+    }
+
+    this.installDependencies({
+      skipInstall: this.options['skip-install'],
+      callback: function () {
+        this.spawnCommand('git', ['init']);
+        this.spawnCommand('gulp', ['init']);
+      }.bind(this) // bind the callback to the parent scope
+    });
   }
 });
 

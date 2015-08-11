@@ -75,7 +75,8 @@ dist/.env.*.php
 dist/.env.php
 dist/Thumbs.db
 dist/.env
-dist/public/
+dist/public/assets
+dist/public/uploads
 dist/resources/views/
 
 
