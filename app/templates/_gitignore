@@ -107,6 +107,11 @@ dist/wp-content/*
 #===================================#
 dist/craft/storage/*
 !dist/craft/storage/logo/*
+<% } if(projectUsage == 'HTML Protoypes') { %>
+#===================================#
+#     HTML Protoypes                #
+#===================================#
+dist/
 <% } %>
 
 

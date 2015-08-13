@@ -34,6 +34,7 @@ var src = config.src.src,
     srcBower = src + config.src.bower,
     srcTemplates = srcAssets + config.src.templates
     srcCss = srcAssets + config.src.css,
+    srcFonts = srcAssets + config.src.fonts,
     srcJs = srcAssets + config.src.js.base,
     srcJsMySource = srcJs + config.src.js.mysource,
     srcJsJson = srcJs + config.src.js.json,
@@ -45,6 +46,7 @@ var src = config.src.src,
     distAssets = dist + 'assets/',
     distTemplates = config.dist.templates,
     distCss = distAssets + config.dist.css,
+    distFonts = distAssets + config.dist.fonts,
     distJs = distAssets + config.dist.js,
     distImages = distAssets + config.dist.images.base,
     distHtmlImages = distImages + config.dist.images.bitmap.htmlimages,
@@ -226,10 +228,9 @@ gulp.task('js-plugins', function() {
 // move single js or json Files
 gulp.task('js-move', function() {
   jsSources.copyjs.forEach(function(item) {
-    gulp.src(item.src)
+    gulp.src(jsSources.copyjs)
     .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
     .pipe($.if('**/*.js', $.uglify()))
-    .pipe($.uglify())
     .pipe(gulp.dest(distJs))
     .pipe($.size({
       title: 'Single JS Files Size:'
@@ -348,6 +349,22 @@ gulp.task('svg-sprite', function() {
 
 
 /*------------------------------------*\
+  #fonts
+\*------------------------------------*/
+
+gulp.task('fonts', function() {
+  gulp.src(srcFonts + '**/*')
+  .pipe(gulp.dest(distFonts))
+  .pipe($.notify('moved Fonts'));
+});
+
+/*------------------------------------*\
+  /#fonts
+\*------------------------------------*/
+
+
+
+/*------------------------------------*\
   #clean
 \*------------------------------------*/
 var directoryToClean;
@@ -399,6 +416,7 @@ gulp.task('watch', function() {
   // watch JS Task
   gulp.watch(srcJsMySource + '**/*.js', ['js-scripts']);
   gulp.watch(srcJs + 'single/**/*', ['js-move']);
+  gulp.watch(srcJs + 'json/**/*', ['js-move']);
 
   // watch images
   gulp.watch(srcImages + '**/*.{jpg,png}', ['images']);

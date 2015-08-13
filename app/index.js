@@ -139,6 +139,8 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
     this.directory('src/scss/', 'src/scss/');
     this.directory('src/images/', 'src/images/');
     this.directory('src/templates/', 'src/templates/');
+    this.mkdir('src/fonts');
+    this.mkdir('src/js/json');
 
   },
 
