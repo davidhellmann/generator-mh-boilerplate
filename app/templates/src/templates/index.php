@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>test</title>
-  <script src="assets/js/vendor/modernizr-custom.min.js"></script>
-  <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
+<?php include_once('_layout/header.php'); ?>
+
   <h2>Dies ist ein test</h2>
   <script src="  //cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js
 "></script>
