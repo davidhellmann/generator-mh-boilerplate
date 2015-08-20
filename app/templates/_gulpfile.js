@@ -30,9 +30,9 @@ var autoprefixer_browsers = [
 
 
 var src = config.src.src,
-    srcAssets = src;
+    srcAssets = src,
     srcBower = src + config.src.bower,
-    srcTemplates = srcAssets + config.src.templates
+    srcTemplates = srcAssets + config.src.templates,
     srcCss = srcAssets + config.src.css,
     srcFonts = srcAssets + config.src.fonts,
     srcJs = srcAssets + config.src.js.base,
