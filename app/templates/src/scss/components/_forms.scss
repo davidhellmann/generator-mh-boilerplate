@@ -58,6 +58,16 @@ $formCheckbox__offsetLeft: 11px;
   margin-bottom: 20px;
 }
 
+.form__errorMessages {
+  background-color: $formErrorColor;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+  display: none;
+}
+
 .success {
   background-color: $formSuccessBackground !important;
   color: $formSuccessTextColor;
@@ -198,6 +208,10 @@ p.error {
         }
       }
     }
+  }
+
+  .form__radioWrapper {
+    width: 100%;
   }
   .form__radio {
 

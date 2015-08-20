@@ -143,7 +143,7 @@ gulp.task('bs-reload', function() {
 
 
 gulp.task('templates', function() {
-  gulp.src(srcTemplates + '**/*.php')
+  return gulp.src(srcTemplates + '**/*.php')
   .pipe($.changed(distTemplates, {
     extension: '.php'
   }))
@@ -159,7 +159,7 @@ gulp.task('templates', function() {
 
 
 gulp.task('sass', function() {
-  gulp.src(srcCss + 'style.scss')
+  return gulp.src(srcCss + 'style.scss')
   .pipe($.plumber())
   .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
   .pipe($.sourcemaps.init())
@@ -188,6 +188,19 @@ gulp.task('sass', function() {
   }));
 });
 
+gulp.task('sass-build', function() {
+  return gulp.src(distCss + '**/*.css')
+  .pipe($.size({
+    title: 'styles before'
+  }))
+  .pipe($.cssnano())
+  .pipe(gulp.dest(distCss))
+  .pipe($.notify('Compiled <%= file.relative %>'))
+  .pipe($.size({
+    title: 'styles after'
+  }));
+});
+
 
 /*------------------------------------*\
   #JS tasks
@@ -197,7 +210,7 @@ gulp.task('sass', function() {
 // modernizr task
 
 gulp.task('js-modernizr', function() {
-  gulp.src([srcCss + '**/*.scss', srcJs + '**/*.js'])
+  return gulp.src([srcCss + '**/*.scss', srcJs + '**/*.js'])
   .pipe($.modernizr({
     crawl: true,
     excludeTests: ['hidden'],
@@ -214,7 +227,7 @@ gulp.task('js-modernizr', function() {
 
 // combine bower components and other Plugins
 gulp.task('js-plugins', function() {
-  gulp.src(jsSources.combinejs)
+  return gulp.src(jsSources.combinejs)
   .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
   .pipe($.concat('plugins.js'))
   // .pipe($.uglify())
@@ -228,7 +241,7 @@ gulp.task('js-plugins', function() {
 // move single js or json Files
 gulp.task('js-move', function() {
   jsSources.copyjs.forEach(function(item) {
-    gulp.src(jsSources.copyjs)
+    return gulp.src(jsSources.copyjs)
     .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
     .pipe($.if('**/*.js', $.uglify()))
     .pipe(gulp.dest(distJs))
@@ -241,7 +254,7 @@ gulp.task('js-move', function() {
 
 // combine my own scripts
 gulp.task('js-scripts', function() {
-  gulp.src(srcJsMySource + '**/*.js')
+  return gulp.src(srcJsMySource + '**/*.js')
   .pipe($.plumber())
   .pipe($.jshint())
   .pipe($.jshint.reporter('jshint-stylish'))
@@ -256,6 +269,17 @@ gulp.task('js-scripts', function() {
   .pipe($.notify('compiled JS'));
 });
 
+gulp.task('js-build', function() {
+  return gulp.src(distJs + '**/*.js')
+  .pipe($.size({
+    title: 'JS FILES BEFORE'
+  }))
+  .pipe($.uglify())
+  .pipe(gulp.dest(distJs))
+  .pipe($.size({
+    title: 'JS FILES AFTER'
+  }));
+});
 
 /*------------------------------------*\
   /#JS tasks
@@ -267,7 +291,7 @@ gulp.task('js-scripts', function() {
 \*------------------------------------*/
 
 gulp.task('images', function() {
-  gulp.src([srcImages + '**/*.{jpg,png}'])
+  return gulp.src([srcImages + '**/*.{jpg,png}'])
   .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
   .pipe($.changed(distImages))
   .pipe($.size({
@@ -295,7 +319,7 @@ gulp.task('images', function() {
 \*------------------------------------*/
 
 gulp.task('svg-single', function() {
-  gulp.src(srcSvgSingle + '**/*.svg')
+  return gulp.src(srcSvgSingle + '**/*.svg')
     .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
     .pipe($.changed(distSvgSingle))
     .pipe($.size({
@@ -314,7 +338,7 @@ gulp.task('svg-single', function() {
 });
 
 gulp.task('svg-sprite', function() {
-  gulp.src(srcSvgSprite + '**/*.svg')
+  return gulp.src(srcSvgSprite + '**/*.svg')
     .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
     .pipe($.changed(distSvgSprite))
     .pipe($.size({
@@ -353,7 +377,7 @@ gulp.task('svg-sprite', function() {
 \*------------------------------------*/
 
 gulp.task('fonts', function() {
-  gulp.src(srcFonts + '**/*')
+  return gulp.src(srcFonts + '**/*')
   .pipe(gulp.dest(distFonts))
   .pipe($.notify('moved Fonts'));
 });
@@ -400,6 +424,27 @@ gulp.task('init', function() {
     'images',
     'svg-single',
     'svg-sprite'
+);
+});
+
+gulp.task('prod', function(callback) {
+  runSequence(
+    'clean:dist',
+    [
+      'templates',
+      'js-modernizr',
+      'sass',
+      'fonts',
+      'js-plugins',
+      'js-move',
+      'js-scripts',
+      'images',
+      'svg-single',
+      'svg-sprite',
+    ],
+    'sass-build',
+    'js-build',
+    callback
 );
 });
 
