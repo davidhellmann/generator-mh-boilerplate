@@ -427,6 +427,40 @@ gulp.task('init', function() {
 );
 });
 
+gulp.task('build', function() {
+  runSequence(
+    'clean:dist',
+    'templates',
+    'js-modernizr',
+    'sass',
+    'fonts',
+    'js-plugins',
+    'js-move',
+    'js-scripts',
+    'images',
+    'svg-single',
+    'svg-sprite'
+
+);
+});
+
+gulp.task('build-css', function() {
+  runSequence(
+    'clean:css',
+    'sass'
+);
+});
+
+gulp.task('build-js', function() {
+  runSequence(
+    'clean:js',
+    'js-modernizr',
+    'js-plugins',
+    'js-move',
+    'js-scripts'
+);
+});
+
 gulp.task('prod', function(callback) {
   runSequence(
     'clean:dist',
