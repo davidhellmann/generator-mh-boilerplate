@@ -4,6 +4,7 @@ var util = require('util');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var mkdirp = require('mkdirp');
 
 var mhBoilerplateGenerator = yeoman.generators.Base.extend({
 
@@ -137,11 +138,13 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
     // move src folder
     this.directory('src/js/', 'src/js/');
     this.directory('src/scss/', 'src/scss/');
-    this.directory('src/images/', 'src/images/');
     this.directory('src/templates/', 'src/templates/');
-    this.mkdir('src/fonts');
-    this.mkdir('src/js/json');
-
+    mkdirp('src/images/cssimages');
+    mkdirp('src/images/htmlimages');
+    mkdirp('src/images/svg/single');
+    mkdirp('src/images/svg/sprite ');
+    mkdirp('src/fonts');
+    mkdirp('src/js/json');
   },
 
 
@@ -159,24 +162,36 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
   install: function () {
 
     var done = this.async();
+
     var that = this;
+
 
     if (this.projectInstallLaravel) {
       this.spawnCommand('laravel', ['new', 'dist']).on('close', function() {
         done();
       });
     } else if (this.projectInstallWordpress) {
-      this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]);
+      this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]).on('close', function() {
+        done();
+      });
+    } else {
+      done();
     }
 
+    this.on('end', function() {
+      console.log('Install dependencies');
 
-    this.installDependencies({
-      skipInstall: this.options['skip-install'],
-      callback: function () {
-        this.spawnCommand('git', ['init']);
-        this.spawnCommand('gulp', ['init']);
-      }.bind(this) // bind the callback to the parent scope
+      this.installDependencies({
+        skipInstall: this.options['skip-install'],
+        callback: function () {
+          console.log('Init git repo');
+          this.spawnCommand('git', ['init']);
+          console.log('Running gulp init');
+          this.spawnCommand('gulp', ['init']);
+        }.bind(this) // bind the callback to the parent scope
+      });
     });
+
 
     if (this.projectInstallLaravelFormBoilerplate) {
       that.composeWith('mh-boilerplate:laravel-forms');

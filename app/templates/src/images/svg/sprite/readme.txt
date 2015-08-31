@@ -1,1 +1,0 @@
-Place all spriting SVGs

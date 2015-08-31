@@ -1,1 +1,0 @@
-Place all the images you need in css
