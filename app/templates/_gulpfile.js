@@ -195,7 +195,7 @@ gulp.task('sass-build', function() {
   }))
   .pipe($.cssnano())
   .pipe(gulp.dest(distCss))
-  .pipe($.notify('Compiled <%= file.relative %>'))
+  .pipe($.notify('Compiled <%%= file.relative %>'))
   .pipe($.size({
     title: 'styles after'
   }));
