@@ -407,6 +407,22 @@ gulp.task('clean:dist', function(cb) {
   }, cb);
 });
 
+gulp.task('clean:js', function(cb) {
+  del([
+    distJs + '**/*'
+  ], {
+    force: true
+  }, cb);
+});
+
+gulp.task('clean:css', function(cb) {
+  del([
+    distCss + '**/*'
+  ], {
+    force: true
+  }, cb);
+});
+
 /*------------------------------------*\
   /#clean
 \*------------------------------------*/
