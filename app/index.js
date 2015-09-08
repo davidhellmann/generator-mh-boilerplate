@@ -160,38 +160,26 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
   },
 
   install: function () {
-
-    var done = this.async();
-
     var that = this;
 
 
-    if (this.projectInstallLaravel) {
-      this.spawnCommand('laravel', ['new', 'dist']).on('close', function() {
-        done();
-      });
-    } else if (this.projectInstallWordpress) {
-      this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]).on('close', function() {
-        done();
-      });
-    } else {
-      done();
-    }
+    console.log('Install dependencies');
 
-    this.on('end', function() {
-      console.log('Install dependencies');
-
-      this.installDependencies({
-        skipInstall: this.options['skip-install'],
-        callback: function () {
-          console.log('Init git repo');
-          this.spawnCommand('git', ['init']);
-          console.log('Running gulp init');
-          this.spawnCommand('gulp', ['init']);
-        }.bind(this) // bind the callback to the parent scope
-      });
+    this.installDependencies({
+      skipInstall: this.options['skip-install'],
+      callback: function () {
+        console.log('Init git repo');
+        this.spawnCommand('git', ['init']);
+        console.log('Running gulp init');
+        this.spawnCommand('gulp', ['init']);
+      }.bind(this) // bind the callback to the parent scope
     });
 
+    if (this.projectInstallLaravel) {
+      this.spawnCommand('laravel', ['new', 'dist']);
+    } else if (this.projectInstallWordpress) {
+      this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]);
+    }
 
     if (this.projectInstallLaravelFormBoilerplate) {
       that.composeWith('mh-boilerplate:laravel-forms');

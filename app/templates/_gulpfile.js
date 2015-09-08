@@ -90,6 +90,8 @@ browserSync = require('browser-sync'),
 del         = require('del'),
 runSequence = require('run-sequence'),
 reload      = browserSync.reload,
+prefix      = require('autoprefixer'),
+quantity    = require('postcss-quantity-queries'),
 argv        = require('yargs').argv;
 
 
@@ -156,7 +158,14 @@ gulp.task('templates', function() {
 /*------------------------------------*\
   #SASS
 \*------------------------------------*/
-
+var postCSS = [
+  quantity(),
+  //autoprefixer
+  prefix({
+    browsers: autoprefixer_browsers,
+    cascade: false
+  })
+];
 
 gulp.task('sass', function() {
   return gulp.src(srcCss + 'style.scss')
@@ -173,9 +182,7 @@ gulp.task('sass', function() {
   .on('error', $.sass.logError)
   .on('error', $.notify.onError('Sass Compile Error!'))
   )
-  .pipe($.autoprefixer({
-    browsers: autoprefixer_browsers
-  }))
+  .pipe($.postcss(postCSS))
   .pipe($.sourcemaps.write('.'))
   .pipe(gulp.dest(distCss))
   .pipe($.filter('**/*.css'))
@@ -402,6 +409,22 @@ var directoryToClean;
 gulp.task('clean:dist', function(cb) {
   del([
     directoryToClean
+  ], {
+    force: true
+  }, cb);
+});
+
+gulp.task('clean:js', function(cb) {
+  del([
+    distJs + '**/*'
+  ], {
+    force: true
+  }, cb);
+});
+
+gulp.task('clean:css', function(cb) {
+  del([
+    distCss + '**/*'
   ], {
     force: true
   }, cb);
