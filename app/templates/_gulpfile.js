@@ -63,7 +63,9 @@ var src = config.src.src,
 */
 var jsSources = {
   // copy Single JS Files which will not be combined
-  copyjs: [
+  copyjs: [{
+    // example: src: srcJs + 'single/file.js'     
+    }
   ],
 
   // Copy and Combine JS Files (Bower and other Plugins)
