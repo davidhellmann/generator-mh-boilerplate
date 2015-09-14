@@ -142,7 +142,7 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
     mkdirp('src/images/cssimages');
     mkdirp('src/images/htmlimages');
     mkdirp('src/images/svg/single');
-    mkdirp('src/images/svg/sprite ');
+    mkdirp('src/images/svg/sprite');
     mkdirp('src/fonts');
     mkdirp('src/js/json');
     mkdirp('src/js/my-source');
