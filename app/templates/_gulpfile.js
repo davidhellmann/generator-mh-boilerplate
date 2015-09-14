@@ -63,10 +63,10 @@ var src = config.src.src,
 */
 var jsSources = {
   // copy Single JS Files which will not be combined
-  copyjs: [{
-    // example: src: srcJs + 'single/file.js'     
-    }
-  ],
+  // copyjs: [{
+  //   // example: src: srcJs + 'single/file.js'
+  //   }
+  // ],
 
   // Copy and Combine JS Files (Bower and other Plugins)
   combinejs: [
@@ -411,6 +411,14 @@ var directoryToClean;
 gulp.task('clean:dist', function(cb) {
   del([
     directoryToClean
+  ], {
+    force: true
+  }, cb);
+});
+
+gulp.task('clean:templates', function(cb) {
+  del([
+    distTemplates + '**/*.{php,html}'
   ], {
     force: true
   }, cb);
