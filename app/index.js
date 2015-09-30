@@ -42,14 +42,6 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
         message: 'Short description of the Project`',
         default: 'undefined'
       },{
-        type: 'confirm',
-        name: 'projectProxyQuestion',
-        message: 'Do you already know the vhost for your Project?',
-        default: false
-      },{
-        when: function(response) {
-          return response.projectProxyQuestion;
-        },
         type: 'input',
         name: 'projectProxy',
         message: 'Enter the vhost for your Project'
@@ -118,7 +110,6 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
     this.prompt(prompts, function(props) {
       this.projectName = props.projectName;
       this.projectDescription = props.projectDescription;
-      this.projectProxyQuestion = props.projectProxyQuestion;
       this.projectProxy = props.projectProxy;
       this.projectUsage = props.projectUsage;
       this.projectInstallWordpress = props.projectInstallWordpress;
@@ -138,7 +129,7 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
     // move src folder
     this.directory('src/js/', 'src/js/');
     this.directory('src/scss/', 'src/scss/');
-    this.directory('src/templates/', 'src/templates/');
+    this.directory('src/views/', 'src/views/');
     mkdirp('src/images/cssimages');
     mkdirp('src/images/htmlimages');
     mkdirp('src/images/svg/single');

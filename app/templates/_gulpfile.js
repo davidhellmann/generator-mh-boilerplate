@@ -8,7 +8,7 @@ var config = require('./config.json');
     2. #Directories
     3. #init Modules
     4. #browserSync
-    5. #templates
+    5. #views
     6. #sass
     7. #js
     8. #images
@@ -32,7 +32,7 @@ var autoprefixer_browsers = [
 var src = config.src.src,
     srcAssets = src,
     srcBower = src + config.src.bower,
-    srcTemplates = srcAssets + config.src.templates,
+    srcViews = srcAssets + config.src.views,
     srcCss = srcAssets + config.src.css,
     srcFonts = srcAssets + config.src.fonts,
     srcJs = srcAssets + config.src.js.base,
@@ -44,7 +44,7 @@ var src = config.src.src,
     srcSvgSprite = srcSvg + config.src.images.svg.sprite,
     dist = config.dist.dist,
     distAssets = dist + 'assets/',
-    distTemplates = config.dist.templates,
+    distViews = config.dist.views,
     distCss = distAssets + config.dist.css,
     distFonts = distAssets + config.dist.fonts,
     distJs = distAssets + config.dist.js,
@@ -142,17 +142,17 @@ gulp.task('bs-reload', function() {
 
 
 /*------------------------------------*\
-  #templates
+  #views
 \*------------------------------------*/
 
 
-gulp.task('templates', function() {
-  return gulp.src(srcTemplates + '**/*.php')
-  .pipe($.changed(distTemplates, {
+gulp.task('views', function() {
+  return gulp.src(srcViews + '**/*.php')
+  .pipe($.changed(distViews, {
     extension: '.php'
   }))
   .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
-  .pipe(gulp.dest(distTemplates))
+  .pipe(gulp.dest(distViews))
   .pipe($.notify('moved Template Files'))
   .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
 });
@@ -416,9 +416,9 @@ gulp.task('clean:dist', function(cb) {
   }, cb);
 });
 
-gulp.task('clean:templates', function(cb) {
+gulp.task('clean:views', function(cb) {
   del([
-    distTemplates + '**/*.{php,html}'
+    distViews + '**/*.{php,html}'
   ], {
     force: true
   }, cb);
@@ -448,7 +448,7 @@ gulp.task('clean:css', function(cb) {
 
 gulp.task('init', function() {
   runSequence(
-    'templates',
+    'views',
     'js-modernizr',
     'sass',
     'js-plugins',
@@ -463,7 +463,7 @@ gulp.task('init', function() {
 gulp.task('build', function() {
   runSequence(
     'clean:dist',
-    'templates',
+    'views',
     'js-modernizr',
     'sass',
     'fonts',
@@ -473,8 +473,7 @@ gulp.task('build', function() {
     'images',
     'svg-single',
     'svg-sprite'
-
-);
+  );
 });
 
 gulp.task('build-css', function() {
@@ -498,7 +497,7 @@ gulp.task('prod', function(callback) {
   runSequence(
     'clean:dist',
     [
-      'templates',
+      'views',
       'js-modernizr',
       'sass',
       'fonts',
@@ -520,7 +519,7 @@ gulp.task('prod', function(callback) {
 gulp.task('watch', function() {
 
   // watch template files
-  gulp.watch(srcTemplates + '**/*.php', ['templates']);
+  gulp.watch(srcViews + '**/*.php', ['views']);
 
   // watch scss files
   gulp.watch(srcCss + '**/*.scss', ['sass']);
@@ -539,7 +538,7 @@ gulp.task('watch', function() {
 
  // reload task
   <% if( projectUsage == 'laravel') { %>
-    gulp.watch(distTemplates + '**/*', ['bs-reload']);
+    gulp.watch(distViews + '**/*', ['bs-reload']);
   <% } %>
   gulp.watch(dist + '**/*.{php,html,js,jpg,png,svg}', ['bs-reload']);
 });

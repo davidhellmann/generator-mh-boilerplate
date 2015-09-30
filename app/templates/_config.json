@@ -1,12 +1,12 @@
 {
-  <% if (projectProxyQuestion) { %>
+  <% if (projectProxy != '') { %>
   "proxy": "<%= projectProxy %>", <% } %>
   "projectType": "<%= projectUsage %>",
   "src": {
     "src": "src/",
     "assets": "",
     "bower": "bower_components/",
-    "templates": "templates/",
+    "views": "views/",
     "css": "scss/",
     "fonts": "fonts/",
     "js": {
@@ -30,13 +30,13 @@
   "dist": {
     <% if (projectUsage == 'HTML Protoypes') { %>
     "dist": "dist/",
-    "templates": "dist/",<% } if (projectUsage == 'Wordpress') { %>
+    "views": "dist/",<% } if (projectUsage == 'Wordpress') { %>
     "dist": "dist/wp-content/themes/<%= projectName %>/",
-    "templates": "dist/wp-content/themes/<%= projectName %>/",<% } if (projectUsage == 'Craft') { %>
+    "views": "dist/wp-content/themes/<%= projectName %>/",<% } if (projectUsage == 'Craft') { %>
     "dist": "dist/public/",
-    "templates": "dist/public/", <% } if (projectUsage == 'laravel') { %>
+    "views": "dist/public/", <% } if (projectUsage == 'laravel') { %>
     "dist": "dist/public/",
-    "templates": "dist/resources/views/", <% } %>
+    "views": "dist/resources/views/", <% } %>
     "css": "css/",
     "fonts": "fonts/",
     "js": "js/",
