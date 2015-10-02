@@ -409,7 +409,7 @@ var directoryToClean;
 <% } %>
 
 gulp.task('clean:dist', function(cb) {
-  del([
+  return del([
     directoryToClean
   ], {
     force: true
@@ -417,7 +417,7 @@ gulp.task('clean:dist', function(cb) {
 });
 
 gulp.task('clean:views', function(cb) {
-  del([
+  return del([
     distViews + '**/*.{php,html}'
   ], {
     force: true
@@ -425,7 +425,7 @@ gulp.task('clean:views', function(cb) {
 });
 
 gulp.task('clean:js', function(cb) {
-  del([
+  return del([
     distJs + '**/*'
   ], {
     force: true
@@ -433,7 +433,7 @@ gulp.task('clean:js', function(cb) {
 });
 
 gulp.task('clean:css', function(cb) {
-  del([
+  return del([
     distCss + '**/*'
   ], {
     force: true
@@ -519,22 +519,35 @@ gulp.task('prod', function(callback) {
 gulp.task('watch', function() {
 
   // watch template files
-  gulp.watch(srcViews + '**/*.php', ['views']);
+  $.watch(srcViews + '**/*.{php,html}', $.batch(function(events, done) {
+    gulp.start('views', done);
+  }));
 
   // watch scss files
   gulp.watch(srcCss + '**/*.scss', ['sass']);
 
   // watch JS Task
-  gulp.watch(srcJsMySource + '**/*.js', ['js-scripts']);
-  gulp.watch(srcJs + 'single/**/*', ['js-move']);
-  gulp.watch(srcJs + 'json/**/*', ['js-move']);
+  $.watch(srcJsMySource + '**/*.js', $.batch(function(events, done) {
+    gulp.start('js-scripts', done);
+  }));
+  $.watch(srcJs + 'single/**/*', $.batch(function(events, done) {
+    gulp.start('js-move', done);
+  }));
+  $.watch(srcJs + 'json/**/*', $.batch(function( events, done ) {
+    gulp.st
 
   // watch images
-  gulp.watch(srcImages + '**/*.{jpg,png}', ['images']);
+  $.watch(srcImages + '**/*.{jpg,png}', $.batch(function(events, done) {
+    gulp.start('images');
+  }));
 
   // watch SVG
-  gulp.watch(srcSvgSingle + '**/*.svg', ['svg-single']);
-  gulp.watch(srcSvgSprite + '**/*.svg', ['svg-sprite']);
+  $.watch(srcSvgSingle + '**/*.svg', $.batch(function(events,done) {
+    gulp.start('svg-single', done);
+  }));
+  $.watch(srcSvgSprite + '**/*.svg', $.batch(function(events, done) {
+    gulp.start('svg-sprite', done);
+  }));
 
  // reload task
   <% if( projectUsage == 'laravel') { %>
