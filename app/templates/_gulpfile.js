@@ -74,12 +74,6 @@ var jsSources = {
 };
 
 
-// modernizr tests
-var modernizrTests = [
-  'flexbox',
-  'flexboxlegacy'
-]
-
 /*------------------------------------*\
   #init modules
 \*------------------------------------*/
@@ -148,9 +142,7 @@ gulp.task('bs-reload', function() {
 
 gulp.task('views', function() {
   return gulp.src(srcViews + '**/*.php')
-  .pipe($.changed(distViews, {
-    extension: '.php'
-  }))
+  .pipe($.changed(distViews))
   .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
   .pipe(gulp.dest(distViews))
   .pipe($.notify('moved Template Files'))
@@ -222,12 +214,9 @@ gulp.task('js-modernizr', function() {
   return gulp.src([srcCss + '**/*.scss', srcJs + '**/*.js'])
   .pipe($.modernizr({
     crawl: true,
-    excludeTests: ['hidden'],
-    options: [
-      'setClasses',
-      'addTest'
-    ],
-    tests: modernizrTests
+    excludeTests: config.modernizr.excludeTests,
+    options: config.modernizr.options,
+    tests: config.modernizr.tests
   }))
   .pipe($.uglify())
   .pipe($.rename({ suffix: '-custom.min' }))
@@ -239,7 +228,7 @@ gulp.task('js-plugins', function() {
   return gulp.src(jsSources.combinejs)
   .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
   .pipe($.concat('plugins.js'))
-  // .pipe($.uglify())
+  .pipe( argv.uncompressed ? $.util.noop() : $.uglify() )
   .pipe(gulp.dest(distJs))
   .pipe($.size({
     title: 'combined JS Plugins'
@@ -259,6 +248,14 @@ gulp.task('js-move', function() {
     }))
     .pipe($.notify('moved Single JS Files'));
   });
+});
+
+// move json files
+gulp.task('js-json', function() {
+  return gulp.src(srcJsJson + '**/*.json')
+      .pipe($.changed(distJs + 'json/'))
+      .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
+      .pipe(gulp.dest(distJs + 'json/'))
 });
 
 // combine my own scripts
@@ -283,7 +280,7 @@ gulp.task('js-build', function() {
   .pipe($.size({
     title: 'JS FILES BEFORE'
   }))
-  .pipe($.uglify())
+  .pipe( argv.uncompressed ? $.util.noop() : $.uglify() )
   .pipe(gulp.dest(distJs))
   .pipe($.size({
     title: 'JS FILES AFTER'
@@ -534,7 +531,8 @@ gulp.task('watch', function() {
     gulp.start('js-move', done);
   }));
   $.watch(srcJs + 'json/**/*', $.batch(function( events, done ) {
-    gulp.st
+    gulp.start('js-json', done);
+  }));
 
   // watch images
   $.watch(srcImages + '**/*.{jpg,png}', $.batch(function(events, done) {

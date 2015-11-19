@@ -52,5 +52,19 @@
         "htmlimages": "htmlimages/"
       }
     }
+  },
+  "modernizr": {
+    "options": [
+      "setClasses",
+      "addTest"
+    ],
+    "excludeTests": [
+      "hidden"
+    ],
+    "tests": [
+      "flexbox",
+      "flexboxlegacy"
+    ]
   }
+
 }
