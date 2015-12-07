@@ -157,6 +157,12 @@ gulp.task('views', function() {
     }
 });
 
+
+gulp.task('boilerplates', function() {
+    return gulp.src(src + 'boilerplates/**/*.html')
+        .pipe($.changed(dist + 'boilerplates/'))
+        .pipe(gulp.dest(dist + 'boilerplates/'))
+});
 /*------------------------------------*\
  #SASS
  \*------------------------------------*/
@@ -472,6 +478,7 @@ gulp.task('clean:css', function(cb) {
 
 gulp.task('init', function() {
     runSequence(
+        'boilerplates',
         'views',
         'js-modernizr',
         'sass',
@@ -490,6 +497,7 @@ gulp.task('build', function() {
         'clean:css',
         'clean:js',
         'clean:images',
+        'boilerplates',
         'views',
         'js-modernizr',
         'sass',
