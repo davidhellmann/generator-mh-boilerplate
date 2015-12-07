@@ -57,6 +57,14 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
         ]
       },{
         when: function(response) {
+          return response.projectUsage === 'HTML Protoypes';
+        },
+        type: 'confirm',
+        name: 'projectTwig',
+        message: 'Do yo want to use Twig as Template ?',
+        default: false
+      },{
+        when: function(response) {
           return response.projectUsage === 'Wordpress';
         },
         type: 'confirm',
@@ -88,17 +96,20 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
         type: 'input',
         name: 'projectAuthor',
         message: 'Project Author or company',
-        default: 'undefined'
+        default: 'undefined',
+        store: true
       },{
         type: 'input',
         name: 'projectMail',
         message: 'Mailadress of the author',
-        default: 'undefined'
+        default: 'undefined',
+        store: true
       },{
         type: 'input',
         name: 'projectUrl',
         message: 'Author URl',
-        default: 'http://...'
+        default: 'http://...',
+        store: true
       },{
         type: 'input',
         name: 'projectRepo',
@@ -112,6 +123,7 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
       this.projectDescription = props.projectDescription;
       this.projectProxy = props.projectProxy;
       this.projectUsage = props.projectUsage;
+      this.projectTwig = props.projectTwig;
       this.projectInstallWordpress = props.projectInstallWordpress;
       this.projectInstallLaravel = props.projectInstallLaravel;
       this.projectInstallLaravelFormBoilerplate = props.projectInstallLaravelFormBoilerplate;
