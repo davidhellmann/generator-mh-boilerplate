@@ -1,70 +1,107 @@
 {
-  <% if (projectProxy != '') { %>
-  "proxy": "<%= projectProxy %>", <% } %>
-  "projectType": "<%= projectUsage %>",
-  "src": {
-    "src": "src/",
-    "assets": "",
-    "bower": "bower_components/",
-    "views": "views/",
-    "css": "scss/",
-    "fonts": "fonts/",
-    "js": {
-      "base": "js/",
-      "mysource": "my-source/",
-      "json": "json/"
+    <% if (projectProxy != '') { %>
+    "proxy"      : "<%= projectProxy %>", <% } else { %>
+    "proxy"      : "", <% } %>
+    <% if (projectTwig) { %>
+    "compiler"   : "twig", <% } else { %>
+    "compiler"   : "nothing", <% } %>
+    "projectType": "<%= projectUsage %>",
+    "files"      : {
+        "jsCombinePlugins"        : [
+        ],
+        "jsCombinePluginsFilename": "plugins.min.js",
+        "jsCopyScripts"           : [
+        ]
     },
-    "images": {
-      "base": "images/",
-      "svg": {
-        "base": "svg/",
-        "single": "single/",
-        "sprite": "sprite/"
-      },
-      "bitmap": {
-        "cssimages": "cssimages/",
-        "htmlimages": "htmlimages/"
-      }
+    "modernizr"  : {
+        "options"  : [
+            "setClasses",
+            "addTest"
+        ],
+        "excludeTests": [
+            "hidden"
+        ],
+        "tests"    : [
+            "flexbox",
+            "flexboxlegacy"
+        ]
+    },
+    "minify"     : {
+        "images": {
+            "optimizationLevel": 3,
+            "pngquant": {
+                "quality": "75-88",
+                "speed": 4
+            },
+            "progressive": true,
+            "interlaced": true,
+            "svgoPlugins": [
+                {"cleanupIDs": false},
+                {"removeComments": true},
+                {"removeViewBox": false},
+                {"removeDesc": true},
+                {"removeUselessDefs": false},
+                {"removeDoctype": true},
+                {"removeEmptyText": true},
+                {"removeUnknownsAndDefaults": true},
+                {"removeEmptyContainers": true},
+                {"collapseGroups": true},
+                {"removeUselessStrokeAndFill": true},
+                {"convertStyleToAttrs": true}
+            ]
     }
-  },
-  "dist": {
+    },
+    "src"        : {
+        "src"      : "src/",
+        "assets"   : "",
+        "bower"    : "bower_components/",
+        "templates": "templates/",
+        "css"      : "scss/",
+        "fonts"    : "fonts/",
+        "js"       : {
+            "base"    : "js/",
+            "mysource": "my-source/",
+            "json"    : "json/"
+        },
+        "images"   : {
+            "base"  : "images/",
+            "svg"   : {
+                "base"  : "svg/",
+                "single": "single/",
+                "sprite": "sprite/"
+            },
+            "bitmap": {
+                "cssimages" : "cssimages/",
+                "htmlimages": "htmlimages/"
+            }
+        }
+    },
+    "dist"       : {
     <% if (projectUsage == 'HTML Protoypes') { %>
-    "dist": "dist/",
-    "views": "dist/",<% } if (projectUsage == 'Wordpress') { %>
-    "dist": "dist/wp-content/themes/<%= projectName %>/",
-    "views": "dist/wp-content/themes/<%= projectName %>/",<% } if (projectUsage == 'Craft') { %>
-    "dist": "dist/public/",
-    "views": "dist/public/", <% } if (projectUsage == 'laravel') { %>
-    "dist": "dist/public/",
-    "views": "dist/resources/views/", <% } %>
-    "css": "css/",
-    "fonts": "fonts/",
-    "js": "js/",
-    "images": {
-      "base": "images/",
-      "svg": {
-        "base": "svg/",
-        "single": "single/",
-        "sprite": "sprite/"
-      },
-      "bitmap": {
-        "cssimages": "cssimages/",
-        "htmlimages": "htmlimages/"
-      }
+        "dist"     : "dist/",
+        "views"    : "dist/",<% } if (projectUsage == 'Wordpress') { %>
+        "dist"     : "dist/wp-content/themes/<%= projectName %>/",
+        "views"    : "dist/wp-content/themes/<%= projectName %>/",<% } if (projectUsage == 'Craft') { %>
+        "dist"     : "dist/public/",
+        "views"    : "dist/public/", <% } if (projectUsage == 'laravel') { %>
+        "dist"     : "dist/public/",
+        "views"    : "dist/resources/views/", <% } %>
+        "css"      : "css/",
+        "fonts"    : "fonts/",
+        "js"       : "js/",
+        "images"   : {
+            "base"  : "images/",
+            "svg"   : {
+                "base"  : "svg/",
+                "single": "single/",
+                "sprite": "sprite/"
+            },
+            "bitmap": {
+                "cssimages" : "cssimages/",
+                "htmlimages": "htmlimages/"
+            }
+        }
     }
-  },
-  "modernizr": {
-    "options": [
-      "setClasses",
-      "addTest"
-    ],
-    "excludeTests": [
-      "hidden"
-    ],
-    "tests": [
-      "flexbox",
-      "flexboxlegacy"
-    ]
-  }
-
 }
+
+
