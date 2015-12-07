@@ -69,6 +69,7 @@ var $       = require('gulp-load-plugins')(),
     del         = require('del'),
     runSequence = require('run-sequence'),
     reload      = browserSync.reload,
+    pngquant    = require('imagemin-pngquant'),
     prefix      = require('autoprefixer'),
     quantity    = require('postcss-quantity-queries'),
     argv        = require('yargs').argv;
@@ -133,7 +134,7 @@ gulp.task('bs-reload', function() {
 gulp.task('views', function() {
     if(config.compiler == 'twig') {
         return gulp.src(srcViews + '**.*.twig')
-            .pipe($.changed(dist.views, {extension: '.html'}))
+            .pipe($.changed(distViews, {extension: '.html'}))
             .pipe($.plumber())
             .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
             .pipe($.twig())
@@ -324,7 +325,7 @@ gulp.task('images', function() {
             optimizationLevel: config.minify.images.optimizationLevel,
             use: [
                 pngquant(config.minify.images.pngquant)
-            ]
+            ],
             progressive: config.minify.images.progressive,
             interlaces: config.minify.images.interlaced
         }))
@@ -370,9 +371,7 @@ gulp.task('svg-sprite', function() {
             title: 'Sprite SVG Images before'
         }))
         .pipe($.imagemin({
-            svgoPlugins: [{
-                removeViewBox: false
-            }]
+            config.minify.images.svgoPlugins
         }))
         .on('error', errorLog)
         .pipe($.svgSprite({
