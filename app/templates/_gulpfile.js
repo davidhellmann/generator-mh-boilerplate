@@ -133,7 +133,7 @@ gulp.task('bs-reload', function() {
 
 gulp.task('views', function() {
     if(config.compiler == 'twig') {
-        return gulp.src(srcViews + '**.*.twig')
+        return gulp.src(srcViews + '**/*.twig')
             .pipe($.changed(distViews, {extension: '.html'}))
             .pipe($.plumber())
             .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )

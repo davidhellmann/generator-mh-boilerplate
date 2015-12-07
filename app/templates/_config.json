@@ -55,7 +55,7 @@
         "src"      : "src/",
         "assets"   : "",
         "bower"    : "bower_components/",
-        "templates": "templates/",
+        "views": "views/",
         "css"      : "scss/",
         "fonts"    : "fonts/",
         "js"       : {
