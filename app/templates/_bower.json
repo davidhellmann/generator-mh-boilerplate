@@ -11,6 +11,7 @@
     "tests"
   ],
   "dependencies": {
-    "include-media": "~1.4.1"
+    "include-media": "~1.4.1",
+    "modular-scale": "~2.1.1"
   }
 }
