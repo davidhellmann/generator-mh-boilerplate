@@ -1,18 +1,17 @@
 # YO
 This is kind of special and mostly suited for my own requirements
 
-Thanks to [Sascha Fuchs](https://github.com/gisu) for the help and his framework
-[Kittn](http://kittn.de/) for the inspiration
+Thanks to [Sascha Fuchs](https://github.com/gisu) for the help and his framework [Kittn](http://kittn.de/) for the inspiration.
 
-Also thanks to [David Hellmann](https://github.com/davidhellmann) and his [yo boilerplate](https://github.com/davidhellmann/generator-dhBoilerplate) 
+Also thanks to [David Hellmann](https://github.com/davidhellmann) and his [yo boilerplate](https://github.com/davidhellmann/generator-dhBoilerplate).
 
 --
 Using functions of Hugo Giraudel
-http://hugogiraudel.com/2013/08/05/offsets-sass-mixin/
-http://www.sitepoint.com/sass-mixin-css-triangles/
+[http://hugogiraudel.com/2013/08/05/offsets-sass-mixin/](http://hugogiraudel.com/2013/08/05/offsets-sass-mixin/)
+[http://www.sitepoint.com/sass-mixin-css-triangles/](http://www.sitepoint.com/sass-mixin-css-triangles/)
 
 Using the REM Calc function of Foundation by zurb
-http://foundation.zurb.com
+[http://foundation.zurb.com](http://foundation.zurb.com)
 --
 
 
@@ -43,11 +42,17 @@ Initialize Project
 ```gulp init```
 
 Default task with BrowserSync
-```gulp```
+```
+gulp
+```
 
 If you pull this project and the project owner hasn't done any JS work you will miss the JS Folders, to create them use:
-```gulp createDirs```
-this will create `src/js/json`, `src/js/my-scripts` and `src/js/single`
+
+```
+gulp createDirs
+```
+
+This will create `src/js/json`, `src/js/my-scripts` and `src/js/single`
 
 Move all your JSON Files into `src/js/json`
 
@@ -60,14 +65,20 @@ Librarys you want to merge together in a plugins.min.js must be defined in the c
 # Build Tasks
 There are several build tasks which will clean your assets at first and then call all necessary tasks to recreate them
 
-Complete Rebuild will clean Views, CSS, JS and Images
-```gulp build```
+### Complete Rebuild will clean Views, CSS, JS and Images
+```
+gulp build
+```
 
-Build CSS
-```gulp build-css```
+### Build CSS
+```
+gulp build-css
+```
 
-Build JS
-```gulp build-js```
+### Build JS
+```
+gulp build-js
+```
 
 # Production
 We have a production task which will clean all assets at first, then recreate everything and finish with minifiyng CSS and JS
