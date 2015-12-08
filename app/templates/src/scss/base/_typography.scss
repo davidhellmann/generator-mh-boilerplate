@@ -19,7 +19,6 @@ body {
   font-size: fontSizes('main', 'bodycopy');
   line-height: $base-line-height;
   color: color('gray', x_dark);
-  @include container();
 }
 
 
@@ -48,7 +47,7 @@ p, pre, hr, ul, ol {
 // HEADLINES
 //------------------------------------\\
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
-  font-weight: $headings__weight;
+  font-weight: fontWeight('headlines', 'bold');
   color: inherit;
   margin-bottom: $verticalRythm;
   margin-top: 0;

@@ -3,7 +3,7 @@ $formSuccessBackground: rgb(145,203,62);
 $formSuccessTextColor: #fff;
 $formLabel: #fff;
 
-$formFont: $font-main;
+$formFont: inherit;
 $formFontSize: 20px;
 
 $formBorder: 1px solid color('gray', 'x_medium');
