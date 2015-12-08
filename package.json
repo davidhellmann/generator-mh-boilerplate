@@ -1,10 +1,13 @@
 {
   "name": "generator-mh-boilerplate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Personal Boilerplate, configurable for WP, Craft and Laravel made by Martin Herweg",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "https://github.com/martinherweg/generator-mh-boilerplate",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/martinherweg/generator-mh-boilerplate"
+  },
   "author": {
     "name": "Martin Herweg",
     "email": "martin@martinherweg.de",
