@@ -141,7 +141,11 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
     // move src folder
     this.directory('src/js/', 'src/js/');
     this.directory('src/scss/', 'src/scss/');
-    this.directory('src/views/', 'src/views/');
+    if(this.projectTwig) {
+      this.directory('src/twig/', 'src/views/');
+    } else {
+      this.directory('src/php/', 'src/views/');
+    }
     mkdirp('src/images/cssimages');
     mkdirp('src/images/htmlimages');
     mkdirp('src/images/svg/single');
@@ -162,6 +166,7 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
     this.copy('_gitignore', '.gitignore');
     this.copy('editorconfig', '.editorconfig');
     this.copy('jshintrc', '.jshintrc');
+    this.copy('_readme.md', 'README.md');
   },
 
   install: function () {
