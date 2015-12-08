@@ -373,12 +373,12 @@ gulp.task('svg-sprite', function() {
     return gulp.src(srcSvgSprite + '**/*.svg')
         .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
         .pipe($.changed(distSvgSprite))
-        .pipe($.size(
+        .pipe($.size({
             title: 'Sprite SVG Images before'
-        ))
-        .pipe($.imagemin({
-            config.minify.images.svgoPlugins
         }))
+        .pipe($.imagemin(
+            config.minify.images.svgoPlugins
+        ))
         .on('error', errorLog)
         .pipe($.svgSprite({
             mode: {
