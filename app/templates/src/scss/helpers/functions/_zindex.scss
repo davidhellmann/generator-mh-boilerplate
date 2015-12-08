@@ -1,0 +1,13 @@
+/**
+ * #zindex Function
+ * Using map definded in _variables.scss
+ */
+
+@function zindex($zindex) {
+  @if not map-has-key($zindexes, $zindex) {
+    @warn "No layer found for '#{$zindex}' in $zindexes map.";
+  }
+
+  @return map-get($zindexes, $zindex);
+
+}

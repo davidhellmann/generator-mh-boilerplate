@@ -1,0 +1,14 @@
+// STRIP UNIT
+// It strips the unit of measure and returns it
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+/**
+ * Strip Units of any Number
+ * @param  {number} $number - number to strip unit from
+ * @return {$number}
+ */
+@function strip-units($number) {
+  @return $number / ($number * 0 + 1);
+}

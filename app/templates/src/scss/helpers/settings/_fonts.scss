@@ -1,0 +1,48 @@
+$ms-base: rem-calc(16);
+$ms-ratio: 1.337; // calculated by body line height / body font size
+$base-line-height: $ms-base * $ms-ratio; // base font size * line height
+$verticalRythm: $ms-ratio + rem;
+
+$fontFamilies: (
+    'main': ('Vollkorn', Georgia, "Times New Roman", Times, serif),
+    'headline': ('Lato', Helvetica, Arial, sans-serif),
+);
+
+$fontSizes: (
+  'main': (
+    'bodycopy': $ms-base
+  ),
+  'headlines': (
+    'h1': ms(6),
+    'h2': ms(5),
+    'h3': ms(4),
+    'h4': ms(3),
+    'h5': ms(2),
+    'h6': ms(1)
+  )
+)
+
+$fontLineHeights: (
+  'main': (
+    'bodycopy': $base-line-height
+  ),
+  'headlines': (
+    'h1': ($base-line-height * 4),
+    'h2': ($base-line-height * 4),
+    'h3': ($base-line-height * 3),
+    'h4': $base-line-height,
+    'h5': $base-line-height,
+    'h6': $base-line-height
+  )
+)
+
+$fontWeights: (
+    'main': (
+        'regular': 400,
+        'bold': 800
+    ),
+    'headline': (
+      'regular': 400,
+      'bold': 800
+    )
+);
