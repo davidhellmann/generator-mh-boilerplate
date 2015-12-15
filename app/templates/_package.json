@@ -46,6 +46,7 @@
     "gulp-util": "^3.0.6",
     "gulp-watch": "^4.3.5",
     "imagemin-pngquant": "^4.2.0",
+    "jshint": "^2.8.0",
     "jshint-stylish": "^2.0.1",
     "postcss-quantity-queries": "^0.4.0",
     "run-sequence": "^1.1.2",
