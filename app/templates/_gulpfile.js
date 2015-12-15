@@ -80,11 +80,22 @@ var errorLog = function(err) {
     console.log(err);
     if (this.emit) {
         this.emit('end');
-    };
+    }
     return $.notify().write(err);
 }
 
+// create dirs if you pull this from an existing project
 
+gulp.task('createDirs', $.shell.task([
+    'mkdir -p src/images/cssimages',
+    'mkdir -p src/images/htmlimages',
+    'mkdir -p src/images/svg/single',
+    'mkdir -p src/images/svg/sprite',
+    'mkdir -p src/js/json',
+    'mkdir -p src/js/my-source',
+    'mkdir -p src/js/single',
+    'mkdir -p src/favicons'
+]));
 
 /*------------------------------------*\
  #browserSync
@@ -342,6 +353,39 @@ gulp.task('images', function() {
         }));
 });
 
+
+// favicon generator
+gulp.task('favicons', function () {
+    gulp.src(src + 'favicons/*.{png,jpg,svg}')
+        .pipe($.favicons({
+            appName: config.favicon.appName,// Your application's name. `string`
+            appDescription: config.favicon.appDescription,// Your application's description. `string`
+            developerName: config.favicon.developerName,// Your (or your developer's) name. `string`
+            developerURL: config.favicon.developerUrl,// Your (or your developer's) URL. `string`
+            background: config.favicon.background,// Background colour for flattened icons. `string`
+            path: config.favicon.path,// Path for overriding default icons path. `string`
+            display: "standalone",// Android display: "browser" or "standalone". `string`
+            orientation: "portrait",// Android orientation: "portrait" or "landscape". `string`
+            version: "1.0",// Your application's version number. `number`
+            logging: config.favicon.logging,// Print logs to console? `boolean`
+            online: config.favicon.online,// Use RealFaviconGenerator to create favicons? `boolean`
+            icons: {
+                android: config.favicon.icons.android,// Create Android homescreen icon. `boolean`
+                appleIcon: config.favicon.icons.appleIcon,// Create Apple touch icons. `boolean`
+                appleStartup: config.favicon.icons.appleStartup,// Create Apple startup images. `boolean`
+                coast: config.favicon.icons.coast,// Create Opera Coast icon. `boolean`
+                favicons: config.favicon.icons.favicons,// Create regular favicons. `boolean`
+                firefox: config.favicon.icons.firefox,// Create Firefox OS icons. `boolean`
+                opengraph: config.favicon.icons.opengraph,// Create Facebook OpenGraph image. `boolean`
+                twitter: config.favicon.icons.twitter,// Create Twitter Summary Card image. `boolean`
+                windows: config.favicon.icons.windows,// Create Windows 8 tile icons. `boolean`
+                yandex: config.favicon.icons.yandex// Create Yandex browser icon. `boolean`
+            }
+        }))
+        .pipe(gulp.dest(dist + 'favicons/'))
+        .pipe($.notify('created Favicons'))
+        .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() );
+    });
 /*------------------------------------*\
  /#images
  \*------------------------------------*/
@@ -470,6 +514,14 @@ gulp.task('clean:css', function(cb) {
     }, cb);
 });
 
+gulp.task('clean:favicons', function(cb) {
+    return del([
+        dist + 'favicons/**/*'
+    ], {
+        force: true
+    }, cb);
+});
+
 /*------------------------------------*\
  /#clean
  \*------------------------------------*/
@@ -480,6 +532,7 @@ gulp.task('init', function() {
     runSequence(
         'boilerplates',
         'views',
+        'favicons',
         'js-modernizr',
         'sass',
         'js-plugins',
@@ -497,8 +550,10 @@ gulp.task('build', function() {
         'clean:css',
         'clean:js',
         'clean:images',
+        'clean:favicons',
         'boilerplates',
         'views',
+        'favicons',
         'js-modernizr',
         'sass',
         'fonts',
@@ -534,8 +589,10 @@ gulp.task('prod', function(callback) {
         'clean:css',
         'clean:js',
         'clean:images',
+        'clean:favicons',
         [
             'views',
+            'favicons',
             'js-modernizr',
             'sass',
             'combinemq',

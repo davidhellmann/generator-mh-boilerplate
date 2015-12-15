@@ -139,6 +139,7 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
 
   app: function() {
     // move src folder
+    this.directory('src/boilerplates/', 'src/boilerplates/');
     this.directory('src/js/', 'src/js/');
     this.directory('src/scss/', 'src/scss/');
     if(this.projectTwig) {
@@ -154,6 +155,7 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
     mkdirp('src/js/json');
     mkdirp('src/js/my-source');
     mkdirp('src/js/single');
+    mkdirp('src/favicons');
   },
 
 

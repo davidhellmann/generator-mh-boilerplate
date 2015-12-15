@@ -27,7 +27,12 @@ Move Single JS Files you *don't* want to be merged into a single file into `src/
 Librarys you want to merge together in a plugins.min.js must be defined in the config.json unter files.jsCombinePlugins
 
 # Build Tasks
-There are several build tasks which will clean your assets at first and then call all necessary tasks to recreate them
+There are several build tasks which will clean your assets at first and then call all necessary tasks to recreate them.
+
+### Create Favicons from Single Picture under `src/favicons`
+```
+gulp favicons
+```
 
 ### Complete Rebuild will clean Views, CSS, JS and Images
 ```

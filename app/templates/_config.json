@@ -13,6 +13,28 @@
         "jsCopyScripts"           : [
         ]
     },
+    "favicon": {
+        "appName"       : "My App",
+        "appDescription": "This is my Application",
+        "developerName" : "<%= projectAuthor %>",
+        "developerURL"  : "<%= projectUrl %>",
+        "background"    : "#020307",
+        "path"          : "favicons",
+        "logging"       : true,
+        "online"        : false,
+        "icons"         : {
+            "android"     : true,
+            "appleIcon"   : true,
+            "appleStartup": true,
+            "coast"       : true,
+            "favicons"    : true,
+            "firefox"     : true,
+            "opengraph"   : false,
+            "twitter"     : false,
+            "windows"     : true,
+            "yandex"      : true
+        }
+    },
     "modernizr"  : {
         "options"  : [
             "setClasses",
@@ -31,23 +53,23 @@
             "optimizationLevel": 3,
             "pngquant": {
                 "quality": "75-88",
-                "speed": 4
+                "speed"  : 4
             },
             "progressive": true,
-            "interlaced": true,
+            "interlaced" : true,
             "svgoPlugins": [
-                {"cleanupIDs": false},
-                {"removeComments": true},
-                {"removeViewBox": false},
-                {"removeDesc": true},
-                {"removeUselessDefs": false},
-                {"removeDoctype": true},
-                {"removeEmptyText": true},
-                {"removeUnknownsAndDefaults": true},
-                {"removeEmptyContainers": true},
-                {"collapseGroups": true},
+                {"cleanupIDs"                : false},
+                {"removeComments"            : true},
+                {"removeViewBox"             : false},
+                {"removeDesc"                : true},
+                {"removeUselessDefs"         : false},
+                {"removeDoctype"             : true},
+                {"removeEmptyText"           : true},
+                {"removeUnknownsAndDefaults" : true},
+                {"removeEmptyContainers"     : true},
+                {"collapseGroups"            : true},
                 {"removeUselessStrokeAndFill": true},
-                {"convertStyleToAttrs": true}
+                {"convertStyleToAttrs"       : true}
             ]
     }
     },
@@ -55,7 +77,7 @@
         "src"      : "src/",
         "assets"   : "",
         "bower"    : "bower_components/",
-        "views": "views/",
+        "views"    : "views/",
         "css"      : "scss/",
         "fonts"    : "fonts/",
         "js"       : {
