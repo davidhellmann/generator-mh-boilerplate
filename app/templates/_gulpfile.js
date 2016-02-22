@@ -71,9 +71,15 @@ var $       = require('gulp-load-plugins')(),
     reload      = browserSync.reload,
     pngquant    = require('imagemin-pngquant'),
     prefix      = require('autoprefixer'),
-    quantity    = require('postcss-quantity-queries'),
     argv        = require('yargs').argv;
 
+
+// babel browserify
+var watchify = require('watchify');
+var browserify = require('browserify');
+var babel = require('babelify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 
 var errorLog = function(err) {
     $.util.beep();
@@ -96,6 +102,12 @@ gulp.task('createDirs', $.shell.task([
     'mkdir -p src/js/single',
     'mkdir -p src/favicons'
 ]));
+
+
+gulp.task('systemFiles', function() {
+    return gulp.src([config.src.systemFiles + '**/*', config.src.systemFiles + '/**/.*'])
+        .pipe(gulp.dest(config.dist.systemFiles));
+});
 
 /*------------------------------------*\
  #browserSync
@@ -141,11 +153,21 @@ gulp.task('bs-reload', function() {
  #views
  \*------------------------------------*/
 
+// De-caching for Data files
+function requireUncached( $module ) {
+    delete require.cache[require.resolve( $module )];
+    return require( $module );
+}
 
+// if using twig with json data via gulp-data use the requireUncached function
+// then it should reload the correct data if you change your data file
+//
+// .pipe($.data(function() {
+// return requireUncached('./src/data/partners.json');
+// }))
 gulp.task('views', function() {
     if(config.compiler == 'twig') {
         return gulp.src(srcViews + '**/*.twig')
-            .pipe($.changed(distViews, {extension: '.html'}))
             .pipe($.plumber())
             .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
             .pipe($.twig())
@@ -178,7 +200,6 @@ gulp.task('boilerplates', function() {
  #SASS
  \*------------------------------------*/
 var postCSS = [
-    quantity(),
     //autoprefixer
     prefix({
         browsers: autoprefixer_browsers,
@@ -320,6 +341,86 @@ gulp.task('js-build', function() {
         .pipe($.size({
             title: 'JS FILES AFTER'
         }));
+});
+
+// babel and browserify
+function babelBuild() {
+    var bundler = browserify(
+        srcJs + 'application.js',
+        {
+            debug: true
+        }
+    )
+        .transform(
+            babel.configure({
+                presets: ["es2015"]
+            })
+        );
+
+    function babelRebundle() {
+        bundler.bundle()
+            .on('error', function (err) {
+                console.error(err);
+                this.emit('end');
+            })
+            .pipe(source('application.js'))
+            .pipe(buffer())
+            .pipe($.sourcemaps.init({
+                loadMaps: true
+            }))
+            .pipe( argv.uncompressed ? $.util.noop() : $.uglify() )
+            .pipe($.sourcemaps.write('./'))
+            .pipe(gulp.dest(distJs))
+    }
+
+    return babelRebundle();
+}
+function babelCompile(watch) {
+    var bundler = watchify(
+        browserify(
+            srcJs + 'application.js',
+            {
+                debug: true
+            }
+        )
+            .transform(
+                babel.configure({
+                    presets: ["es2015"]
+                })
+            )
+    );
+
+    function babelRebundle() {
+        bundler.bundle()
+            .on('error', function (err) {
+                console.error(err);
+                this.emit('end');
+            })
+            .pipe(source('application.js'))
+            .pipe(buffer())
+            .pipe($.sourcemaps.init({
+                loadMaps: true
+            }))
+            .pipe( argv.uncompressed ? $.util.noop() : $.uglify() )
+            .pipe($.sourcemaps.write('./'))
+            .pipe(gulp.dest(distJs))
+    }
+    if(watch) {
+        bundler.on('update', function() {
+            console.log('-> bundling...');
+            babelRebundle();
+        });
+    }
+
+    babelRebundle();
+}
+
+function babelWatch() {
+    return babelCompile(true);
+}
+
+gulp.task('babelBuild', function() {
+    return babelBuild();
 });
 
 /*------------------------------------*\
@@ -490,6 +591,14 @@ gulp.task('clean:views', function(cb) {
     }, cb);
 });
 
+gulp.task('clean:images', function(cb) {
+    return del([
+        distImages + '**/*.{jpeg,jpg,gif,png,svg}'
+    ], {
+        force: true
+    }, cb);
+});
+
 gulp.task('clean:js', function(cb) {
     return del([
         distJs + '**/*'
@@ -532,6 +641,7 @@ gulp.task('init', function() {
     runSequence(
         'boilerplates',
         'views',
+        'systemFiles',
         'favicons',
         'js-modernizr',
         'sass',
@@ -553,6 +663,7 @@ gulp.task('build', function() {
         'clean:favicons',
         'boilerplates',
         'views',
+        'systemFiles',
         'favicons',
         'js-modernizr',
         'sass',
@@ -611,8 +722,11 @@ gulp.task('prod', function(callback) {
 });
 
 //watch task
+gulp.task('babelWatch', function() {
+    return babelWatch();
+});
 
-gulp.task('watch', function() {
+gulp.task('watch', ['babelWatch'], function() {
 
     // watch template files
     $.watch(srcViews + '**/*.{php,html,twig}', $.batch(function(events, done) {
