@@ -26,6 +26,27 @@ Move Single JS Files you *don't* want to be merged into a single file into `src/
 
 Librarys you want to merge together in a plugins.min.js must be defined in the config.json unter files.jsCombinePlugins
 
+# Browserify
+
+### Shim jQuery
+If you want to use jQuery in your HTML Files or have plugins who need jquery available you have to add this to your package.json
+If you want other functions available use the same pattern
+
+```
+  "browser": {
+    "jquery": "./node_modules/jquery/dist/jquery.js"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "jquery": "$"
+  }
+```
+
+
 # Build Tasks
 There are several build tasks which will clean your assets at first and then call all necessary tasks to recreate them.
 
