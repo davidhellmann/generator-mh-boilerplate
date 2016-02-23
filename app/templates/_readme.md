@@ -46,6 +46,17 @@ If you want other functions available use the same pattern
   }
 ```
 
+# Craft
+<% if(projectUsage == 'Craft') { %>
+## Installation
+If you choose to install Craft via the boilerplate you need https://github.com/rsanchez/craft-cli#composer-installation installed.
+<% } %>
+
+<% if(projectUsage == 'Craft' && craftHearty) { %>
+## Hearty Config
+If you use the Hearty Config you can get more Information about here https://github.com/mmikkel/HeartyConfig-Craft/
+<% } %>
+It keeps stuff out of of the Craft Folder and you can split the configuration for multiple Environments in different Files clearer View on all the Files
 
 # Build Tasks
 There are several build tasks which will clean your assets at first and then call all necessary tasks to recreate them.

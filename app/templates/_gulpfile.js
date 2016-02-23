@@ -105,7 +105,7 @@ gulp.task('createDirs', $.shell.task([
 
 
 gulp.task('systemFiles', function() {
-    return gulp.src([config.src.systemFiles + '**/*', config.src.systemFiles + '/**/.*'])
+    return gulp.src([src + config.src.systemFiles + '**/*', src + config.src.systemFiles + '/**/.*'])
         .pipe(gulp.dest(config.dist.systemFiles));
 });
 
