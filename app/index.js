@@ -6,7 +6,7 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 var mkdirp = require('mkdirp');
 
-var mhBoilerplateGenerator = yeoman.generators.Base.extend({
+var mhBoilerplateGenerator = yeoman.Base.extend({
 
   init: function() {
     this.pkg = require('../package.json');
@@ -55,6 +55,22 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
           "Craft",
           "laravel"
         ]
+      },{
+        when: function(response) {
+          return response.projectUsage === 'Craft';
+        },
+        type: 'confirm',
+        name: 'craftHearty',
+        message: 'Do you want to use Hearty Config?',
+        default: false
+      },{
+        when: function(response) {
+          return response.projectUsage === 'Craft';
+        },
+        type: 'confirm',
+        name: 'craftInstall',
+        message: 'Do you want to install Craft?',
+        default: false
       },{
         when: function(response) {
           return response.projectUsage === 'HTML Protoypes';
@@ -127,6 +143,8 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
       this.projectInstallWordpress = props.projectInstallWordpress;
       this.projectInstallLaravel = props.projectInstallLaravel;
       this.projectInstallLaravelFormBoilerplate = props.projectInstallLaravelFormBoilerplate;
+      this.craftInstall = props.craftInstall;
+      this.craftHearty = props.craftHearty;
       this.projectVersion = props.projectVersion;
       this.projectAuthor = props.projectAuthor;
       this.projectMail = props.projectMail;
@@ -147,6 +165,13 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
     } else {
       this.directory('src/php/', 'src/views/');
     }
+    if(this.craftHearty) {
+      this.directory('craft/hearty/config/', 'dist/config');
+      this.directory('craft/hearty/systemFiles', 'src/systemFiles');
+      mkdirp('dist/plugins');
+    } else {
+      mkdirp('src/systemFiles');
+    }
     mkdirp('src/images/cssimages');
     mkdirp('src/images/htmlimages');
     mkdirp('src/images/svg/single');
@@ -157,8 +182,6 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
     mkdirp('src/js/single');
     mkdirp('src/favicons');
   },
-
-
 
   projectfiles: function() {
     this.copy('_package.json', 'package.json');
@@ -191,6 +214,9 @@ var mhBoilerplateGenerator = yeoman.generators.Base.extend({
       this.spawnCommand('laravel', ['new', 'dist']);
     } else if (this.projectInstallWordpress) {
       this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]);
+    } else if(this.craftInstall) {
+      var done = this.async();
+      this.spawnCommand('craft', ['install', 'dist']).on('close', done);
     }
 
     if (this.projectInstallLaravelFormBoilerplate) {
