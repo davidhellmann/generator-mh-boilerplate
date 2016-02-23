@@ -78,7 +78,7 @@
         "assets"   : "",
         "bower"    : "bower_components/",
         "views"    : "views/",
-        "systemFiles": "systemFiles",
+        "systemFiles": "systemFiles/",
         "css"      : "scss/",
         "fonts"    : "fonts/",
         "js"       : {
@@ -105,9 +105,12 @@
         "views"    : "dist/",<% } if (projectUsage == 'Wordpress') { %>
         "dist"     : "dist/wp-content/themes/<%= projectName %>/",
         "views"    : "dist/wp-content/themes/<%= projectName %>/",
-        "systemFiles": "dist/",<% } if (projectUsage == 'Craft') { %>
+        "systemFiles": "dist/",<% } if (projectUsage == 'Craft' && !craftHearty) { %>
         "dist"     : "dist/public/",
         "views"    : "dist/craft/templates/",
+        "systemFiles": "dist/public/",<% } if (craftHearty && projectUsage == 'Craft') { %>
+        "dist"     : "dist/public/",
+        "views"    : "dist/templates/",
         "systemFiles": "dist/public/",<% } if (projectUsage == 'laravel') { %>
         "dist"     : "dist/public/",
         "views"    : "dist/resources/views/",
