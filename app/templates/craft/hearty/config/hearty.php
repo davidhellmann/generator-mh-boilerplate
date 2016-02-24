@@ -2,9 +2,9 @@
 
 // What be yer environment URLs, matey?
 $envs = array(
-    'dev' => 'agenturpp-website.dev',
-    'stage' => 'agenturpp.fb-application3.com',
-    'prod' => 'example.com,www.example.com',
+    'dev' => 'website.dev',
+    'stage' => 'beta.website.com',
+    'prod' => 'website.com,www.website.com',
 );
 
 /*
