@@ -1,5 +1,5 @@
 /**
-   * Copy View files
+   * combine JS Files
    **/
 import config from '../../config.json';
 import gulp from 'gulp';
@@ -9,7 +9,7 @@ import yargs from 'yargs';
 const argv = yargs.argv;
 const $ = gulpLoadPlugins();
 
-const jsPlugins = () => {
+const jsCombineFiles = () => {
     const env = argv.env || 'development'
     return gulp
         .src(config.files.jsCombinePlugins)
@@ -22,5 +22,5 @@ const jsPlugins = () => {
         .pipe($.notify('combine JS Plugins'))
 }
 
-gulp.task('js-plugins', jsPlugins);
-module.exports = jsPlugins;
+gulp.task('js-plugins', jsCombineFiles);
+module.exports = jsCombineFiles;
