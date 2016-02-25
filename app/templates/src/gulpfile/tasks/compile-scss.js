@@ -21,11 +21,11 @@ const compileCss = () => {
         .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
         .pipe(env == 'development' ? $.sourcemaps.init() : $.util.noop())
         .pipe($.sass({
-            precision: 10,
-            includePaths: [
-                config.src.src + config.src.css + '**/*.scss'
-            ]
-        })
+                precision: 10,
+                includePaths: [
+                    config.src.src + config.src.css + '**/*.scss'
+                ]
+            })
             .on('error', errorHandler))
         .pipe($.postcss(postCssConfig()))
         .pipe(env == 'development' ? $.sourcemaps.write('.') : $.util.noop())
