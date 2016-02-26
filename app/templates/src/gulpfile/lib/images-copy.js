@@ -1,6 +1,6 @@
 /**
-   * Copy View files
-   **/
+ * copy images **/
+
 import config from '../../config.json';
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
@@ -14,7 +14,7 @@ const copyImages = (srcFiles, distFiles) => {
         .on('error', errorHandler)
         .pipe($.changed(distFiles))
         .pipe(gulp.dest(distFiles))
-        .pipe($.debug())
+        .pipe($.debug());
 }
 
 module.exports = copyImages;

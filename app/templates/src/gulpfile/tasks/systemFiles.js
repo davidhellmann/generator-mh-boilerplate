@@ -1,6 +1,3 @@
-/**
- * copy SystemFiles (like .htaccess)
- */
 
 import config from '../../config.json';
 import gulp from 'gulp'

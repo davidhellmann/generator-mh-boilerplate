@@ -1,6 +1,3 @@
-/**
-   * compile and bundle js Files with browserify and babelify
-   **/
 import gulp from 'gulp';
 import bundleJs from '../lib/js-bundle';
 import bundleVar from '../lib/js-bundleVar';

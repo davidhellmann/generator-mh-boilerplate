@@ -1,6 +1,3 @@
-/**
-   * Watch JS Files with watchify
-   **/
 import config from '../../config.json';
 import gulp from 'gulp';
 import bundleJs from '../lib/js-bundle';

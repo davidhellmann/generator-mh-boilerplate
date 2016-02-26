@@ -1,6 +1,3 @@
-/**
-   * Concat and uglify all Scripts in folder my-source
-   **/
 import config from '../../config.json';
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';

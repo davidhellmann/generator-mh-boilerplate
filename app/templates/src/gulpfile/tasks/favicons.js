@@ -1,7 +1,3 @@
-/**
-  * create all Favicon sizes from a single file (should be 2048x2048)
-  **/
-
 import config from '../../config.json';
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';

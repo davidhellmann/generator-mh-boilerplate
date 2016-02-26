@@ -1,6 +1,3 @@
-/**
-   * minify Images
-   **/
 import config from '../../config.json';
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
@@ -26,7 +23,7 @@ const minifyImages = (srcFiles, distFiles) => {
             interlaced: config.minify.images.interlaced
         }))
         .pipe( gulp.dest(distFiles) )
-        .pipe($.size())
+        .pipe($.size());
 }
 
 module.exports = minifyImages;
