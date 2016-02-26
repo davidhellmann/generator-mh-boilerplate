@@ -7,6 +7,10 @@
     "compiler"   : "nothing", <% } %>
     "projectType": "<%= projectUsage %>",
     "files"      : {
+        "jsApp": {
+        "srcName": "app.js",
+        "distName": "app.js"
+        },
         "jsCombinePlugins"        : [
         ],
         "jsCombinePluginsFilename": "plugins.min.js",
@@ -86,6 +90,7 @@
             "mysource": "my-source/",
             "json"    : "json/"
         },
+        "favicons": "favicons/",
         "images"   : {
             "base"  : "images/",
             "svg"   : {
