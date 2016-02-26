@@ -1,5 +1,5 @@
 /**
-   * Copy View files
+   * Combine CSS Media Queries
    **/
 import config from '../../config.json';
 import gulp from 'gulp';

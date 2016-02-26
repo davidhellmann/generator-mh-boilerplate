@@ -1,5 +1,5 @@
 /**
-   * Copy View files
+   * Minify JS Files
    **/
 import config from '../../config.json';
 import gulp from 'gulp';

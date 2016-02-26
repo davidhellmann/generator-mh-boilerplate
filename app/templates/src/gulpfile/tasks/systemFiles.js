@@ -1,6 +1,5 @@
 /**
- * Browser Sync
- * @description Refresh the Brwoser after File Change.
+ * copy SystemFiles (like .htaccess)
  */
 
 import config from '../../config.json';

@@ -1,5 +1,5 @@
 /**
-   * Copy View files
+   * Move JSON Files
    **/
 import config from '../../config.json';
 import gulp from 'gulp';

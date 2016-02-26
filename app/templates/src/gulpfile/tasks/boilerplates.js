@@ -1,5 +1,5 @@
 /**
-   * Copy View files
+   * Copy Boilerplate Files
    **/
 import config from '../../config.json';
 import gulp from 'gulp';
