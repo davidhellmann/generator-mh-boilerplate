@@ -120,11 +120,11 @@
         "dist"     : "dist/public/",
         "views"    : "dist/resources/views/",
          "systemFiles": "dist/public/",<% } %>
-        "css"      : "css/",
-        "fonts"    : "fonts/",
-        "js"       : "js/",
+        "css"      : "assets.css/",
+        "fonts"    : "assets/fonts/",
+        "js"       : "assets/js/",
         "images"   : {
-            "base"  : "images/",
+            "base"  : "assets/images/",
             "svg"   : {
                 "base"  : "svg/",
                 "single": "single/",
