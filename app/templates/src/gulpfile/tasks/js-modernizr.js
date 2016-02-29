@@ -18,7 +18,7 @@ const $ = gulpLoadPlugins();
          }))
          .pipe($.uglify())
          .pipe($.rename({
-             suffix: 'custom-min'
+             suffix: '-custom-min'
          }))
          .pipe(gulp.dest(config.dist.dist + config.dist.js + 'vendor/'))
  }
