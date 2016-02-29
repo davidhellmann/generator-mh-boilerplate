@@ -12,8 +12,8 @@ const systemFiles = () => {
     return gulp
         .src(
             [
-                config.src + config.src.systemFiles + '**/*',
-                config.src + config.src.systemFiles + '**/.*'
+                config.src.src + config.src.systemFiles + '**/*',
+                config.src.src + config.src.systemFiles + '**/.*'
             ]
         )
         .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
