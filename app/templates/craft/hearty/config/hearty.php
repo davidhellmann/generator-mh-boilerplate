@@ -1,75 +1,75 @@
 <?php
 
 // What be yer environment URLs, matey?
-$envs = array(
-    'dev' => 'website.dev',
-    'stage' => 'beta.website.com',
-    'prod' => 'website.com,www.website.com',
-);
+    $envs = array(
+        'dev' => 'example.dev',
+        'stage' => 'beta.example.dev',
+        'prod' => 'example.com,www.example.com',
+    );
 
-/*
-*   You probably don't want to edit below this line.
-*
-*/
+    /*
+    *   You probably don't want to edit below this line.
+    *
+    */
 
 // Sets yer environment. Yarr!
-if (!defined('CRAFT_ENVIRONMENT')) {
+    if (!defined('CRAFT_ENVIRONMENT')) {
 
-    if (file_exists(dirname(__FILE__) . '/config.local.php')) {
+        if (file_exists(dirname(__FILE__) . '/config.local.php')) {
 
-        // Here be local config file – assume local env
-        define('CRAFT_ENVIRONMENT', 'local');
+            // Here be local config file – assume local env
+            define('CRAFT_ENVIRONMENT', 'local');
 
-    } else {
+        } else {
 
-        $host = $_SERVER['SERVER_NAME'];
+            $host = $_SERVER['SERVER_NAME'];
 
-        foreach ($envs as $env => $hosts) {
-            $hosts = explode(',', preg_replace('/\s+/', '', $hosts));
-            if (in_array($host, $hosts)) {
-                define('CRAFT_ENVIRONMENT', $env);
-                break;
+            foreach ($envs as $env => $hosts) {
+                $hosts = explode(',', preg_replace('/\s+/', '', $hosts));
+                if (in_array($host, $hosts)) {
+                    define('CRAFT_ENVIRONMENT', $env);
+                    break;
+                }
             }
+
+        }
+
+        if (!defined('CRAFT_ENVIRONMENT')) {
+            die('No environment defined in ' . __FILE__);
         }
 
     }
 
-    if (!defined('CRAFT_ENVIRONMENT')) {
-        die('No environment defined in ' . __FILE__);
-    }
-
-}
-
 // Set yer config path to the containing folder. Arr!
-define('CRAFT_CONFIG_PATH', dirname(__FILE__) . '/');
+    define('CRAFT_CONFIG_PATH', dirname(__FILE__) . '/');
 
 // Ensure our urls have the right scheme
-define('URI_SCHEME', (isset($_SERVER['HTTPS'])) ? 'https://' : 'http://');
+    define('URI_SCHEME', (isset($_SERVER['HTTPS'])) ? 'https://' : 'http://');
 
 // The site url
-define('CRAFT_SITE_URL', URI_SCHEME . $_SERVER['SERVER_NAME'] . '/');
+    define('CRAFT_SITE_URL', URI_SCHEME . $_SERVER['SERVER_NAME'] . '/');
 
 // The site basepath
-define('BASEPATH', realpath(dirname(__FILE__) . '/../') . '/');
+    define('BASEPATH', realpath(dirname(__FILE__) . '/../') . '/');
 
 // Template and plugins paths
-if (isset($pluginsPath))
-{
-    define('CRAFT_PLUGINS_PATH', rtrim($pluginsPath, '/') . '/');
-}
-if (isset($templatesPath))
-{
-    define('CRAFT_TEMPLATES_PATH', rtrim($templatesPath, '/') . '/');
-}if (isset($translationsPath))
+    if (isset($pluginsPath))
+    {
+        define('CRAFT_PLUGINS_PATH', rtrim($pluginsPath, '/') . '/');
+    }
+    if (isset($templatesPath))
+    {
+        define('CRAFT_TEMPLATES_PATH', rtrim($templatesPath, '/') . '/');
+    }if (isset($translationsPath))
 {
     define('CRAFT_TRANSLATIONS_PATH', rtrim($translationsPath, '/') . '/');
 }
 
 // The site's public basepath - usually set in index.php, if not then just use the basepath yep
-if (isset($publicPath)) {
-    define('PUBPATH', rtrim($publicPath, '/') . '/');
-} else {
-    define('PUBPATH', BASEPATH);
-}
+    if (isset($publicPath)) {
+        define('PUBPATH', rtrim($publicPath, '/') . '/');
+    } else {
+        define('PUBPATH', BASEPATH);
+    }
 
-define('HEARTY_CONFIG_VERSION', '1.1');
+    define('HEARTY_CONFIG_VERSION', '1.1');

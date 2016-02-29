@@ -160,6 +160,7 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
     this.directory('src/boilerplates/', 'src/boilerplates/');
     this.directory('src/js/', 'src/js/');
     this.directory('src/scss/', 'src/scss/');
+    this.directory('src/gulpfile/', 'gulpfile/');
     if(this.projectTwig) {
       this.directory('src/twig/', 'src/views/');
     } else {
@@ -186,11 +187,12 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
   projectfiles: function() {
     this.copy('_package.json', 'package.json');
     this.copy('_bower.json', 'bower.json');
-    this.copy('_gulpfile.js', 'gulpfile.js');
+    this.copy('_gulpfile.babel.js', 'gulpfile.babel.js');
     this.copy('_config.json', 'config.json');
     this.copy('_gitignore', '.gitignore');
     this.copy('editorconfig', '.editorconfig');
     this.copy('jshintrc', '.jshintrc');
+    this.copy('babelrc', '.babelrc');
     this.copy('_readme.md', 'README.md');
   },
 

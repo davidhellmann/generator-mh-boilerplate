@@ -7,6 +7,10 @@
     "compiler"   : "nothing", <% } %>
     "projectType": "<%= projectUsage %>",
     "files"      : {
+        "jsApp": {
+        "srcName": "app.js",
+        "distName": "app.js"
+        },
         "jsCombinePlugins"        : [
         ],
         "jsCombinePluginsFilename": "plugins.min.js",
@@ -86,6 +90,7 @@
             "mysource": "my-source/",
             "json"    : "json/"
         },
+        "favicons": "favicons/",
         "images"   : {
             "base"  : "images/",
             "svg"   : {
@@ -115,11 +120,11 @@
         "dist"     : "dist/public/",
         "views"    : "dist/resources/views/",
          "systemFiles": "dist/public/",<% } %>
-        "css"      : "css/",
-        "fonts"    : "fonts/",
-        "js"       : "js/",
+        "css"      : "assets.css/",
+        "fonts"    : "assets/fonts/",
+        "js"       : "assets/js/",
         "images"   : {
-            "base"  : "images/",
+            "base"  : "assets/images/",
             "svg"   : {
                 "base"  : "svg/",
                 "single": "single/",
