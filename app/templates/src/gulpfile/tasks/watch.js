@@ -13,7 +13,7 @@ const watchTask = () => {
     gulp.watch(config.src.src + config.src.views + '**/*.{php,html,twig}', ['views'])
 
     // watch sass
-    gulp.watch(config.src.src + config.src.css + '**/*.scss', ['sass']);
+    gulp.watch(config.src.src + config.src.css + '**/*.scss', ['scss']);
 
     // watch js scripts
     gulp.watch(config.src.src + config.src.js.base + config.src.js.mysource + '**/*.js', ['js-scripts']);
@@ -33,7 +33,7 @@ const watchTask = () => {
     gulp.watch(config.src.src + config.src.images.base + config.src.images.svg.base + config.src.images.svg.sprite + '**/*', ['svg-sprite']);
 
     // reload!
-    gulp.watch(dist + '**/*.{php,html,js,jpg,png,svg}', ['bs-reload']);
+    gulp.watch(config.dist.dist + '**/*.{php,html,js,jpg,png,svg}', ['bs-reload']);
 }
 
 gulp.task('watch', ['browser-sync'], watchTask);
