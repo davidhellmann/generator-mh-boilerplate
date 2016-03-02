@@ -24,7 +24,7 @@
         "developerURL"  : "<%= projectUrl %>",
         "background"    : "#020307",
         "path"          : "favicons",
-        "logging"       : true,
+        "logging"       : false,
         "online"        : false,
         "icons"         : {
             "android"     : true,
@@ -118,9 +118,10 @@
         "views"    : "dist/templates/",
         "systemFiles": "dist/public/",<% } if (projectUsage == 'laravel') { %>
         "dist"     : "dist/public/",
+        "favicons": "favicons/",
         "views"    : "dist/resources/views/",
          "systemFiles": "dist/public/",<% } %>
-        "css"      : "assets.css/",
+        "css"      : "assets/css/",
         "fonts"    : "assets/fonts/",
         "js"       : "assets/js/",
         "images"   : {
