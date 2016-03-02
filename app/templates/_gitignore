@@ -107,6 +107,13 @@ dist/wp-content/*
 #===================================#
 dist/craft/storage/*
 !dist/craft/storage/logo/*
+<% } if(craftHearty) { %>
+dist/craft/license.key
+dist/craft/
+dist/public/
+dist/config/config.local.php
+dist/templates/
+!dist/craft/translations/*
 <% } if(projectUsage == 'HTML Protoypes') { %>
 #===================================#
 #     HTML Protoypes                #
