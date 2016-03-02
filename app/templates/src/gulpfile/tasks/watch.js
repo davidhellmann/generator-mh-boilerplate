@@ -25,7 +25,7 @@ const watchTask = () => {
     gulp.watch(config.src.src + config.src.js.base + config.src.js.json + '**/*.json', ['js-json']);
 
     // watch images
-    gulp.watch(config.src.src + config.src.images.base + '**/*.{png,jpeg,jpg,gif,webp,svg,PNG,JPEG,JPG,GIF}', ['images'])
+    gulp.watch(config.src.src + config.src.images.base + '**/*', ['images']);
 
     // watch SVG Stuff
     gulp.watch(config.src.src + config.src.images.base + config.src.images.svg.base + config.src.images.svg.single + '**/*', ['svg-single']);
