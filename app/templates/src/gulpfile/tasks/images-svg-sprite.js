@@ -6,8 +6,8 @@ import copyImages from '../lib/images-copy';
 
 const $ = gulpLoadPlugins();
 
-const vectorSource = config.src.src + config.src.images.base + config.src.images.svg.base + config.src.images.svg.single + '**/*.svg';
-const vectorDist = config.dist.dist + config.dist.images.base + config.dist.images.svg.base + config.dist.images.svg.single;
+const vectorSource = config.src.src + config.src.images.base + config.src.images.svg.base + config.src.images.svg.sprite + '**/*.svg';
+const vectorDist = config.dist.dist + config.dist.images.base + config.dist.images.svg.base + config.dist.images.svg.sprite;
 
 const svgSprite = () => {
     return gulp
@@ -19,9 +19,9 @@ const svgSprite = () => {
         .pipe($.svgSprite({
             mode: {
                 symbol: {
-                    dest: 'sprite',
+                    dest: '.',
                     sprite: 'sprite.svg',
-                    inline: true
+                    inline: false
                 }
             }
         }))
