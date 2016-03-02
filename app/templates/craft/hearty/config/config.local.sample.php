@@ -12,11 +12,6 @@
             'password' => 'password',
             'database' => 'database',
         ),
-
-        'siteUrl' => array(
-            'en' => CRAFT_SITE_URL . 'en',
-            'de' => CRAFT_SITE_URL . 'de'
-        ),
         'devMode' => false,
         'phpMaxMemoryLimit' => '256M',
         'backupDbOnUpdate' => true,
