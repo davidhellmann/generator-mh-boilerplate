@@ -2,6 +2,8 @@ import config from '../../config.json';
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 
+import errorHandler from '../lib/errorHandler';
+
 const $ = gulpLoadPlugins();
 
 const favicons = () => {
@@ -32,8 +34,12 @@ const favicons = () => {
                 yandex: config.favicon.icons.yandex// Create Yandex browser icon. `boolean`
             }
         }))
+        .on('error', errorHandler)
         .pipe(gulp.dest(config.dist.dist + config.dist.favicons))
-        .pipe($.notify('created Favicons'))
+        .pipe($.notify({
+            onLast: true,
+            message: 'created Favicons'
+        }))
 }
 
 gulp.task('favicons', favicons);
