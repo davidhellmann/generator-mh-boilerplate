@@ -26,6 +26,7 @@ const views = () => {
             .src(config.src.src + config.src.views + '**/*.twig')
             .pipe($.plumber())
             .on('error', errorHandler)
+            .pipe($.twig())
             .pipe(gulp.dest(config.dist.views))
             .pipe($.notify({
                 onLast: true,
