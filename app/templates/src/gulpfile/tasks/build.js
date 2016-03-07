@@ -22,6 +22,7 @@ const buildTask = (cb) => {
             'js-modernizr',
             'scss',
             'fonts',
+            'compile:js',
             'js-plugins',
             'js-move',
             'js-scripts',
