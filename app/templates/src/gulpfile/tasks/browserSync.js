@@ -9,7 +9,7 @@ import browserSync from 'browser-sync';
 
 const browserSyncTask = () => {
     var browserSyncWatch = [
-        config.dist.dist + config.dist.views + '**/*.{php,html}',
+        config.dist.views + '**/*.{php,html}',
         config.dist.dist + config.dist.images.base + '**/*.{jpg,png,gif,svg}',
         config.dist.dist + config.dist.css + '**/*.css',
         config.dist.dist + config.dist.js + '**/*.js'
