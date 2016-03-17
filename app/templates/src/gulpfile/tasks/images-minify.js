@@ -11,7 +11,7 @@ const $ = gulpLoadPlugins();
 
 
 const minifyImagesTask = () => {
-    minifyImages(config.dist.dist + config.dist.images.base + '**/*.{png,jpeg,jpg,gif,webp,svg,PNG,JPEG,JPG,GIF}', config.dist.dist + config.dist.images.base);
+    minifyImages(config.dist.dist + config.dist.images.base + '**/*.{png,jpeg,jpg,gif,webp,PNG,JPEG,JPG,GIF}', config.dist.dist + config.dist.images.base);
 }
 
 gulp.task('minify:images', minifyImagesTask);
