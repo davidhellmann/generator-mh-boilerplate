@@ -13,7 +13,7 @@ const watchTask = () => {
     gulp.watch(config.src.src + config.src.views + '**/*.{php,html,twig}', ['views'])
 
     // watch sass
-    gulp.watch(config.src.src + config.src.css + '**/*.scss', ['scss']);
+    gulp.watch(config.src.src + config.src.css + '**/*.scss', ['compile:css']);
 
     // watch js scripts
     gulp.watch(config.src.src + config.src.js.base + config.src.js.mysource + '**/*.js', ['js-scripts']);
