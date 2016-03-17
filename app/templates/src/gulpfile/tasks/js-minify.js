@@ -10,11 +10,15 @@ const jsMinify = () => {
     const env = argv.env || 'development';
     return gulp
         .src(config.dist.dist + config.dist.js + '**/*.js')
+        .pipe($.filter('*.js'))
+        .pipe($.debug())
         .pipe($.size({
             title: 'JS Files Before'
         }))
-        .pipe(argv.env == 'development' ? $.uglify() : $.util.noop())
-        .pipe(gulp.dest(config.dist + config.dist.js))
+        .pipe($.uglify({
+            mangle: true
+        }))
+        .pipe(gulp.dest(config.dist.dist + config.dist.js))
         .pipe($.size({
             title: 'JS Files after'
         }))

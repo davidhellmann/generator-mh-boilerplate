@@ -11,10 +11,12 @@ const $ = gulpLoadPlugins();
 const minifyCss = () => {
     return gulp
         .src(config.dist.dist + config.dist.css + '**/*.css')
+        .pipe($.size({title: 'css before'}))
         .pipe($.postcss(postCssNano()))
-        .pipe(gulp.dest(config.dist.dist + config.dist.css))
-}
+        .pipe($.size({title: 'css after'}))
+            .pipe(gulp.dest(config.dist.dist + config.dist.css))
+        }
 
-gulp.task('minify:css', minifyCss);
-module.exports = minifyCss;
+    gulp.task('minify:css', minifyCss);
+    module.exports = minifyCss;
 

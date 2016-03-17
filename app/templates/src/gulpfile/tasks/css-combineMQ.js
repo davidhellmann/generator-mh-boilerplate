@@ -20,5 +20,5 @@ const combinemq = () => {
         }))
 }
 
-gulp.task('combinemq', combinemq);
+gulp.task('css:combinemq', combinemq);
 module.exports = combinemq;

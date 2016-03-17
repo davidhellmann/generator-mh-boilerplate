@@ -1,29 +1,42 @@
 import config from '../../config.json';
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
-import pngquant from 'imagemin-pngquant';
-import svgo from 'imagemin-pngquant';
-import jpegCompress from 'imagemin-jpeg-recompress';
+import browserSync from 'browser-sync';
+import errorHandler from '../lib/errorHandler';
+import postCssConfig from '../lib/postCssConfig';
+import postCssNano from '../lib/postCssNano';
+import yargs from 'yargs';
 
+const argv = yargs.argv;
 const $ = gulpLoadPlugins();
 
-const minifyImages = (srcFiles, distFiles) => {
-    gulp.src(srcFiles)
-        .pipe($.imagemin({
-            optimizationLevel: config.minify.images.optimizationLevel,
-            use: [
-                pngquant(config.minify.images.pngquant),
-                jpegCompress({
-                    loops: 3,
-                    min: 75,
-                    max: 95
-                })
-            ],
-            progressive: config.minify.images.progressive,
-            interlaced: config.minify.images.interlaced
+const compileCss = () => {
+    const env = argv.env || 'development'
+
+    return gulp
+        .src(config.src.src + config.src.css + '**/*.scss')
+        .pipe( argv.source ? $.debug({ verbose: true }) : $.util.noop() )
+        .pipe(env == 'development' ? $.sourcemaps.init() : $.util.noop())
+        .pipe($.sass({
+                precision: 10,
+                includePaths: [
+                    config.src.src + config.src.css + '**/*.scss'
+                ]
+            })
+            .on('error', errorHandler))
+        .pipe($.postcss(postCssConfig()))
+        .on('error', errorHandler)
+        .pipe(env == 'development' ? $.sourcemaps.write('.') : $.util.noop())
+        .pipe(env == 'production' ? $.size({ title: 'styles before'}) : $.util.noop())
+        .pipe(env == 'production' ? $.postcss(postCssNano()) : $.util.noop())
+        .pipe(gulp.dest(config.dist.dist + config.dist.css))
+        .pipe($.size({
+            title: 'styles'
         }))
-        .pipe( gulp.dest(distFiles) )
-        .pipe($.size());
+        .pipe(browserSync.stream({
+            match: '**/*.css'
+        }))
 }
 
-module.exports = minifyImages;
+gulp.task('compile:css', compileCss);
+module.exports = compileCss;

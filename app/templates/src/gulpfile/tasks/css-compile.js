@@ -25,7 +25,10 @@ const compileCss = () => {
             })
             .on('error', errorHandler))
         .pipe($.postcss(postCssConfig()))
+        .on('error', errorHandler)
         .pipe(env == 'development' ? $.sourcemaps.write('.') : $.util.noop())
+        .pipe(env == 'production' ? $.size({ title: 'styles before'}) : $.util.noop())
+        .pipe(env == 'production' ? $.postcss(postCssNano()) : $.util.noop())
         .pipe(gulp.dest(config.dist.dist + config.dist.css))
         .pipe($.size({
             title: 'styles'
@@ -35,5 +38,5 @@ const compileCss = () => {
         }))
 }
 
-gulp.task('scss', compileCss);
+gulp.task('compile:css', compileCss);
 module.exports = compileCss;
