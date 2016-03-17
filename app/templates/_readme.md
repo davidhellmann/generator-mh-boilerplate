@@ -71,14 +71,14 @@ gulp favicons
 gulp build
 ```
 
-### Build CSS
+### Publish, minifies css, js and images in the dist folder, you can use it before you zip your files
 ```
-gulp build-css
+gulp publish
 ```
 
-### Build JS
+### Deploy, clears everything in the dist folder, then builds from scratch and after all minifies css, js and images, can be used for the Task Pipeline in your deployment tool
 ```
-gulp build-js
+gulp deploy
 ```
 
 # Production

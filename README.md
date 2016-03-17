@@ -63,21 +63,26 @@ Move Single JS Files you *don't* want to be merged into a single file into `src/
 Librarys you want to merge together in a plugins.min.js must be defined in the config.json unter files.jsCombinePlugins
 
 # Build Tasks
-There are several build tasks which will clean your assets at first and then call all necessary tasks to recreate them
+There are several build tasks which will clean your assets at first and then call all necessary tasks to recreate them.
+
+### Create Favicons from Single Picture under `src/favicons`
+```
+gulp favicons
+```
 
 ### Complete Rebuild will clean Views, CSS, JS and Images
 ```
 gulp build
 ```
 
-### Build CSS
+### Publish, minifies css, js and images in the dist folder, you can use it before you zip your files
 ```
-gulp build-css
+gulp publish
 ```
 
-### Build JS
+### Deploy, clears everything in the dist folder, then builds from scratch and after all minifies css, js and images, can be used for the Task Pipeline in your deployment tool
 ```
-gulp build-js
+gulp deploy
 ```
 
 # Production
