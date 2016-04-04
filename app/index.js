@@ -159,6 +159,7 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
     // move src folder
     this.directory('src/boilerplates/', 'src/boilerplates/');
     this.directory('src/js/', 'src/js/');
+    this.directory('src/js/', 'src/js');
     this.directory('src/scss/', 'src/scss/');
     this.directory('src/gulpfile/', 'gulpfile/');
     if(this.projectTwig) {
@@ -228,3 +229,4 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
 });
 
 module.exports = mhBoilerplateGenerator;
+;
