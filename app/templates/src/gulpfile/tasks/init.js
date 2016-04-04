@@ -14,7 +14,7 @@ const initTask = (cb) => {
         'favicons',
         'js-modernizr',
         'compile:js',
-        'scss',
+        'compile:css',
         'js-plugins',
         'js-move',
         'js-scripts',
