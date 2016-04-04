@@ -108,7 +108,7 @@
     <% if (projectUsage == 'HTML Protoypes') { %>
         "dist"     : "dist/",
         "views"    : "dist/",
-        "systemFiles": "dist/"<% } if (projectUsage == 'Wordpress') { %>
+        "systemFiles": "dist/",<% } if (projectUsage == 'Wordpress') { %>
         "dist"     : "dist/wp-content/themes/<%= projectName %>/",
         "views"    : "dist/wp-content/themes/<%= projectName %>/",
         "systemFiles": "dist/",<% } if (projectUsage == 'Craft' && !craftHearty) { %>
