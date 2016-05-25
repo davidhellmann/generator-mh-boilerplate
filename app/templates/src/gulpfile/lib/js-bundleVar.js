@@ -5,6 +5,10 @@ import browserify from 'browserify';
 import babelify from 'babelify';
 import yargs from 'yargs';
 
+<% if(projectUseVue) { %>
+import vueify from 'vueify'
+<% } %>
+
 const argv = yargs.argv;
 
 const env = argv.env || 'development'
@@ -18,11 +22,17 @@ const bundleVar = () => {
             }
         )
             .transform(babelify.configure({ presets: ["es2015"]}))
+            <% if(projectUseVue) { %>
+            .transform(vueify)
+            <% } %>
     } else {
         return browserify(
             config.src.src + config.src.js.base + config.files.jsApp.srcName
         )
             .transform(babelify.configure({ presets: ["es2015"]}))
+            <% if(projectUseVue) { %>
+            .transform(vueify)
+            <% } %>
     }
 
     return bundler

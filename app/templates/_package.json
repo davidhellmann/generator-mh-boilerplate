@@ -10,11 +10,19 @@
   "repository": "<%= projectRepo %>",
   "devDependencies": {
     "autoprefixer": "^6.0.2",
+    <% if(projectUseVue) { %>
+    "babel-plugin-transform-runtime": "^6.7.5",
+    "babel-runtime": "^6.9.0",
+    <% } %>
     "babel-preset-es2015": "^6.3.13",
     "babelify": "^7.2.0",
     "bower": "^1.5.2",
     "browser-sync": "^2.9.3",
     "browserify": "^13.0.1",
+    <% if(projectUseVue) { %>
+    "browserify-hmr": "^0.3.1",
+    "browserify-shim": "^3.8.11",
+    <% } %>
     "cheerio": "^0.20.0
     "del": "^2.0.2",
     "gulp": "^3.9.0",
@@ -61,6 +69,10 @@
     "utils-merge": "^1.0.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
+    <% if(projectUseVue) { %>
+    "vueify": "^8.3.9",
+    "vueify-insert-css": "^1.0.0",
+    <% } %>
     "watchify": "^3.6.1",
     "yargs": "^4.7.1"
   },
@@ -70,5 +82,9 @@
     "modularscale-sass": "^2.1.1",
     "lazysizes": "^2.0.0-rc2",
     "picturefill": "^3.0.2"
+    <% if(projectUseVue) { %>,
+    "vue": "^1.0.21",
+    "vue-hot-reload-api": "^1.3.2"
+    <% } %>
   }
 }

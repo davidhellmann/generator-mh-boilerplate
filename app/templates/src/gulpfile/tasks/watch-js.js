@@ -5,15 +5,26 @@ import browserify from 'browserify';
 import watchify from 'watchify';
 import babelify from 'babelify';
 import merge from 'utils-merge';
-
+<% if(projectUseVue) { %>
+import vueify from 'vueify'
+import hmr from 'browserify-hmr'
+<% } %>
 const watchJs = () => {
     const args = merge(watchify.args, {debug: true})
     const bundler = watchify(
         browserify(config.src.src + config.src.js.base + config.files.jsApp.srcName, args)
     )
+        <% if(projectUseVue) { %>
+        .plugin(hmr, {
+            mode: 'fs'
+        })
+        <% } %>
         .transform(
             babelify.configure({presets: ['es2015']})
         )
+        <% if(projectUseVue) { %>
+            .transform(vueify)
+    <% } %>
 
     bundleJs(bundler)
 

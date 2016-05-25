@@ -104,6 +104,11 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
         message: 'Do you want to install Laravel Form Boilerplate?',
         default: false
       },{
+        type: 'confirm',
+        name: 'projectUseVue',
+        message: 'Do you want to use Vue and Vueify on your project?',
+        default: false
+      },{
         type: 'input',
         name: 'projectVersion',
         message: 'Project Version Number',
@@ -145,6 +150,7 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
       this.projectInstallLaravelFormBoilerplate = props.projectInstallLaravelFormBoilerplate;
       this.craftInstall = props.craftInstall;
       this.craftHearty = props.craftHearty;
+      this.projectUseVue = props.projectUseVue;
       this.projectVersion = props.projectVersion;
       this.projectAuthor = props.projectAuthor;
       this.projectMail = props.projectMail;
