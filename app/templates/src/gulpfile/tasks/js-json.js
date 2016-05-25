@@ -8,7 +8,7 @@ const $ = gulpLoadPlugins();
 
 const jsJson = () => {
     return gulp
-        .src(config.src.src + config.src.js.json + '**/*.json')
+        .src(config.src.src + config.src.js.base + config.src.js.json + '**/*.json')
         .pipe($.changed(config.dist.dist + config.dist.js))
         .pipe(argv.source ? $.debug({verbose: true}) : $.util.noop())
         .pipe(gulp.dest(config.dist.dist + config.dist.js))
