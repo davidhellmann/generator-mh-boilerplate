@@ -26,6 +26,7 @@
     "cheerio": "^0.20.0",
     "del": "^2.0.2",
     "eslint-config-defaults": "^9.0.0",
+    "family.scss": "^1.0.1",
     "gulp": "^3.9.0",
     "gulp-batch": "^1.0.5",
     "gulp-bower": "0.0.13",
