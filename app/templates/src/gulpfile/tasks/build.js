@@ -24,6 +24,7 @@ const buildTask = (cb) => {
             'fonts',
             'js-plugins',
             'js-move',
+            'js-json',
             'js-scripts',
             'compile:js',
             'images',

@@ -17,6 +17,7 @@ const initTask = (cb) => {
         'compile:css',
         'js-plugins',
         'js-move',
+        'js-json',
         'js-scripts',
         'images',
         'svg-single',
