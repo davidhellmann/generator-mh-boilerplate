@@ -2,11 +2,45 @@
     $Sass Mixins
 
     Contents:
-
+    # fluid Type
     #vertical-align
     #placeholder
     #triangle-with-functions
 \*------------------------------------*/
+
+/*------------------------------------*\
+    #fluid Type
+    http://madebymike.com.au/writing/fluid-type-calc-examples/
+
+    Usage:
+    @include fluid-type(320px, 1680px, fontSize('m'), fontSize('xl'));
+\*------------------------------------*/
+
+
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+// fluid type mixin -> http://www.sassmeister.com/gist/7f22e44ace49b5124eec
+@mixin fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value) {
+  & {
+    @each $property in $properties {
+      #{$property}: $min-value;
+    }
+
+    @media screen and (min-width: $min-vw) {
+      @each $property in $properties {
+        #{$property}: calc(#{$min-value} + #{strip-unit($max-value - $min-value)} * (100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)});
+      }
+    }
+
+    @media screen and (min-width: $max-vw) {
+      @each $property in $properties {
+        #{$property}: $max-value;
+      }
+    }
+  }
+}
 
 
 /*------------------------------------*\
