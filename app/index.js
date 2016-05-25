@@ -197,7 +197,7 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
     this.copy('_config.json', 'config.json');
     this.copy('_gitignore', '.gitignore');
     this.copy('editorconfig', '.editorconfig');
-    this.copy('jshintrc', '.jshintrc');
+    this.copy('eslintrc', '.eslintrc');
     this.copy('babelrc', '.babelrc');
     this.copy('_readme.md', 'README.md');
   },
