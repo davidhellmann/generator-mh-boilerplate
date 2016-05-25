@@ -80,7 +80,6 @@
     "src"        : {
         "src"      : "src/",
         "assets"   : "",
-        "bower"    : "bower_components/",
         "views"    : "views/",
         "systemFiles": "systemFiles/",
         "css"      : "scss/",
