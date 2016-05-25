@@ -1,6 +1,6 @@
 {
   "name": "generator-mh-boilerplate",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Personal Boilerplate, configurable for WP, Craft and Laravel made by Martin Herweg",
   "license": "MIT",
   "main": "app/index.js",
