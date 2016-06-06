@@ -66,6 +66,7 @@
     "jshint-stylish": "^2.0.1",
     "lost": "^6.7.2",
     "postcss-flexbugs-fixes": "^2.0.0",
+    "postcss-responsive-type": "^0.3.3",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.1.2",
     "utils-merge": "^1.0.0",

@@ -7,6 +7,7 @@ const postCssConfig = () => {
             cascade: false
         }),
         require('postcss-flexbugs-fixes'),
+        require('postcss-responsive-type'),
         require('lost')({})
     ]
 }
