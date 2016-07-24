@@ -1,0 +1,12 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge,chrome=1">
+    <title>{% if title is defined %}{{ title }} - {% endif %}{{ siteName }}</title>
+	<link rel="home" href="{{ siteUrl }}" />
+	{% hook 'seomaticRender' %}
+    <script src="{{ assetsUrl }}/js/vendor/modernizr-custom.min.js"></script>
+    <link rel="stylesheet" href="{{ assetsUrl }}/css/style.css">
+</head>
+<body>

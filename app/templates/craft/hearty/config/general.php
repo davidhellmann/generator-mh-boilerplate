@@ -33,12 +33,12 @@ $customConfig = array(
 			'siteUrl'  => CRAFT_SITE_URL,
 			'basePath' => BASEPATH,
 			'pubPath' => PUBPATH,
-			'uploadPath' => PUBPATH . 'uploads',
-			'uploadUrl' => CRAFT_SITE_URL . 'uploads',
-			'imagePath' => PUBPATH . 'uploads/images',
-			'imageUrl' => CRAFT_SITE_URL . 'uploads/images',
-			'assetsPath' => PUBPATH . 'assets/cms',
-			'assetsUrl' => CRAFT_SITE_URL . 'assets/cms',
+			'uploadPath' => PUBPATH . 'cms/uploads/',
+			'uploadUrl' => CRAFT_SITE_URL . 'cms/uploads/',
+			'imagePath' => PUBPATH . 'cms/images/',
+			'imageUrl' => CRAFT_SITE_URL . 'cms/images/',
+			'assetsPath' => PUBPATH . 'assets/',
+			'assetsUrl' => CRAFT_SITE_URL . 'assets/',
 	  	),
 	  	// 'isSystemOn' => true,
 		// 'logDumpMethod' => 'var_export',
@@ -156,11 +156,11 @@ $customConfig = array(
 		*/
 
 		/* Environment */
-		'environment' => CRAFT_ENVIRONMENT,
-		'rootUrl' => CRAFT_SITE_URL,
-		// 'assetsUri' => '/assets/',
-		 'assetsUrl' => CRAFT_SITE_URL . 'assets/cms/',
-		 'assetsPath' => BASEPATH . 'public/assets/cms/'
+//		'environment' => CRAFT_ENVIRONMENT,
+//		'rootUrl' => CRAFT_SITE_URL,
+//		// 'assetsUri' => '/assets/',
+//		 'assetsUrl' => CRAFT_SITE_URL . 'assets/cms/',
+//		 'assetsPath' => BASEPATH . 'public/assets/cms/'
 	),
 
 	// You can add additional environments here, but I'd recommend creating individual config.{CRAFT_ENVIRONMENT}.php files instead

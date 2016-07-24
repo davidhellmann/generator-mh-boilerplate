@@ -1,0 +1,18 @@
+{#index.twig#}
+
+{% extends "layout/_layout" %}
+
+{% block content %}
+    <h1>Hello World!</h1>
+    {# set basic Variables defined in general/environmentVaribales or in the specific config file#}
+    <ul>
+    <li><strong>basePath:</strong>{{ basePath }}</li>
+    <li><strong>pubPath:</strong>{{ pubPath }}</li>
+    <li><strong>uploadPath:</strong>{{ uploadPath }}</li>
+    <li><strong>uploadUrl:</strong>{{ uploadUrl }}</li>
+    <li><strong>imagePath:</strong>{{ imagePath }}</li>
+    <li><strong>imageUrl:</strong>{{ imageUrl }}</li>
+    <li><strong>assetsPath:</strong>{{ assetsPath }}</li>
+    <li><strong>assetsUrl:</strong>{{ assetsUrl }}</li>
+    </ul>
+{% endblock %}

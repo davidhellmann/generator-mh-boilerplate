@@ -170,6 +170,8 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
     this.directory('src/gulpfile/', 'gulpfile/');
     if(this.projectTwig) {
       this.directory('src/twig/', 'src/views/');
+    } else if(this.projectUsage === 'Craft') {
+      this.directory('src/craft/', 'src/views/');
     } else {
       this.directory('src/php/', 'src/views/');
     }
