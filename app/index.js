@@ -13,6 +13,7 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
   },
 
   askFor: function() {
+
     var done = this.async();
 
     // Have Yeoman greet the user.
@@ -28,9 +29,9 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
     + '\n Also this is very early version and maybe there are some bugs :)'
     + '\n';
 
-    console.log(chalk.bold.red(warning));
+    this.log(chalk.bold.red(warning));
 
-    var prompts = [
+    return this.prompt([
       {
         type: 'input',
         name: 'projectName',
@@ -56,48 +57,48 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
           "laravel"
         ]
       },{
-        when: function(response) {
-          return response.projectUsage === 'Craft';
+        when: function(answers) {
+          return answers.projectUsage === 'Craft';
         },
         type: 'confirm',
         name: 'craftHearty',
         message: 'Do you want to use Hearty Config?',
         default: false
       },{
-        when: function(response) {
-          return response.projectUsage === 'Craft';
+        when: function(answers) {
+          return answers.projectUsage === 'Craft';
         },
         type: 'confirm',
         name: 'craftInstall',
         message: 'Do you want to install Craft?',
         default: false
       },{
-        when: function(response) {
-          return response.projectUsage === 'HTML Protoypes';
+        when: function(answers) {
+          return answers.projectUsage === 'HTML Protoypes';
         },
         type: 'confirm',
         name: 'projectTwig',
         message: 'Do yo want to use Twig as Template ?',
         default: false
       },{
-        when: function(response) {
-          return response.projectUsage === 'Wordpress';
+        when: function(answers) {
+          return answers.projectUsage === 'Wordpress';
         },
         type: 'confirm',
         name: 'projectInstallWordpress',
         message: 'Do yo want to install Wordpress?',
         default: false
       },{
-        when: function(response) {
-          return response.projectUsage === 'laravel';
+        when: function(answers) {
+          return answers.projectUsage === 'laravel';
         },
         type: 'confirm',
         name: 'projectInstallLaravel',
         message: 'Do you want to install Laravel?',
         default: false
       },{
-        when: function(response) {
-          return response.projectUsage === 'laravel';
+        when: function(answers) {
+          return answers.projectUsage === 'laravel';
         },
         type: 'confirm',
         name: 'projectInstallLaravelFormBoilerplate',
@@ -137,31 +138,36 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
         message: 'Git Repo URL',
         default: 'http://...'
       }
-    ];
-
-    this.prompt(prompts, function(props) {
-      this.projectName = props.projectName;
-      this.projectDescription = props.projectDescription;
-      this.projectProxy = props.projectProxy;
-      this.projectUsage = props.projectUsage;
-      this.projectTwig = props.projectTwig;
-      this.projectInstallWordpress = props.projectInstallWordpress;
-      this.projectInstallLaravel = props.projectInstallLaravel;
-      this.projectInstallLaravelFormBoilerplate = props.projectInstallLaravelFormBoilerplate;
-      this.craftInstall = props.craftInstall;
-      this.craftHearty = props.craftHearty;
-      this.projectUseVue = props.projectUseVue;
-      this.projectVersion = props.projectVersion;
-      this.projectAuthor = props.projectAuthor;
-      this.projectMail = props.projectMail;
-      this.projectUrl = props.projectUrl;
-      this.projectRepo = props.projectRepo;
-      done();
-    }.bind(this));
-
+    ]).then(function(answers) {
+      function checkAnswer(answer) {
+        if(answer) {
+          return answer
+        } else {
+          return false
+        }
+      }
+      this.projectName = answers.projectName;
+        this.projectDescription = answers.projectDescription;
+        this.projectProxy = answers.projectProxy;
+        this.projectUsage = answers.projectUsage;
+        this.projectTwig = checkAnswer( answers.projectTwig );
+        this.projectInstallWordpress = checkAnswer(answers.projectInstallWordpress);
+        this.projectInstallLaravel = checkAnswer(answers.projectInstallLaravel);
+        this.projectInstallLaravelFormBoilerplate = checkAnswer(answers.projectInstallLaravelFormBoilerplate);
+        this.craftInstall = checkAnswer(answers.craftInstall);
+        this.craftHearty = checkAnswer(answers.craftHearty);
+        this.projectUseVue = checkAnswer(answers.projectUseVue);
+        this.projectVersion = answers.projectVersion;
+        this.projectAuthor = answers.projectAuthor;
+        this.projectMail = answers.projectMail;
+        this.projectUrl = answers.projectUrl;
+        this.projectRepo = answers.projectRepo;
+        done();
+    }.bind(this))
   },
 
   app: function() {
+
     // move src folder
     this.directory('src/boilerplates/', 'src/boilerplates/');
     this.directory('src/js/', 'src/js/');
@@ -194,7 +200,35 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
   },
 
   projectfiles: function() {
-    this.copy('_package.json', 'package.json');
+
+    var params = {
+      projectName: this.projectName,
+      projectDescription: this.projectDescription,
+      projectProxy: this.projectProxy,
+      projectUsage: this.projectUsage,
+      projectTwig: this.projectTwig,
+      projectInstallWordpress: this.projectInstallWordpress,
+      projectInstallLaravel: this.projectInstallLaravel,
+      projectInstallLaravelFormBoilerplate: this.projectInstallLaravelFormBoilerplate,
+      craftInstall: this.craftInstall,
+      craftHearty: this.craftHearty,
+      projectUseVue: this.projectUseVue,
+      projectVersion: this.projectVersion,
+      projectAuthor: this.projectAuthor,
+      projectMail: this.projectMail,
+      projectUrl: this.projectUrl,
+      projectRepo: this.projectRepo
+    }
+    this.fs.copyTpl(
+        this.templatePath('_package.json'),
+        this.destinationPath('package.json'),
+        params
+    )
+    this.fs.copyTpl(
+        this.templatePath('_gulpfile.babel.js'),
+        this.destinationPath('gulpfile.babel.js'),
+        params
+    )
     this.copy('_gulpfile.babel.js', 'gulpfile.babel.js');
     this.copy('_config.json', 'config.json');
     this.copy('_gitignore', '.gitignore');
@@ -204,18 +238,20 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
     this.copy('_readme.md', 'README.md');
   },
 
+
+
   install: function () {
     var that = this;
 
 
-    console.log('Install dependencies');
+    this.log('Install dependencies');
 
     this.installDependencies({
       skipInstall: this.options['skip-install'],
       callback: function () {
-        console.log('Init git repo');
+        this.log('Init git repo');
         this.spawnCommand('git', ['init']);
-        console.log('Running gulp init');
+        this.log('Running gulp init');
         this.spawnCommand('gulp', ['init']);
       }.bind(this) // bind the callback to the parent scope
     });
@@ -236,4 +272,3 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
 });
 
 module.exports = mhBoilerplateGenerator;
-;
