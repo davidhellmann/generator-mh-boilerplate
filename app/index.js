@@ -219,23 +219,47 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
       projectUrl: this.projectUrl,
       projectRepo: this.projectRepo
     }
+
     this.fs.copyTpl(
         this.templatePath('_package.json'),
         this.destinationPath('package.json'),
         params
-    )
+    );
     this.fs.copyTpl(
         this.templatePath('_gulpfile.babel.js'),
         this.destinationPath('gulpfile.babel.js'),
         params
+    );
+    this.fs.copyTpl(
+        this.templatePath('_config.json'),
+        this.destinationPath('config.json'),
+        params
+    );
+    this.fs.copyTpl(
+        this.templatePath('_gitignore'),
+        this.destinationPath('.gitignore'),
+        params
+    );
+    this.fs.copyTpl(
+        this.templatePath('editorconfig'),
+        this.destinationPath('.editorconfig'),
+        params
+    );
+    this.fs.copyTpl(
+        this.templatePath('eslintrc'),
+        this.destinationPath('.eslintrc'),
+        params
+    );
+    this.fs.copyTpl(
+        this.templatePath('babelrc'),
+        this.destinationPath('.babelrc'),
+        params
+    );
+    this.fs.copyTpl(
+        this.templatePath('_readme.md'),
+        this.destinationPath('README.md'),
+        params
     )
-    this.copy('_gulpfile.babel.js', 'gulpfile.babel.js');
-    this.copy('_config.json', 'config.json');
-    this.copy('_gitignore', '.gitignore');
-    this.copy('editorconfig', '.editorconfig');
-    this.copy('eslintrc', '.eslintrc');
-    this.copy('babelrc', '.babelrc');
-    this.copy('_readme.md', 'README.md');
   },
 
 
