@@ -1,7 +1,0 @@
-// em calc
-
-$em-base: 16px !default;
-
-@function em($px, $base: $em-base) {
-  @return ($px / $base) * 1em;
-}
