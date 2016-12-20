@@ -9,6 +9,7 @@
   },
   "repository": "<%= projectRepo %>",
   "scripts": {
+    "init": "gulp",
     "dev": "gulp --env=browser-sync",
     "prod": "gulp --env=production && babel-node webpack/webpack_build",
     "gulp": "gulp"
