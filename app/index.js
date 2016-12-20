@@ -1,20 +1,22 @@
 'use strict';
-var path = require('path');
-var util = require('util');
-var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
-var mkdirp = require('mkdirp');
-var ora = require('ora');
-var commandExists = require('command-exists');
+const path = require('path');
+const util = require('util');
+const yeoman = require('yeoman-generator');
+const chalk = require('chalk');
+const yosay = require('yosay');
+const mkdirp = require('mkdirp');
+const ora = require('ora');
+const commandExists = require('command-exists');
+let yarn = false;
 
-var mhBoilerplateGenerator = yeoman.Base.extend({
+module.exports = class extends yeoman {
 
-  init: function() {
+  initializing() {
     this.pkg = require('../package.json');
-  },
+    this.props = {};
+  }
 
-  askFor: function() {
+  prompting() {
 
     var done = this.async();
     var wp_cli = false;
@@ -49,6 +51,13 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
       craft_cli = false;
     });
 
+    commandExists('yarn')
+      .then(function(command){
+        yarn = true
+      }).catch(function(){
+      yarn = false;
+    });
+
     return this.prompt([
       {
         type: 'input',
@@ -76,7 +85,7 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
         ]
       },{
         when: function(answers) {
-          if(answers.projectUsage === 'Craft' && craft_cli) {
+          if(answers.projectUsage === 'Craft') {
             return true
           }
           return false
@@ -87,7 +96,10 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
         default: true
       },{
         when: function(answers) {
-          return answers.projectUsage === 'Craft';
+          if(answers.projectUsage === 'Craft' && craft_cli) {
+            return true
+          }
+          return false
         },
         type: 'confirm',
         name: 'craftInstall',
@@ -182,41 +194,9 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
         this.projectRepo = answers.projectRepo;
         done();
     }.bind(this))
-  },
+  }
 
-  app: function() {
-
-    // move src folder
-    this.directory('src/boilerplates/', 'src/boilerplates/');
-    this.directory('src/js/', 'src/js/');
-    this.directory('src/js/', 'src/js');
-    this.directory('src/scss/', 'src/scss/');
-    this.directory('src/gulpfile/', 'gulpfile/');
-    this.directory('src/webpack/', 'webpack/');
-    if(this.projectUsage === 'Craft') {
-      this.directory('src/craft/', 'src/views/');
-    } else {
-      this.directory('src/php/', 'src/views/');
-    }
-    if(this.craftHearty) {
-      this.directory('craft/hearty/config/', 'dist/config');
-      this.directory('craft/hearty/systemFiles', 'src/systemFiles');
-      mkdirp('dist/plugins');
-    } else {
-      mkdirp('src/systemFiles');
-    }
-    mkdirp('src/images/cssimages');
-    mkdirp('src/images/htmlimages');
-    mkdirp('src/images/svg/single');
-    mkdirp('src/images/svg/sprite');
-    mkdirp('src/fonts');
-    mkdirp('src/js/json');
-    mkdirp('src/js/my-source');
-    mkdirp('src/js/single');
-    mkdirp('src/favicons');
-  },
-
-  projectfiles: function() {
+  projectfiles() {
 
     var params = {
       projectName: this.projectName,
@@ -235,6 +215,70 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
       projectUrl: this.projectUrl,
       projectRepo: this.projectRepo
     }
+
+    // move src folder
+    this.fs.copyTpl(
+      this.templatePath('src/boilerplates'),
+      this.destinationPath('src/boilerplates'),
+      params
+    );
+    this.fs.copyTpl(
+      this.templatePath('src/js'),
+      this.destinationPath('src/js'),
+      params
+    );
+    this.fs.copyTpl(
+      this.templatePath('src/scss'),
+      this.destinationPath('src/scss'),
+      params
+    );
+    this.fs.copyTpl(
+      this.templatePath('src/gulpfile'),
+      this.destinationPath('./gulpfile'),
+      params
+    );
+    this.fs.copyTpl(
+      this.templatePath('src/webpack'),
+      this.destinationPath('./webpack'),
+      params
+    );
+    if(this.projectUsage === 'Craft') {
+      this.fs.copyTpl(
+        this.templatePath('src/craft'),
+        this.destinationPath('src/views/'),
+        params
+      );3
+    } else {
+      this.fs.copyTpl(
+        this.templatePath('src/php'),
+        this.destinationPath('src/views'),
+        params
+      );
+    }
+    if(this.craftHearty) {
+      this.fs.copyTpl(
+        this.templatePath('craft/hearty/config'),
+        this.destinationPath('dist/config'),
+        params
+      );
+      this.fs.copyTpl(
+        this.templatePath('craft/hearty/systemFiles'),
+        this.destinationPath('src/systemFiles'),
+        params
+      );
+      mkdirp('dist/plugins');
+    } else {
+      mkdirp('src/systemFiles');
+    }
+    mkdirp('src/images/cssimages');
+    mkdirp('src/images/htmlimages');
+    mkdirp('src/images/svg/single');
+    mkdirp('src/images/svg/sprite');
+    mkdirp('src/fonts');
+    mkdirp('src/js/json');
+    mkdirp('src/js/my-source');
+    mkdirp('src/js/single');
+    mkdirp('src/favicons');
 
     this.fs.copyTpl(
         this.templatePath('_package.json'),
@@ -281,35 +325,32 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
         this.destinationPath('README.md'),
         params
     );
-  },
+  }
 
 
 
-  install: function () {
+  install() {
     var that = this;
     const spinner = ora('Install dependencies').start();
+    console.log(yarn);
     // check if yarn is available and use it instead of npm
-    commandExists('yarn', function(err, commandExists) {
-      if(commandExists) {
-        var done = that.async();
-        that.spawnCommand('yarn').on('close', done);
+      if(yarn) {
+        that.yarnInstall('', {},
+          function cb() {
+          const git_spinner = ora('Init git repo').start();
+          that.spawnCommandSync('git', ['init']);
+          const init_spinner = ora('Running Init').start();
+          that.spawnCommandSync('npm', ['run', 'init']);
+        }, {})
       } else {
-        that.installDependencies({
-          bower: false,
-          npm: true
-        });
+        that.npmInstall('', {},
+          function cb() {
+            const git_spinner = ora('Init git repo').start();
+            that.spawnCommandSync('git', ['init']);
+            const init_spinner = ora('Running Init').start();
+            that.spawnCommandSync('npm', ['run', 'init']);
+          }, {})
       }
-    });
-
-    this.installDependencies({
-      skipInstall: this.options['skip-install'],
-      callback: function () {
-        const git_spinner = ora('Init git repo').start();
-        this.spawnCommand('git', ['init']);
-        const init_spinner = ora('Running Init').start();
-        this.spawnCommand('npm', ['run', 'init']);
-      }.bind(this) // bind the callback to the parent scope
-    });
 
     if (this.projectInstallLaravel) {
       this.spawnCommand('laravel', ['new', 'dist']);
@@ -320,6 +361,4 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
       this.spawnCommand('craft', ['install', 'dist']).on('close', done);
     }
   }
-});
-
-module.exports = mhBoilerplateGenerator;
+}
