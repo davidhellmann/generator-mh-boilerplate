@@ -263,7 +263,12 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
     );
     this.fs.copyTpl(
         this.templatePath('eslintrc'),
-        this.destinationPath('.eslintrc'),
+        this.destinationPath('.eslintrc.js'),
+        params
+    );
+    this.fs.copyTpl(
+        this.templatePath('stylelintrc'),
+        this.destinationPath('.stylelintrc'),
         params
     );
     this.fs.copyTpl(
