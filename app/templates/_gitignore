@@ -107,6 +107,7 @@ dist/wp-content/*
 #===================================#
 dist/craft/storage/*
 !dist/craft/storage/logo/*
+dist/public/
 <% } if(craftHearty) { %>
 dist/craft/license.key
 dist/craft/
