@@ -144,7 +144,7 @@
             }
         }
     <% } if (craftHearty && projectUsage == 'Craft') { %>
-        "dist"                  : "dist/public/",
+        "base"                  : "dist/public/",
         "views"                 : "dist/templates/",
         "systemFiles"           : "dist/public/",
         "css"                   : "dist/public/assets/css/",
@@ -164,6 +164,7 @@
             }
         }
     <% } if (projectUsage == 'laravel') { %>
+        "base"                  : "dist/public/",
         "views"                 : "dist/resources/views/",
         "systemFiles"           : "dist/public/",
         "css"                   : "dist/public/assets/css/",
