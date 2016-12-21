@@ -5,7 +5,6 @@ const yeoman = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
 const mkdirp = require('mkdirp');
-const ora = require('ora');
 const commandExists = require('command-exists');
 let yarn = false;
 
@@ -137,8 +136,8 @@ module.exports = class extends yeoman {
         name: 'projectVueVersion',
         message: 'Which version of Vue do you want to use',
         choices: [
-          'Runtime only (You have to use .vue Files or Render Functions!',
-          'Standalone'
+          'Standalone',
+          'Runtime only (You have to use .vue Files or Render Functions!'
         ]
       },{
         type: 'input',
@@ -270,6 +269,13 @@ module.exports = class extends yeoman {
     } else {
       mkdirp('src/systemFiles');
     }
+    if(this.projectUseVue) {
+      this.fs.copyTpl(
+        this.templatePath('vue/App.vue'),
+        this.destinationPath('src/js/App.vue'),
+        params
+      );
+    }
     mkdirp('src/images/cssimages');
     mkdirp('src/images/htmlimages');
     mkdirp('src/images/svg/single');
@@ -331,31 +337,29 @@ module.exports = class extends yeoman {
 
   install() {
     var that = this;
-    const spinner = ora('Install dependencies').start();
-    console.log(yarn);
+    const params = [
+      '', // Packages to Install
+      {}, // Options to pass to to dargs as arguments
+      function cb() {
+        var done = that.async();
+        that.spawnCommand('git', ['init']).on('close',done);
+        that.spawnCommand('npm', ['run', 'init']).on('close', done);
+      },
+      {} // options to pass child_process.spawn.
+    ];
     // check if yarn is available and use it instead of npm
       if(yarn) {
-        that.yarnInstall('', {},
-          function cb() {
-          const git_spinner = ora('Init git repo').start();
-          that.spawnCommandSync('git', ['init']);
-          const init_spinner = ora('Running Init').start();
-          that.spawnCommandSync('npm', ['run', 'init']);
-        }, {})
+        that.yarnInstall(...params);
       } else {
-        that.npmInstall('', {},
-          function cb() {
-            const git_spinner = ora('Init git repo').start();
-            that.spawnCommandSync('git', ['init']);
-            const init_spinner = ora('Running Init').start();
-            that.spawnCommandSync('npm', ['run', 'init']);
-          }, {})
+        that.npmInstall(...params)
       }
 
     if (this.projectInstallLaravel) {
-      this.spawnCommand('laravel', ['new', 'dist']);
+      var done = this.async();
+      this.spawnCommand('laravel', ['new', 'dist']).on('close', done);
     } else if (this.projectInstallWordpress) {
-      this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]);
+      var done = this.async();
+      this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]).on('close', done);
     } else if(this.craftInstall) {
       var done = this.async();
       this.spawnCommand('craft', ['install', 'dist']).on('close', done);
