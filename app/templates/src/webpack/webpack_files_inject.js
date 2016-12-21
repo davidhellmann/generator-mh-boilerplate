@@ -35,13 +35,13 @@ import path from 'path';
 <% } else if (projectUsage === 'Laravel') { %>
   const chunks_inject = [
       {
-        filename: path.resolve(`${config.dist.views}header.php`),
-        file: config.src.views + 'header.php',
+        filename: path.resolve(`${config.dist.views}_parts/site-header.blade.php`),
+        file: config.src.views + '_parts/site-header.blade.php',
         inject: false,
       },
       {
-        filename: path.resolve(`${config.dist.views}footer.php`),
-        file: config.src.views + 'footer.php',
+        filename: path.resolve(`${config.dist.views}_parts/site-scripts.blade.php`),
+        file: config.src.views + '_parts/site-scripts.blade.php',
         inject: false,
       }
     ]

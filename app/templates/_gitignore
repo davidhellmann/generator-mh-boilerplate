@@ -62,7 +62,7 @@ Package Syncing.last-run
 
 ## Main Stuff ##
 
-<% if (projectUsage == 'laravel') { %>
+<% if (projectUsage == 'Laravel') { %>
 
 #===================================#
 #     Laravel IGNORE                #

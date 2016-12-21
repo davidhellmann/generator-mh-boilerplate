@@ -58,7 +58,7 @@ const favicons = () => {
       },
     }))
     .on('error', error_handler)
-    .pipe(gulp.dest(paths.dest)
+    .pipe(gulp.dest(paths.dest))
     .pipe($.notify({
       onLast: true,
       message: 'created Favicons',

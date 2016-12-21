@@ -117,7 +117,7 @@ module.exports = class extends yeoman {
         default: false
       },{
         when: function(answers) {
-          return answers.projectUsage === 'laravel';
+          return answers.projectUsage === 'Laravel';
         },
         type: 'confirm',
         name: 'projectInstallLaravel',
@@ -249,12 +249,12 @@ module.exports = class extends yeoman {
       );
     } else if(this.projectUsage === 'Laravel') {
       this.fs.copyTpl(
-        this.templatePath('src/laravel'),
+        this.templatePath('src/Laravel'),
         this.destinationPath('src/views/'),
         params
       );
       this.fs.copyTpl(
-        this.templatePath('laravel/systemFiles'),
+        this.templatePath('Laravel/systemFiles'),
         this.destinationPath('src/systemFiles/'),
         params
       );

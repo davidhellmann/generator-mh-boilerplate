@@ -163,7 +163,7 @@
                 "htmlimages"    : "htmlimages/"
             }
         }
-    <% } if (projectUsage == 'laravel') { %>
+    <% } if (projectUsage == 'Laravel') { %>
         "base"                  : "dist/public/",
         "views"                 : "dist/resources/views/",
         "systemFiles"           : "dist/public/",

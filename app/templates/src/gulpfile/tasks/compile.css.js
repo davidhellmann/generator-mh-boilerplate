@@ -37,7 +37,7 @@ const $ = gulpLoadPlugins();
 
 const paths = {
   src: path.join(config.src.css, '**/*.scss'),
-  dest: path.join(config.dist.css),
+  dest: `${config.dist.css}`,
 };
 
 const compileCss = () => {
