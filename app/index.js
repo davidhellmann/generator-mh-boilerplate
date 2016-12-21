@@ -66,7 +66,7 @@ module.exports = class extends yeoman {
       },{
         type: 'input',
         name: 'projectDescription',
-        message: 'Short description of the Project`',
+        message: 'Short description of the Project',
         default: 'undefined'
       },{
         type: 'input',
@@ -78,7 +78,7 @@ module.exports = class extends yeoman {
         message: 'Which purpose does this Project have? Choose the appropriate option',
         choices: [
           "Craft",
-          "laravel",
+          "Laravel",
           "HTML Protoypes",
           "Wordpress"
         ]
@@ -246,7 +246,18 @@ module.exports = class extends yeoman {
         this.templatePath('src/craft'),
         this.destinationPath('src/views/'),
         params
-      );3
+      );
+    } else if(this.projectUsage === 'Laravel') {
+      this.fs.copyTpl(
+        this.templatePath('src/laravel'),
+        this.destinationPath('src/views/'),
+        params
+      );
+      this.fs.copyTpl(
+        this.templatePath('laravel/systemFiles'),
+        this.destinationPath('src/systemFiles/'),
+        params
+      );
     } else {
       this.fs.copyTpl(
         this.templatePath('src/php'),

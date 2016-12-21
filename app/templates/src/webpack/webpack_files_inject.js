@@ -32,6 +32,19 @@ import path from 'path';
       inject: false,
     }
   ]
+<% } else if (projectUsage === 'Laravel') { %>
+  const chunks_inject = [
+      {
+        filename: path.resolve(`${config.dist.views}header.php`),
+        file: config.src.views + 'header.php',
+        inject: false,
+      },
+      {
+        filename: path.resolve(`${config.dist.views}footer.php`),
+        file: config.src.views + 'footer.php',
+        inject: false,
+      }
+    ]
 <% } else { %>
   const chunks_inject = [
     {
