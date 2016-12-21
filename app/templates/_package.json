@@ -9,10 +9,11 @@
   },
   "repository": "<%= projectRepo %>",
   "scripts": {
-    "init": "gulp",
+    "init": "gulp build:production --env=development && cross-env NODE_ENV=development babel-node webpack/webpack_build --presets=es2015",
     "dev": "gulp --env=browser-sync",
-    "prod": "gulp --env=production && babel-node webpack/webpack_build",
-    "gulp": "gulp"
+    "prod": "gulp build:production --env=production && cross-env NODE_ENV=production babel-node webpack/webpack_build --presets=es2015",
+    "gulp": "gulp",
+    "webpack": "babel-node webpack/webpack_build --presets=es2015"
   },
   "devDependencies": {
     "autoprefixer": "^6.5.4",
@@ -92,10 +93,11 @@
     "util": "^0.10.3",
     "utils-merge": "^1.0.0",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",<% if (projectUseVue) { %>
+    "vinyl-source-stream": "^1.1.0",<%_ if (projectUseVue) { _%>
     "vue-loader": "^10.0.0",
-    "vue-style-loader": "^1.0.0",<%} if (projectVueVersion === 'Runtime only (You have to use .vue Files or Render Functions!') { %>
-    "vue-template-compiler": "^2.0.8", <% } %>
+    "vue-style-loader": "^1.0.0",
+    "vue-template-compiler": "^2.1.6",
+<%_ } _%>
     "webpack": "2.2.0-rc.1",
     "webpack-dashboard": "^0.2.0",
     "webpack-dev-middleware": "^1.9.0",
@@ -112,9 +114,9 @@
     "lodash": "^4.16.6",
     "modularscale-sass": "^2.1.1",
     "svgxuse": "^1.1.23"
-    <% if(projectUseVue) { %>,
+    <%_ if(projectUseVue) { _%>,
     "vue": "^2.1.0",
     "vue-router": "^2.0.1"
-    <% } %>
+    <%_ } _%>
   }
 }
