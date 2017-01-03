@@ -18,6 +18,7 @@ html {
 
   height: 100%;
 
+  font-family: fontfamily('base');
   @include fluid-type(font-size, $ms-width-min, $ms-width-max, $ms-font-min, $ms-font-max);
   line-height: $line-height-base;
 }

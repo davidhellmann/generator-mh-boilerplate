@@ -27,7 +27,7 @@
     @return map-get($app-easings, $key);
   }
 
-  @warn "Unkown '#{$key}' in $app-easings."; // stylelint-disable
+  @warn "Unkown '#{$key}' in $app-easings."; /* stylelint-disable-line */
   @return null;
 }
 

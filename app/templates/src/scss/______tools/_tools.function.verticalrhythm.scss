@@ -23,7 +23,7 @@
 
 
 @function verticalrhythm($key) {
-  @return round(($line-height-base-px * $key) + 0px); // stylelint-disable
+  @return round(($line-height-base-px * $key) + 0px); /* stylelint-disable-line */
 }
 
 // Shorthand Version

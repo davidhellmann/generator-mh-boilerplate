@@ -19,9 +19,9 @@
 /* stylelint-disable scss/dollar-variable-colon-space-after */
 
 $font-size-min:          16px;
-$font-size-max:          21px;
+$font-size-max:          18px;
 $line-height-base:       1.5;
-$line-height-base-px:    $font-size-min * $line-height-base + 0px; // stylelint-disable length-zero-no-unit
+$line-height-base-px:    $font-size-min * $line-height-base + 0px; /* stylelint-disable-line length-zero-no-unit */
 $rem-base: $font-size-min;
 $em-base: $font-size-min;
 
@@ -29,7 +29,7 @@ $em-base: $font-size-min;
 
 // Modular Scale Settings
 $ms-width-min:           480px;
-$ms-width-max:           1280px;
+$ms-width-max:           $app-max-width;
 $ms-factor:              1.2;
 
 
@@ -46,7 +46,6 @@ $ms8:                   $ms-factor * $ms-factor * $ms-factor * $ms-factor * $ms-
 $ms9:                   $ms-factor * $ms-factor * $ms-factor * $ms-factor * $ms-factor * $ms-factor * $ms-factor * $ms-factor * $ms-factor;
 $ms-font-min:            $font-size-min;
 $ms-font-max:            $font-size-max;
-
 
 
 // Font Map

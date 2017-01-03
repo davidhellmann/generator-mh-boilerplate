@@ -15,13 +15,16 @@
 
 
 .o-wrapper {
-  @include clearfix;
   @include gutter(1);
 
-  max-width: $app-maxWidth;
+  max-width: $app-max-width;
 
   margin-right: auto;
   margin-left: auto;
+}
+
+.o-wrapper--float {
+  @include clearfix;
 }
 
 

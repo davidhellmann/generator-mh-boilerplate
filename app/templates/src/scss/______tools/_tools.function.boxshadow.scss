@@ -26,7 +26,7 @@
     @return map-get($app-boxshadows, $key);
   }
 
-  @warn "Unknown `#{$key}` in $app-boxshadows."; // stylelint-disable
+  @warn "Unknown `#{$key}` in $app-boxshadows."; /* stylelint-disable-line */
   @return null;
 }
 

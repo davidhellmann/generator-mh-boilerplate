@@ -19,9 +19,9 @@
 a {
   transition: all 0.25s ease('out-cubic');
 
-  color: color('guardsmen-red');
+  color: #fff;
 
   .no-touchevents &:hover {
-    color: darken(c('guardsmen-red'), 10%);
+    color: shade(#fff, 80%);
   }
 }

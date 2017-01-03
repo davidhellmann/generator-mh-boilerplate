@@ -20,8 +20,8 @@
 $app-pixelGrid:            true;  // Do you want to use a PixelGrid
 $app-pixelGridSize:        8px;   // How much Pixels do you want
 $app-columns:              12;    // Set Column Numbers
-$app-columnWidth:          120px; // How wide is one Column
-$app-gutterWidth:          16px;  // How much ist the Gutter on each Side
+$app-column-width:          120px; // How wide is one Column
+$app-gutter-width:          16px;  // How much ist the Gutter on each Side
 $app-flexbox:              true;  // Set to false to use floating grid (_objects.grid.scss)
 
 
@@ -43,32 +43,32 @@ $app-flexbox:              true;  // Set to false to use floating grid (_objects
 @if $app-pixelGrid {
 
   // Round Numbers
-  $app-roundWidth:   round($app-columnWidth / $app-pixelGridSize);
-  $app-roundGutter:  round($app-gutterWidth / $app-pixelGridSize);
+  $app-roundWidth:   round($app-column-width / $app-pixelGridSize);
+  $app-roundGutter:  round($app-gutter-width / $app-pixelGridSize);
 
   // Check if the Numbers are equal
-  $app-checkWidth:   $app-roundWidth != $app-columnWidth / $app-pixelGridSize;
-  $app-checkGutter:  $app-roundGutter != $app-gutterWidth / $app-pixelGridSize;
+  $app-checkWidth:   $app-roundWidth != $app-column-width / $app-pixelGridSize;
+  $app-checkGutter:  $app-roundGutter != $app-gutter-width / $app-pixelGridSize;
 
   @if $app-checkWidth or $app-checkGutter {
 
-    $app-columnWidth:  $app-roundWidth * $app-pixelGridSize;
-    $app-gutterWidth:  $app-roundGutter * $app-pixelGridSize;
+    $app-column-width:  $app-roundWidth * $app-pixelGridSize;
+    $app-gutter-width:  $app-roundGutter * $app-pixelGridSize;
 
   } @else {
 
-    $app-columnWidth:  $app-columnWidth;
-    $app-gutterWidth:  $app-gutterWidth
+    $app-column-width:  $app-column-width;
+    $app-gutter-width:  $app-gutter-width
 
   }
 
 } @else {
 
-  $app-columnWidth:  $app-columnWidth;
-  $app-gutterWidth:  $app-gutterWidth
+  $app-column-width:  $app-column-width;
+  $app-gutter-width:  $app-gutter-width
 
 }
 
 // Set max-width
-$app-maxWidth: $app-columnWidth * $app-columns;
+$app-max-width: $app-column-width * $app-columns;
 /* stylelint-enable */

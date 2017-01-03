@@ -1,5 +1,5 @@
 /**
- * Spacer Function, uses your $app-gutterWidth with the multiplicator you define
+ * Spacer Function, uses your $app-gutter-width with the multiplicator you define
  *
  * @package  generator-mh-boilerplate
  * @author   Martin Herweg <info@martinherweg.de>
@@ -23,7 +23,7 @@
 
 
 @function space($key) {
-  @return round(($app-gutterWidth * $key) + 0px); // stylelint-disable
+  @return round(($app-gutter-width * $key) + 0px); /* stylelint-disable-line */
 }
 
 // Shorthand Version

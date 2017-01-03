@@ -16,22 +16,31 @@
 /* USAGE
  * RESULT
 |--------------------------------------------------------------------------
-| h1 { color: color('guardsmen-red'); }
+| h1 { color: color('free-speech-red'); }
 | h1 { color: rgb(205, 0, 0); }
 |--------------------------------------------------------------------------
 */
 
 
-@function color($key) {
-  @if map-has-key($app-colors, $key) {
-    @return map-get($app-colors, $key);
-  }
+@function color($color, $tone: null) {
+  @if $tone {
+    @if map-has-key($app-colors, $color) {
+      @return map-get(map-get($app-colors, $color), $tone);
+    }
 
-  @warn "Unknown `#{$key}` in $app-colors."; // stylelint-disable
-  @return null;
+    @warn "Unknown `#{$color}` in $colors. Possible keys: "#{map-keys($colors)}; /* stylelint-disable-line */
+    @return null;
+  } @else {
+    @if map-has-key($app-colors, $color) {
+      @return map-get($app-colors, $color);
+    }
+
+    @warn "Unknown `#{$color}` in $app-colors."; /* stylelint-disable-line */
+    @return null;
+  }
 }
 
 // Shorthand Version
-@function c($key) {
-  @return color($key);
+@function c($color, $tone: null) {
+  @return color($color, $tone);
 }

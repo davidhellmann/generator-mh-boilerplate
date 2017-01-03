@@ -10,7 +10,7 @@
   width: 100%;
 
   @if $maxWidth {
-    max-width: $app-maxWidth;
+    max-width: $app-max-width;
   } @else {
     max-width: none;
   }

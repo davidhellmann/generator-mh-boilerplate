@@ -27,7 +27,7 @@
     @return map-get($app-fontfamilies, $key);
   }
 
-  @warn "Unknown `#{$key}` in $app-fontfamilies."; // stylelint-disable
+  @warn "Unknown `#{$key}` in $app-fontfamilies."; /* stylelint-disable-line */
   @return null;
 }
 

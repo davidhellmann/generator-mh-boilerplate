@@ -5,8 +5,8 @@
   --------------------------------------------------*/
 
 @mixin gutter($key: 1) {
-  padding-left: round(($app-gutterWidth * $key) + 0px);
-  padding-right: round(($app-gutterWidth * $key) + 0px);
+  padding-left: round(( $app-gutter-width * $key) + 0px);
+  padding-right: round(($app-gutter-width * $key) + 0px);
 }
 
 // Shorthand Version
