@@ -11,7 +11,7 @@
   "scripts": {
     "init": "gulp build:production --env=development && cross-env NODE_ENV=development babel-node webpack/webpack_build --presets=es2015",
     "dev": "gulp --env=browser-sync",
-    "prod": "gulp build:production --env=production && cross-env NODE_ENV=production babel-node webpack/webpack_build --presets=es2015",
+    "production": "gulp build:production --env=production && cross-env NODE_ENV=production babel-node webpack/webpack_build --presets=es2015",
     "gulp": "gulp",
     "webpack": "babel-node webpack/webpack_build --presets=es2015"
   },

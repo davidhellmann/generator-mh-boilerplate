@@ -10,47 +10,23 @@
 # Commands
 
 Initialize Project
-```gulp init```
+```
+npm run init
+```
 
 Default task with BrowserSync
 ```
-gulp
+npm run dev
 ```
 
-If you pull this project and the project owner hasn't done any JS work you will miss the JS Folders, to create them use:
-
+Running every other gulp task
 ```
-gulp createDirs
+npm run gulp $TASK$
 ```
 
-This will create `src/js/json`, `src/js/my-scripts` and `src/js/single`
-
-Move all your JSON Files into `src/js/json`
-
-Move JS Files you write and want to get merged into `src/js/my-scripts` 
- 
-Move Single JS Files you *don't* want to be merged into a single file into `src/js/single` and define them in the config.json unter files.jsCopyScripts
-
-Librarys you want to merge together in a plugins.min.js must be defined in the config.json unter files.jsCombinePlugins
-
-# Browserify
-
-### Shim jQuery
-If you want to use jQuery in your HTML Files or have plugins who need jquery available you have to add this to your package.json
-If you want other functions available use the same pattern
-
+Run just Webpack for JavaScript Bundling
 ```
-  "browser": {
-    "jquery": "./node_modules/jquery/dist/jquery.js"
-  },
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
-  },
-  "browserify-shim": {
-    "jquery": "$"
-  }
+npm run webpack
 ```
 
 # Craft
@@ -70,23 +46,11 @@ There are several build tasks which will clean your assets at first and then cal
 
 ### Create Favicons from Single Picture under `src/favicons`
 ```
-gulp favicons
+npm run gulp favicons
 ```
 
-### Complete Rebuild will clean Views, CSS, JS and Images
-```
-gulp build
-```
 
-### Publish, minifies css, js and images in the dist folder, you can use it before you zip your files
+### Minifies Everything
 ```
-gulp publish
+npm run production
 ```
-
-### Deploy, clears everything in the dist folder, then builds from scratch and after all minifies css, js and images, can be used for the Task Pipeline in your deployment tool
-```
-gulp deploy
-```
-
-# Production
-We have a production task which will clean all assets at first, then recreate everything and finish with minifiyng CSS and JS
