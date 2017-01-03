@@ -2,7 +2,7 @@
 import path from 'path';
 import config from '../../config.json';
 
-const assets_root = path.resolve(__dirname, '../../' + config.dist.base)
+const assets_root = path.resolve(__dirname, '../../' + config.dist.base + 'assets');
 
 export default {
   build: {
