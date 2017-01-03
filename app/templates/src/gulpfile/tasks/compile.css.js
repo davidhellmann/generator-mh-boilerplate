@@ -28,6 +28,8 @@ import browserSync from 'browser-sync';
 import error_handler from '../lib/error_handler';
 import postCSS_config from '../lib/postCSS_config';
 import postCSS_nano from '../lib/postCSS_nano';
+import api from 'stylelint';
+import ansiHTML from 'ansi-html';
 
 import browser_sync_task from './browser-sync';
 
@@ -46,14 +48,34 @@ const compileCss = () => {
   return gulp
     .src(paths.src)
     .pipe($.if(env === 'development' || env === 'browser-sync', $.sourcemaps.init()))
-    .pipe($.if(env === 'development' || env === 'browser-sync', $.postcss([
-      require('stylelint'),
-      require('postcss-reporter')({ clearReportedMessages: true }),
-    ],
-      {
-        syntax: require('postcss-scss'),
-      },
-    )))
+    .pipe($.if(env === 'development' || env === 'browser-sync', $.stylelint({
+      syntax: 'scss',
+      failAfterError: false,
+      reporters: [
+        { formatter: 'string', console: true },
+        { formatter(results) {
+          if(!api.formatters.string(results).length) return;
+
+          const warning = `
+      <div class="bs-fullscreen" 
+      style="position: fixed; 
+      bottom: 0; 
+      left: 0; 
+      width: 100%; 
+      background: rgba(0,0,0,.85); 
+      height: 42vh; 
+      overflow-y: scroll;
+      color: #e8e8e8; 
+      text-align: left; 
+      white-space: pre; 
+      font-family: Menlo, Consolas, monospace; font-size: 13px; padding: 10px; line-height: 1.2;">
+      ${ansiHTML(api.formatters.string(results))}
+    </div>
+`;
+          browserSync.notify(warning, 100000);
+        } },
+      ],
+    })))
     .pipe($.sass())
     .on('error', function (err) {
       const error = `
@@ -69,17 +91,20 @@ const compileCss = () => {
       text-align: left; 
       white-space: pre; 
       font-family: Menlo, Consolas, monospace; font-size: 13px; padding: 10px; line-height: 1.2;">
-      <pre>${err}</pre> 
-        ${err.message}
+      <p><span style="background-color:#E36049; color:#fff; padding:2px 4px; border-radius: 2px; text-transform: uppercase">ERROR</span> in ${err.relativePath} on line ${err.line}:${err.column} </p>
+      <p>${err.messageOriginal}</p>
     </div>
 `;
       browserSync.notify(error, 100000);
       this.emit('end');
     })
+    .on('error', error_handler)
     .pipe($.postcss(postCSS_config()))
     .pipe($.if(env === 'development' || env === 'browser-sync', $.sourcemaps.write('.')))
     .pipe($.if(env === 'production', $.postcss(postCSS_nano())))
+    .pipe($.if(argv.source, $.debug({verbose: true})))
     .pipe(gulp.dest(paths.dest))
+    .pipe($.if(argv.source, $.debug({verbose: true})))
     .pipe(browserSync.stream({
       match: '**/*.css',
     }));
