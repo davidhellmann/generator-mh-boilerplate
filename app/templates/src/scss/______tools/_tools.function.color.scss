@@ -1,0 +1,37 @@
+/**
+ * Get colors of your _settings.colors.scss
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ * @author   David Hellmann <davidhellmann.com@gmail.com>
+ */
+
+/*
+|--------------------------------------------------------------------------
+| _tools.function.color.scss
+|--------------------------------------------------------------------------
+*/
+
+
+/* USAGE
+ * RESULT
+|--------------------------------------------------------------------------
+| h1 { color: color('guardsmen-red'); }
+| h1 { color: rgb(205, 0, 0); }
+|--------------------------------------------------------------------------
+*/
+
+
+@function color($key) {
+  @if map-has-key($app-colors, $key) {
+    @return map-get($app-colors, $key);
+  }
+
+  @warn "Unknown `#{$key}` in $app-colors."; // stylelint-disable
+  @return null;
+}
+
+// Shorthand Version
+@function c($key) {
+  @return color($key);
+}

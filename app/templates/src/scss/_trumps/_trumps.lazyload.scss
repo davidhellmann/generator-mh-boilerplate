@@ -1,0 +1,25 @@
+/**
+ * Make sure that the lazyloading styles get not overwritten
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ * @author   David Hellmann <davidhellmann.com@gmail.
+ */
+
+/*
+|--------------------------------------------------------------------------
+| _trumps.lazyload.scss
+|--------------------------------------------------------------------------
+*/
+
+
+.lazyload,
+.lazyloading {
+  opacity: 0.25;
+}
+
+.lazyloaded {
+  transition: all 1s ease('out-cubic');
+
+  opacity: 1;
+}
