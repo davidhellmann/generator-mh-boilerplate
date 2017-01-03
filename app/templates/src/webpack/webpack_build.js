@@ -11,13 +11,29 @@ const spinner = ora('building for production...');
 spinner.start();
 
 webpack(webpack_prod_config, (err, stats) => {
-  spinner.stop()
-if(err) throw err
-process.stdout.write(`${stats.toString({
-  colors: true,
-  modules: false,
-  children: false,
-  chunks: false,
-  chunkModules: false,
-})}\n`);
+  spinner.stop();
+
+  if (err) {
+    console.error(err.stack || err);
+    if (err.details) {
+      console.error(err.details);
+    }
+    return;
+  }
+
+  const info = stats.toJson();
+
+  if(stats.hasErrors()) {
+    console.error(info.errors);
+  }
+
+  if(stats.hasWarnings()) {
+    console.warn(info.warnings);
+  }
+
+  console.log(stats.toString({
+    chunks: false,
+    colors: true,
+  }));
+
 });
