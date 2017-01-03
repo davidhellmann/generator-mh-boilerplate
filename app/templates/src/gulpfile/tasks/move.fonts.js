@@ -21,7 +21,7 @@ import copy_files from '../lib/copy_files';
 import gulp from 'gulp';
 
 const paths = {
-  src: `${config.src.fonts}`,
+  src: `${config.src.fonts}**/*`,
   dest: `${config.dist.fonts}`,
 }
 

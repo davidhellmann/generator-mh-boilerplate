@@ -21,7 +21,7 @@ import copy_files from '../lib/copy_files';
 import gulp from 'gulp';
 
 const paths = {
-  src: `${config.src.systemFiles}`,
+  src: [`${config.src.systemFiles}**/*`, `${config.src.systemFiles}**/.*`],
   dest: `${config.dist.systemFiles}`,
 };
 

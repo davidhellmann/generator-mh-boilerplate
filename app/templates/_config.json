@@ -75,8 +75,8 @@
             "base"       : "src/images/",
             "svg"        : {
                 "base"       : "src/images/svg/",
-                "single"     : "svg/single/",
-                "sprite"     : "svg/sprite/"
+                "single"     : "single/",
+                "sprite"     : "sprite/"
             },
             "bitmap"     : {
                 "cssimages"  : "cssimages/",
