@@ -71,7 +71,8 @@ chunks_inject.forEach((chunk) => {
 
 
   const write_plugin = new WriteFilePlugin({
-    log: false
+    log: false,
+    test: /^(?!.+(?:hot-update.(js|json))).+$/
   });
 
   webpack_base_config.plugins.push(plugin);

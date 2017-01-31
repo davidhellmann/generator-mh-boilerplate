@@ -2,14 +2,14 @@
 import path from 'path';
 import config from '../../config.json';
 
-const assets_root = path.resolve(__dirname, '../../' + config.dist.base + 'assets');
+const assets_root = path.resolve(__dirname, '../../' + config.dist.base);
 
 export default {
   build: {
     env: require('./prod.env'),
     assetsRoot: assets_root,
     assetsSubDirectory: '/assets/',
-    assetsPublicPath: '/',
+    assetsPublicPath: '',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -23,7 +23,7 @@ export default {
     port: 8080,
     assetsRoot: assets_root,
     assetsSubDirectory: '/assets/',
-    assetsPublicPath: '/',
+    assetsPublicPath: '',
     proxyTable: {},
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README

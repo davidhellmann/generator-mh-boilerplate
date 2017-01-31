@@ -57,7 +57,9 @@ const browserSyncTask = () => {
           colors: true,
         },
       }),
-      webpackHotMiddleware(bundler),
+      webpackHotMiddleware(bundler, {
+        log: () => {},
+      }),
     ],
     files: [
       `${config.dist.views}**/*.{php,html,twig}`,

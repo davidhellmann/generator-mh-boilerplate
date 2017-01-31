@@ -21,19 +21,31 @@ module.exports = class extends yeoman {
     var wp_cli = false;
     var craft_cli = false;
     // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the impressive ' + chalk.red('mh-boilerplate') + ' generator!'
-    ));
-
-    var warning =
-    '\n This generator is customized for my own needs!'
-    + '\n So it may not be the right thing for you!'
-    + '\n Keep this in mind when you go further and please read the Readme'
-    + '\n'
-    + '\n Also this is very early version and maybe there are some bugs :)'
-    + '\n';
-
-    this.log(chalk.bold.red(warning));
+    const intro = `${chalk.red(`
++-----------------------------------------------------------------------------------+
+|        ___           ___           ___                       ___                  |
+|       /  /\\         /__/\\         /  /\\          ___        /  /\\          ___    |
+|      /  /::|        \\  \\:\\       /  /:/_        /  /\\      /  /::\\        /  /\\   |
+|     /  /:/:|         \\  \\:\\     /  /:/ /\\      /  /:/     /  /:/\\:\\      /  /:/   |
+|    /  /:/|:|__   _____\\__\\:\\   /  /:/ /::\\    /  /:/     /  /:/~/:/     /  /:/    |
+|   /__/:/ |:| /\\ /__/::::::::\\ /__/:/ /:/\\:\\  /  /::\\    /__/:/ /:/___  /  /::\\    |
+|   \\__\\/  |:|/:/ \\  \\:\\~~\\~~\\/ \\  \\:\\/:/~/:/ /__/:/\\:\\   \\  \\:\\/:::::/ /__/:/\\:\\   |
+|       |  |:/:/   \\  \\:\\  ~~~   \\  \\::/ /:/  \\__\\/  \\:\\   \\  \\::/~~~~  \\__\\/  \\:\\  |
+|       |  |::/     \\  \\:\\        \\__\\/ /:/        \\  \\:\\   \\  \\:\\           \\  \\:\\ |
+|       |  |:/       \\  \\:\\         /__/:/          \\__\\/    \\  \\:\\           \\__\\/ |
+|       |__|/         \\__\\/         \\__\\/                     \\__\\/                 |
+|                                                                                   |
+|                                                                                   |
+|                                                                    +--------------+
+|                                                                    |         V.2.0|
++--------------------------------------------------------------------+--------------+
+`)}|                                                                                   |
+|Author: Martin Herweg (@martinherweg)                                              |
+|URL: https://github.com/martinherweg/generator-mh-boilerplate                      |
+|                                                                                   |
++-----------------------------------------------------------------------------------+
+`
+    this.log(intro);
 
     // check if cli tools exist
     commandExists('wp')

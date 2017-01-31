@@ -28,8 +28,8 @@ const watch_task = () => {
       `${config.src.images.base}**/*`,
       `!${config.src.images.base}svg/**/*`,
     ],
-    'svg:sprite': `${config.src.images.base + config.src.images.svg.sprite}**/*.svg`,
-    'svg:single': `${config.src.images.base + config.src.images.svg.single}**/*.svg`,
+    'svg:sprite': `${config.src.images.svg.base + config.src.images.svg.sprite}**/*.svg`,
+    'svg:single': `${config.src.images.svg.base + config.src.images.svg.single}**/*.svg`,
   };
 
 
