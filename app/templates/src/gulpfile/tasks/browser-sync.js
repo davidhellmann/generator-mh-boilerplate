@@ -23,7 +23,7 @@ import browserSync from 'browser-sync';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackSettings from '../../webpack/webpack.dev.config.babel';
+import webpackSettings from '../../webpack/webpack.config.babel';
 
 import yargs from 'yargs';
 const argv = yargs.argv;
@@ -32,7 +32,7 @@ const env = argv.env || 'development';
 const browserSyncTask = () => {
   if(env !== 'browser-sync') return;
   const bundler = webpack(webpackSettings);
-  browserSync({
+  browserSync.init({
     proxy: {
       target: config.proxy,
       ws: true,
@@ -51,6 +51,7 @@ const browserSyncTask = () => {
     },
     middleware: [
       webpackDevMiddleware(bundler, {
+        quiet: true,
         path: webpackSettings.output.path,
         publicPath: webpackSettings.output.publicPath,
         stats: {
@@ -66,7 +67,12 @@ const browserSyncTask = () => {
       `${config.dist.images.base}**/*.{jpg,png,gif,svg}`,
       `${config.dist.css}**/*`,
     ],
-    injectFileTypes: ['css'],
+  });
+
+  browserSync.watch(config.dist.base + '**/*.css', function(event, file) {
+    if (event === 'change') {
+      browserSync.reload('*.css');
+    }
   });
 };
 

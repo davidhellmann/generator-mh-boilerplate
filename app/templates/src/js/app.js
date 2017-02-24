@@ -4,8 +4,8 @@
 // these folders are used for other tasks
 // you can change the name of this file in the config.json
 
-
-import 'lazysizes'
+import 'lazysizes';
+import '../scss/app.scss';
 
 <%_ if (projectUseVue) { _%>
 import Vue from 'Vue';

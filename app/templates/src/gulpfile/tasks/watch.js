@@ -23,7 +23,6 @@ const watch_task = () => {
 
   const paths = {
     'move:views': `${config.src.views}**/*`,
-    'compile:css': `${config.src.css}**/*.scss`,
     'move:images': [
       `${config.src.images.base}**/*`,
       `!${config.src.images.base}svg/**/*`,

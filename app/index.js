@@ -249,6 +249,11 @@ module.exports = class extends yeoman {
       params
     );
     this.fs.copyTpl(
+      this.templatePath('src/webpack/babelrc'),
+      this.destinationPath('./webpack/.babelrc'),
+      params
+    );
+    this.fs.copyTpl(
       this.templatePath('src/webpack'),
       this.destinationPath('./webpack'),
       params
@@ -347,6 +352,11 @@ module.exports = class extends yeoman {
     this.fs.copyTpl(
         this.templatePath('babelrc'),
         this.destinationPath('.babelrc'),
+        params
+    );
+    this.fs.copyTpl(
+        this.templatePath('postcss.config.js'),
+        this.destinationPath('.postcssrc.js'),
         params
     );
     this.fs.copyTpl(

@@ -9,7 +9,6 @@ const build_production = (cb) => {
       'move:images',
       'move:systemFiles',
       'move:views',
-      'compile:css',
       'svg:sprite',
       'svg:single'
     ]
