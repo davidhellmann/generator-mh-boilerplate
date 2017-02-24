@@ -43,7 +43,7 @@
   &:checked + span {
 
     &::before {
-      background: color('science-blue');
+      background: color('black-10');
       box-shadow: inset 0 0 0 4px c('white');
     }
   }

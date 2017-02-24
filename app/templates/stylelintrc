@@ -1,7 +1,8 @@
 {
     "plugins": [
         "stylelint-scss",
-        "stylelint-selector-bem-pattern"
+        "stylelint-selector-bem-pattern",
+        "stylelint-order"
     ],
     "extends": "stylelint-config-sass-guidelines",
     "rules": {
@@ -13,13 +14,14 @@
                 "message": "Selector should be written in lowercase with underscore (selector-class-pattern)"
             }
         ],
-        "rule-nested-empty-line-before": [
+        "rule-empty-line-before": [
             "always-multi-line",
             {
                 "ignore": [
                     "after-comment"
                 ]
             }
-        ]
+        ],
+        "order/declaration-block-properties-alphabetical-order": null
     }
 }
