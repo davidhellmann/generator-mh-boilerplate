@@ -270,11 +270,6 @@ module.exports = class extends yeoman {
         this.destinationPath('src/views/'),
         params
       );
-      this.fs.copyTpl(
-        this.templatePath('Laravel/systemFiles'),
-        this.destinationPath('src/systemFiles/'),
-        params
-      );
     } else {
       this.fs.copyTpl(
         this.templatePath('src/php'),
@@ -389,13 +384,18 @@ module.exports = class extends yeoman {
 
     if (this.projectInstallLaravel) {
       var done = this.async();
-      this.spawnCommand('laravel', ['new', 'dist']).on('close', done);
+      this.spawnCommand('composer', ['create-project', '--prefer-dist', 'laravel/laravel', 'dist']).on('close', done());
+      this.spawnCommand('rsync', ['-avz', '--exclude=css/', '--exclude=js/', 'dist/public/', 'src/systemFiles']);
     } else if (this.projectInstallWordpress) {
       var done = this.async();
       this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]).on('close', done);
     } else if(this.craftInstall) {
       var done = this.async();
       this.spawnCommand('craft', ['install', 'dist']).on('close', done);
+  end() {
+    if (this.projectInstallLaravel) {
+      var done = this.async();
+      this.spawnCommand('rsync', ['-avz', '--exclude=css/', '--exclude=js/', 'dist/public/', 'src/systemFiles']);
     }
   }
 }

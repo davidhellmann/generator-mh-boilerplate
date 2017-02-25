@@ -67,17 +67,16 @@ Package Syncing.last-run
 #===================================#
 #     Laravel IGNORE                #
 #===================================#
-dist/bootstrap/compiled.php
-dist/vendor/
-dist/composer.phar
-dist/composer.lock
-dist/.env.*.php
-dist/.env.php
-dist/Thumbs.db
+dist/node_modules
+dist/public/storage
+dist/public/hot
+dist/storage/*.key
+dist/vendor
+dist/.idea
+dist/Homestead.json
+dist/Homestead.yaml
 dist/.env
-dist/public/assets
-dist/public/uploads
-dist/resources/views/
+
 
 
 <% } if (projectUsage == 'Wordpress') { %>
