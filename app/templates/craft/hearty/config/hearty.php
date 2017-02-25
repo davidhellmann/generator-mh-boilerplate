@@ -1,11 +1,11 @@
 <?php
 
 // What be yer environment URLs, matey?
-    $envs = array(
-        'dev' => 'example.dev',
-        'stage' => 'beta.example.dev',
+    $envs = [
+        'dev' => ['dev.example1.com', 'dev.example2.com'],
+        'stage' => 'stage.example1.com',
         'prod' => 'example.com,www.example.com',
-    );
+    ];
 
     /*
     *   You probably don't want to edit below this line.
@@ -25,7 +25,9 @@
             $host = $_SERVER['SERVER_NAME'];
 
             foreach ($envs as $env => $hosts) {
-                $hosts = explode(',', preg_replace('/\s+/', '', $hosts));
+                if (!is_array($hosts)) {
+                    $hosts = explode(',', preg_replace('/\s+/', '', $hosts));
+                }
                 if (in_array($host, $hosts)) {
                     define('CRAFT_ENVIRONMENT', $env);
                     break;
@@ -53,17 +55,26 @@
     define('BASEPATH', realpath(dirname(__FILE__) . '/../') . '/');
 
 // Template and plugins paths
-    if (isset($pluginsPath))
+    if (isset($pluginsPath) && !defined('CRAFT_PLUGINS_PATH'))
     {
         define('CRAFT_PLUGINS_PATH', rtrim($pluginsPath, '/') . '/');
     }
-    if (isset($templatesPath))
+    if (isset($templatesPath) && !defined('CRAFT_TEMPLATES_PATH'))
     {
         define('CRAFT_TEMPLATES_PATH', rtrim($templatesPath, '/') . '/');
-    }if (isset($translationsPath))
-{
-    define('CRAFT_TRANSLATIONS_PATH', rtrim($translationsPath, '/') . '/');
-}
+    }
+    if (isset($translationsPath) && !defined('CRAFT_TRANSLATIONS_PATH'))
+    {
+        define('CRAFT_TRANSLATIONS_PATH', rtrim($translationsPath, '/') . '/');
+    }
+    if (isset($storagePath) && !defined('CRAFT_STORAGE_PATH'))
+    {
+        define('CRAFT_STORAGE_PATH', rtrim($storagePath, '/') . '/');
+    }
+    if (isset($configPath) && !defined('CRAFT_CONFIG_PATH'))
+    {
+        define('CRAFT_CONFIG_PATH', rtrim($configPath, '/') . '/');
+    }
 
 // The site's public basepath - usually set in index.php, if not then just use the basepath yep
     if (isset($publicPath)) {
@@ -72,4 +83,9 @@
         define('PUBPATH', BASEPATH);
     }
 
-    define('HEARTY_CONFIG_VERSION', '1.1');
+// Fix for Valet not setting DOCUMENT_ROOT
+    if (CRAFT_ENVIRONMENT === 'local' && $_SERVER['DOCUMENT_ROOT'] !== PUBPATH) {
+        $_SERVER['DOCUMENT_ROOT'] = PUBPATH;
+    }
+
+    define('HEARTY_CONFIG_VERSION', '1.1.3');

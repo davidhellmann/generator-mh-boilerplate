@@ -10,6 +10,12 @@ let yarn = false;
 
 module.exports = class extends yeoman {
 
+  constructor(args, opts) {
+    super(args, opts);
+
+    this.option('beta');
+  }
+
   initializing() {
     this.pkg = require('../package.json');
     this.props = {};
@@ -101,10 +107,24 @@ module.exports = class extends yeoman {
           }
           return false
         },
-        type: 'confirm',
-        name: 'craftHearty',
-        message: 'Do you want to use Hearty Config?',
-        default: true
+        type: 'list',
+        name: 'craftEnv',
+        message: 'Which Craft Config Method do you want to use?',
+        choices: [
+          {
+            'name': 'NY Studio Multienvironment with .env.php (Default)',
+            'value': 'nystudio'
+          },
+          {
+            'name': 'Default',
+            'value': 'default'
+          },
+          {
+            'name': 'Hearty Config',
+            'value': 'hearty'
+          }
+        ],
+        default: 0
       },{
         when: function(answers) {
           if(answers.projectUsage === 'Craft' && craft_cli) {
@@ -195,7 +215,7 @@ module.exports = class extends yeoman {
         this.projectInstallWordpress = checkAnswer(answers.projectInstallWordpress);
         this.projectInstallLaravel = checkAnswer(answers.projectInstallLaravel);
         this.craftInstall = checkAnswer(answers.craftInstall);
-        this.craftHearty = checkAnswer(answers.craftHearty);
+        this.craftEnv = checkAnswer(answers.craftEnv);
         this.projectUseVue = checkAnswer(answers.projectUseVue);
         this.projectVueVersion = answers.projectVueVersion;
         this.projectVersion = answers.projectVersion;
@@ -207,8 +227,8 @@ module.exports = class extends yeoman {
     }.bind(this))
   }
 
-  projectfiles() {
-
+  writing() {
+    console.log('writing');
     var params = {
       projectName: this.projectName,
       projectDescription: this.projectDescription,
@@ -217,7 +237,7 @@ module.exports = class extends yeoman {
       projectInstallWordpress: this.projectInstallWordpress,
       projectInstallLaravel: this.projectInstallLaravel,
       craftInstall: this.craftInstall,
-      craftHearty: this.craftHearty,
+      craftEnv: this.craftEnv,
       projectUseVue: this.projectUseVue,
       projectVersion: this.projectVersion,
       projectVueVersion: this.projectVueVersion,
@@ -277,7 +297,13 @@ module.exports = class extends yeoman {
         params
       );
     }
-    if(this.craftHearty) {
+    if(this.craftEnv === 'nystudio') {
+      this.fs.copyTpl(
+        this.templatePath('craft/nystudio/systemFiles'),
+        this.destinationPath('src/systemFiles'),
+        params
+      );
+    } else if (this.craftEnv === 'hearty') {
       this.fs.copyTpl(
         this.templatePath('craft/hearty/config'),
         this.destinationPath('dist/config'),
@@ -289,6 +315,12 @@ module.exports = class extends yeoman {
         params
       );
       mkdirp('dist/plugins');
+    } else if (this.craftEnv === 'default') {
+      this.fs.copyTpl(
+        this.templatePath('craft/default/systemFiles'),
+        this.destinationPath('src/systemFiles'),
+        params
+      )
     } else {
       mkdirp('src/systemFiles');
     }
@@ -359,19 +391,20 @@ module.exports = class extends yeoman {
         this.destinationPath('README.md'),
         params
     );
+    console.log('end writing');
   }
 
 
 
   install() {
+    console.log('install');
     var that = this;
     const params = [
       '', // Packages to Install
       {}, // Options to pass to to dargs as arguments
       function cb() {
-        var done = that.async();
-        that.spawnCommand('git', ['init']).on('close',done);
-        that.spawnCommand('npm', ['run', 'init']).on('close', done);
+        that.spawnCommandSync('git', ['init']);
+        that.spawnCommandSync('npm', ['run', 'init']);
       },
       {} // options to pass child_process.spawn.
     ];
@@ -384,18 +417,59 @@ module.exports = class extends yeoman {
 
     if (this.projectInstallLaravel) {
       var done = this.async();
-      this.spawnCommand('composer', ['create-project', '--prefer-dist', 'laravel/laravel', 'dist']).on('close', done());
+      this.spawnCommand('composer', ['create-project', '--prefer-dist', 'laravel/laravel', 'dist']).on('close', done);
       this.spawnCommand('rsync', ['-avz', '--exclude=css/', '--exclude=js/', 'dist/public/', 'src/systemFiles']);
     } else if (this.projectInstallWordpress) {
       var done = this.async();
       this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]).on('close', done);
-    } else if(this.craftInstall) {
+    } else if(this.craftInstall && !this.options.beta) {
       var done = this.async();
       this.spawnCommand('craft', ['install', 'dist']).on('close', done);
+    } else if(this.craftInstall && this.options.beta) {
+      var done = this.async();
+      this.spawnCommand('composer', ['create-project', 'craftcms/craft', 'dist', '-s beta']).on('close', done);
+    }
+
+    console.log('end install');
+
+  }
+
   end() {
+    console.log('end');
+
     if (this.projectInstallLaravel) {
       var done = this.async();
       this.spawnCommand('rsync', ['-avz', '--exclude=css/', '--exclude=js/', 'dist/public/', 'src/systemFiles']);
     }
+
+
+    if(this.craftEnv === 'nystudio') {
+      this.fs.copy(
+        this.templatePath('craft/nystudio/environment/env.example.php'),
+        this.destinationPath('dist/.env.example.php')
+      );
+
+      this.log('Overwrite the Original Craft Files with the ones by the NYStudio Multi Environment');
+
+      if (this.fs.exists(this.destinationPath('dist/craft/config/db.php'))) {
+        this.fs.delete(this.destinationPath('dist/craft/config/db.php'));
+
+        this.fs.copy(
+          this.templatePath('craft/nystudio/config/db.php'),
+          this.destinationPath('dist/craft/config/db.php')
+        );
+      }
+
+      if (this.fs.exists(this.destinationPath('dist/craft/config/general.php'))) {
+        this.fs.delete(this.destinationPath('dist/craft/config/general.php'));
+
+        this.fs.copy(
+          this.templatePath('craft/nystudio/config/general.php'),
+          this.destinationPath('dist/craft/config/general.php')
+        );
+      }
+    }
+
+    console.log('end of end');
   }
 }

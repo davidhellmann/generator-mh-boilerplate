@@ -35,7 +35,7 @@ npm run webpack
 If you choose to install Craft via the boilerplate you need https://github.com/rsanchez/craft-cli#composer-installation installed.
 <% } %>
 
-<% if(projectUsage == 'Craft' && craftHearty) { %>
+<% if(projectUsage == 'Craft' && craftEnv == 'hearty') { %>
 ## Hearty Config
 If you use the Hearty Config you can get more Information about here https://github.com/mmikkel/HeartyConfig-Craft/
 <% } %>

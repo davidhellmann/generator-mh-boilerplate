@@ -107,7 +107,9 @@ dist/wp-content/*
 dist/craft/storage/*
 !dist/craft/storage/logo/*
 dist/public/
-<% } if(craftHearty) { %>
+<% } if(craftEnv == 'nystudio') { %>
+dist/.env.php
+<% } if(craftEnv == 'hearty') { %>
 dist/craft/license.key
 dist/craft/
 dist/public/

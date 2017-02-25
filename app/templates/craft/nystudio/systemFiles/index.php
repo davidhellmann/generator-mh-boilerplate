@@ -1,19 +1,16 @@
 <?php
 
-// Sets yer public base path (this can be removed if ye dont keep yer Craft files above yer webroot)
-    $publicPath = dirname(__FILE__);
-
-// Where do ye want yer templates and plugins, matey?
-    $pluginsPath = '../plugins';
-    $templatesPath = '../templates';
-    $translationsPath = '../translations';
-    $storagePath = '../storage';
+// Load the local Craft environment
+    if (file_exists('../.env.php'))
+        require_once '../.env.php';
+// Default environment
+    if (!defined('CRAFT_ENVIRONMENT'))
+        define('CRAFT_ENVIRONMENT', getenv('CRAFTENV_CRAFT_ENVIRONMENT'));
 
 // Path to your craft/ folder
     $craftPath = '../craft';
 
 // Do not edit below this line
-    require_once '../config/hearty.php';
     $path = rtrim($craftPath, '/').'/app/index.php';
 
     if (!is_file($path))
