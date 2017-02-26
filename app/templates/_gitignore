@@ -116,11 +116,6 @@ dist/public/
 dist/config/config.local.php
 dist/templates/
 !dist/craft/translations/*
-<% } if(projectUsage == 'HTML Protoypes') { %>
-#===================================#
-#     HTML Protoypes                #
-#===================================#
-dist/
 <% } %>
 
 

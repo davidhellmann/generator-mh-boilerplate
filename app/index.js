@@ -97,7 +97,6 @@ module.exports = class extends yeoman {
         choices: [
           "Craft",
           "Laravel",
-          "HTML Protoypes",
           "Wordpress"
         ]
       },{
@@ -169,7 +168,7 @@ module.exports = class extends yeoman {
         message: 'Which version of Vue do you want to use',
         choices: [
           'Standalone',
-          'Runtime only (You have to use .vue Files or Render Functions!'
+          'Runtime only (You have to use .vue Files or Render Functions!)'
         ]
       },{
         type: 'input',
@@ -228,7 +227,6 @@ module.exports = class extends yeoman {
   }
 
   writing() {
-    console.log('writing');
     var params = {
       projectName: this.projectName,
       projectDescription: this.projectDescription,
@@ -391,13 +389,11 @@ module.exports = class extends yeoman {
         this.destinationPath('README.md'),
         params
     );
-    console.log('end writing');
   }
 
 
 
   install() {
-    console.log('install');
     var that = this;
     const params = [
       '', // Packages to Install
@@ -430,12 +426,9 @@ module.exports = class extends yeoman {
       this.spawnCommand('composer', ['create-project', 'craftcms/craft', 'dist', '-s beta']).on('close', done);
     }
 
-    console.log('end install');
-
   }
 
   end() {
-    console.log('end');
 
     if (this.projectInstallLaravel) {
       var done = this.async();
@@ -469,7 +462,5 @@ module.exports = class extends yeoman {
         );
       }
     }
-
-    console.log('end of end');
   }
 }

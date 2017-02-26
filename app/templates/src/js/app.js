@@ -5,10 +5,10 @@
 // you can change the name of this file in the config.json
 
 import 'lazysizes';
-import '../scss/app.scss';
+import '../scss/app.scss'; /* eslint-disable */
 
 <%_ if (projectUseVue) { _%>
-import Vue from 'Vue';
+import Vue from 'vue';
 import App from './App.vue';
 
 new Vue({

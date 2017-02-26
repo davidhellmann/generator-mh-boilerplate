@@ -135,8 +135,8 @@ export default {
     ],
     alias: {
     <%_ if (projectVueVersion === 'Standalone') { _%>
-      'vue$': 'vue/dist/vue.common.js',
-      <%_ } _%>
+      'vue$': 'vue/dist/vue.esm.js',
+    <%_ } _%>
       'src': resolve(config.src.base),
     },
   },
@@ -151,7 +151,15 @@ export default {
     <%_ if (projectUseVue === true ) { _%>
       {
         test: /\.vue$/,
-        use: 'vue-loader',
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            scss: ifProduction(ExtractTextPlugin.extract({
+              use: 'css-loader!sass-loader',
+              fallback: 'vue-style-loader',
+            }),'vue-style-loader!css-loader!sass-loader'),  // <style lang="scss">
+          }
+        }
       },
       <% } %>
       {
@@ -176,6 +184,7 @@ export default {
                 autoprefixer: false,
                 sourceMap: true,
                 importLoaders: 1,
+                url: false,
               },
             },
             {

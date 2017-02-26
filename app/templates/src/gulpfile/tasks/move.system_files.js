@@ -1,5 +1,9 @@
 /**
- |--------------------------------------------------------------------------
+
+
+ import yargs from 'yargs';
+ const argv = yargs.argv;
+ const changed = argv.changed || true; |--------------------------------------------------------------------------
  | gulp move:systemFiles
  |--------------------------------------------------------------------------
  *
@@ -14,11 +18,15 @@
  |--------------------------------------------------------------------------
  | move.system_files.js
  |--------------------------------------------------------------------------
-*/
+ */
 
 import config from '../../config.json';
 import copy_files from '../lib/copy_files';
 import gulp from 'gulp';
+
+import yargs from 'yargs';
+const argv = yargs.argv;
+const changed = argv.changed || true;
 
 const paths = {
   src: [`${config.src.systemFiles}**/*`, `${config.src.systemFiles}**/.*`],
@@ -26,7 +34,8 @@ const paths = {
 };
 
 const system_files = () => {
-  copy_files(paths.src, paths.dest);
+  console.log(changed);
+  copy_files(paths.src, paths.dest, changed);
 };
 
 gulp.task('move:systemFiles', system_files);

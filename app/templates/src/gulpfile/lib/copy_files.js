@@ -16,10 +16,10 @@ import gulp_load_plugins from 'gulp-load-plugins';
 
 const $ = gulp_load_plugins();
 
-const copy_files = (srcFiles, destFiles) => {
+const copy_files = (srcFiles, destFiles, changed = true) => {
   gulp
     .src(srcFiles)
-    .pipe($.changed(destFiles))
+    .pipe($.if(changed, $.changed(destFiles)))
     .pipe(gulp.dest(destFiles));
 }
 

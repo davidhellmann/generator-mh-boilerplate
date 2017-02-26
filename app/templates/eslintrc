@@ -51,7 +51,7 @@ module.exports = {
     'no-new': 'off',
     'camelcase': 'off',
     'no-underscore-dangle': 'off',
-    'indent': ['error', 4],
+    'indent': ['error', 2],
     'import/no-unresolved': 0,
   }
 }

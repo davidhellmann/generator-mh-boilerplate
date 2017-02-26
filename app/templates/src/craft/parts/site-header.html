@@ -6,7 +6,6 @@
     <title>{% if title is defined %}{{ title }} - {% endif %}{{ siteName }}</title>
 	<link rel="home" href="{{ siteUrl }}" />
 	{% hook 'seomaticRender' %}
-    <link rel="stylesheet" href="{{ assetsUrl }}/css/app.css">
     <%% for (var css in htmlWebpackPlugin.files.css) { %%>
     <link href="<%%= htmlWebpackPlugin.files.css[css] %%>" rel="stylesheet">
     <%% } %%>
