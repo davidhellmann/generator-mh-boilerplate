@@ -9,10 +9,23 @@ import '../scss/app.scss'; /* eslint-disable */
 
 <%_ if (projectUseVue) { _%>
 import Vue from 'vue';
+<%_ if (projectVuePlugins.includes('vuex')) { _%>
+  import store from './store';
+  <%_ } _%>
+  <%_ if (projectVuePlugins.includes('vuerouter')) { _%>
+  import router from './router';
+  <%_ } _%>
 import App from './App.vue';
 
-new Vue({
-  el: '#app',
+
+  new Vue({
+      el: '#app',
+    <%_ if (projectVuePlugins.includes('vuerouter')) { _%>
+  router,
+  <%_ } _%>
+  <%_ if (projectVuePlugins.includes('vuex')) { _%>
+  store,
+  <%_ } _%>
   render: h => h(App)
 });
 

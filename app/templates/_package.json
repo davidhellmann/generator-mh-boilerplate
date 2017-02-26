@@ -9,7 +9,7 @@
   },
   "repository": "<%= projectRepo %>",
   "scripts": {
-    "init_commands": "cross-env NODE_ENV=production gulp build:production --env=development && cross-env NODE_ENV=production webpack --hide-modules --config=webpack/webpack.config.babel.js",
+    "init_commands": "cross-env NODE_ENV=production gulp build:production --env=development --changed=false && cross-env NODE_ENV=production webpack --hide-modules --config=webpack/webpack.config.babel.js",
     "init": "npm run -s init_commands",
     "dev": "cross-env NODE_ENV=development webpack-dashboard -p 3002 -- gulp --env=browser-sync",
     "dev:single": "cross-env NODE_ENV=development gulp --env=browser-sync",
@@ -127,7 +127,12 @@
     "svgxuse": "^1.1.23"
     <%_ if(projectUseVue) { _%>,
     "vue": "^2.2.0",
-    "vue-router": "^2.0.1"
+    <%_ } _%>
+    <%_ if (projectVuePlugins.includes('vuex')) { _%>
+    "vuex": "^2.2.1",
+    <%_ } _%>
+    <%_ if (projectVuePlugins.includes('vuerouter')) { _%>
+    "vue-router": "^2.3.0",
     <%_ } _%>
   }
 }

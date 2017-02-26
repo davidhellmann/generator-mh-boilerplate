@@ -171,6 +171,23 @@ module.exports = class extends yeoman {
           'Runtime only (You have to use .vue Files or Render Functions!)'
         ]
       },{
+        when: function(answers) {
+          return answers.projectUseVue;
+        },
+        type: 'checkbox',
+        name: 'projectVuePlugins',
+        message: 'Which Vue Plugins do you want to install',
+        choices: [
+          {
+            name: 'VueX (including VueX Structure, see README.md)',
+            value: 'vuex',
+          },
+          {
+            name: 'Vue Router',
+            value: 'vuerouter',
+          }
+        ]
+      },{
         type: 'input',
         name: 'projectVersion',
         message: 'Project Version Number',
@@ -207,6 +224,7 @@ module.exports = class extends yeoman {
           return false
         }
       }
+
       this.projectName = answers.projectName;
         this.projectDescription = answers.projectDescription;
         this.projectProxy = answers.projectProxy;
@@ -217,6 +235,7 @@ module.exports = class extends yeoman {
         this.craftEnv = checkAnswer(answers.craftEnv);
         this.projectUseVue = checkAnswer(answers.projectUseVue);
         this.projectVueVersion = answers.projectVueVersion;
+        this.projectVuePlugins = answers.projectVuePlugins;
         this.projectVersion = answers.projectVersion;
         this.projectAuthor = answers.projectAuthor;
         this.projectMail = answers.projectMail;
@@ -239,6 +258,7 @@ module.exports = class extends yeoman {
       projectUseVue: this.projectUseVue,
       projectVersion: this.projectVersion,
       projectVueVersion: this.projectVueVersion,
+      projectVuePlugins: this.projectVuePlugins,
       projectAuthor: this.projectAuthor,
       projectMail: this.projectMail,
       projectUrl: this.projectUrl,
@@ -328,7 +348,24 @@ module.exports = class extends yeoman {
         this.destinationPath('src/js/App.vue'),
         params
       );
+      mkdirp('src/js/components/');
     }
+
+
+    if(this.projectVuePlugins.includes('vuex')) {
+      this.fs.copy(
+        this.templatePath('src/Vue/VueX/store/'),
+        this.destinationPath('src/js/store/')
+      )
+    }
+
+    if(this.projectVuePlugins.includes('vuerouter')) {
+      this.fs.copy(
+        this.templatePath('src/Vue/Router/index.js'),
+        this.destinationPath('src/js/router/index.js')
+      )
+    }
+
     mkdirp('src/images/cssimages');
     mkdirp('src/images/htmlimages');
     mkdirp('src/images/svg/single');
