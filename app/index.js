@@ -1,46 +1,99 @@
 'use strict';
-var path = require('path');
-var util = require('util');
-var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
-var mkdirp = require('mkdirp');
+const path = require('path');
+const util = require('util');
+const yeoman = require('yeoman-generator');
+const chalk = require('chalk');
+const yosay = require('yosay');
+const mkdirp = require('mkdirp');
+const commandExists = require('command-exists');
+let yarn = false;
 
-var mhBoilerplateGenerator = yeoman.Base.extend({
+module.exports = class extends yeoman {
 
-  init: function() {
+  constructor(args, opts) {
+    super(args, opts);
+
+    this.option('beta');
+  }
+
+  initializing() {
     this.pkg = require('../package.json');
-  },
+    this.props = {};
+  }
 
-  askFor: function() {
+  prompting() {
 
     var done = this.async();
-
+    var wp_cli = false;
+    var craft_cli = false;
     // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the impressive ' + chalk.red('mh-boilerplate') + ' generator!'
-    ));
+    const intro = `${chalk.red(`
++-----------------------------------------------------------------------------------+
+|        ___           ___           ___                       ___                  |
+|       /  /\\         /__/\\         /  /\\          ___        /  /\\          ___    |
+|      /  /::|        \\  \\:\\       /  /:/_        /  /\\      /  /::\\        /  /\\   |
+|     /  /:/:|         \\  \\:\\     /  /:/ /\\      /  /:/     /  /:/\\:\\      /  /:/   |
+|    /  /:/|:|__   _____\\__\\:\\   /  /:/ /::\\    /  /:/     /  /:/~/:/     /  /:/    |
+|   /__/:/ |:| /\\ /__/::::::::\\ /__/:/ /:/\\:\\  /  /::\\    /__/:/ /:/___  /  /::\\    |
+|   \\__\\/  |:|/:/ \\  \\:\\~~\\~~\\/ \\  \\:\\/:/~/:/ /__/:/\\:\\   \\  \\:\\/:::::/ /__/:/\\:\\   |
+|       |  |:/:/   \\  \\:\\  ~~~   \\  \\::/ /:/  \\__\\/  \\:\\   \\  \\::/~~~~  \\__\\/  \\:\\  |
+|       |  |::/     \\  \\:\\        \\__\\/ /:/        \\  \\:\\   \\  \\:\\           \\  \\:\\ |
+|       |  |:/       \\  \\:\\         /__/:/          \\__\\/    \\  \\:\\           \\__\\/ |
+|       |__|/         \\__\\/         \\__\\/                     \\__\\/                 |
+|                                                                                   |
+|                                                                                   |
+|                                                                    +--------------+
+|                                                                    |         V.2.0|
++--------------------------------------------------------------------+--------------+
+`)}|                                                                                   |
+|Author: Martin Herweg (@martinherweg)                                              |
+|URL: https://github.com/martinherweg/generator-mh-boilerplate                      |
+|                                                                                   |
++-----------------------------------------------------------------------------------+
+`
+    this.log(intro);
 
-    var warning =
-    '\n This generator is customized for my own needs!'
-    + '\n So it may not be the right thing for you!'
-    + '\n Keep this in mind when you go further and please read the Readme'
-    + '\n'
-    + '\n Also this is very early version and maybe there are some bugs :)'
-    + '\n';
+    // check if cli tools exist
+    commandExists('wp')
+      .then(function(command){
+        wp_cli = true
+      }).catch(function(){
+      wp_cli = false;
+    });
 
-    this.log(chalk.bold.red(warning));
+    commandExists('craft')
+      .then(function(command){
+        craft_cli = true
+      }).catch(function(){
+      craft_cli = false;
+    });
+
+    commandExists('yarn')
+      .then(function(command){
+        yarn = true
+      }).catch(function(){
+      yarn = false;
+    });
 
     return this.prompt([
       {
         type: 'input',
         name: 'projectName',
         message: 'Name the project (name of the theme folder in Wordpress)',
-        default: 'mh-boilerplate'
+        default: 'mh-boilerplate',
+        validate: function (input) {
+          // Do async stuff
+          if (input.indexOf(' ') >= 0 || /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(input)) {
+            // Pass the return value in the done callback
+            console.log('\n' + chalk.styles.red.open + 'No whitespaces or special-chars allowed!' + chalk.styles.red.close);
+            return false;
+          }
+          return true;
+        }
       },{
         type: 'input',
         name: 'projectDescription',
-        message: 'Short description of the Project`',
+        message: 'Short description of the Project',
         default: 'undefined'
       },{
         type: 'input',
@@ -51,22 +104,41 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
         name: 'projectUsage',
         message: 'Which purpose does this Project have? Choose the appropriate option',
         choices: [
-          "HTML Protoypes",
-          "Wordpress",
           "Craft",
-          "laravel"
+          "Laravel",
+          "Wordpress"
         ]
       },{
         when: function(answers) {
-          return answers.projectUsage === 'Craft';
+          if(answers.projectUsage === 'Craft') {
+            return true
+          }
+          return false
         },
-        type: 'confirm',
-        name: 'craftHearty',
-        message: 'Do you want to use Hearty Config?',
-        default: false
+        type: 'list',
+        name: 'craftEnv',
+        message: 'Which Craft Config Method do you want to use?',
+        choices: [
+          {
+            'name': 'NY Studio Multienvironment with .env.php (Default)',
+            'value': 'nystudio'
+          },
+          {
+            'name': 'Default',
+            'value': 'default'
+          },
+          {
+            'name': 'Hearty Config',
+            'value': 'hearty'
+          }
+        ],
+        default: 0
       },{
         when: function(answers) {
-          return answers.projectUsage === 'Craft';
+          if(answers.projectUsage === 'Craft' && craft_cli) {
+            return true
+          }
+          return false
         },
         type: 'confirm',
         name: 'craftInstall',
@@ -74,15 +146,10 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
         default: false
       },{
         when: function(answers) {
-          return answers.projectUsage === 'HTML Protoypes';
-        },
-        type: 'confirm',
-        name: 'projectTwig',
-        message: 'Do yo want to use Twig as Template ?',
-        default: false
-      },{
-        when: function(answers) {
-          return answers.projectUsage === 'Wordpress';
+          if(answers.projectUsage === 'Wordpress' && wp_cli) {
+            return true
+          }
+          return false
         },
         type: 'confirm',
         name: 'projectInstallWordpress',
@@ -90,25 +157,45 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
         default: false
       },{
         when: function(answers) {
-          return answers.projectUsage === 'laravel';
+          return answers.projectUsage === 'Laravel';
         },
         type: 'confirm',
         name: 'projectInstallLaravel',
         message: 'Do you want to install Laravel?',
         default: false
       },{
-        when: function(answers) {
-          return answers.projectUsage === 'laravel';
-        },
-        type: 'confirm',
-        name: 'projectInstallLaravelFormBoilerplate',
-        message: 'Do you want to install Laravel Form Boilerplate?',
-        default: false
-      },{
         type: 'confirm',
         name: 'projectUseVue',
-        message: 'Do you want to use Vue and Vueify on your project?',
+        message: 'Do you want to use Vue on your project?',
         default: false
+      },{
+        when: function(answers) {
+          return answers.projectUseVue;
+        },
+        type: 'list',
+        name: 'projectVueVersion',
+        message: 'Which version of Vue do you want to use',
+        choices: [
+          'Standalone',
+          'Runtime only (You have to use .vue Files or Render Functions!)'
+        ]
+      },{
+        when: function(answers) {
+          return answers.projectUseVue;
+        },
+        type: 'checkbox',
+        name: 'projectVuePlugins',
+        message: 'Which Vue Plugins do you want to install',
+        choices: [
+          {
+            name: 'VueX (including VueX Structure, see README.md)',
+            value: 'vuex',
+          },
+          {
+            name: 'Vue Router',
+            value: 'vuerouter',
+          }
+        ]
       },{
         type: 'input',
         name: 'projectVersion',
@@ -146,17 +233,18 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
           return false
         }
       }
+
       this.projectName = answers.projectName;
         this.projectDescription = answers.projectDescription;
         this.projectProxy = answers.projectProxy;
         this.projectUsage = answers.projectUsage;
-        this.projectTwig = checkAnswer( answers.projectTwig );
         this.projectInstallWordpress = checkAnswer(answers.projectInstallWordpress);
         this.projectInstallLaravel = checkAnswer(answers.projectInstallLaravel);
-        this.projectInstallLaravelFormBoilerplate = checkAnswer(answers.projectInstallLaravelFormBoilerplate);
         this.craftInstall = checkAnswer(answers.craftInstall);
-        this.craftHearty = checkAnswer(answers.craftHearty);
+        this.craftEnv = checkAnswer(answers.craftEnv);
         this.projectUseVue = checkAnswer(answers.projectUseVue);
+        this.projectVueVersion = answers.projectVueVersion;
+        this.projectVuePlugins = answers.projectVuePlugins;
         this.projectVersion = answers.projectVersion;
         this.projectAuthor = answers.projectAuthor;
         this.projectMail = answers.projectMail;
@@ -164,30 +252,129 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
         this.projectRepo = answers.projectRepo;
         done();
     }.bind(this))
-  },
+  }
 
-  app: function() {
+  writing() {
+    var params = {
+      projectName: this.projectName,
+      projectDescription: this.projectDescription,
+      projectProxy: this.projectProxy,
+      projectUsage: this.projectUsage,
+      projectInstallWordpress: this.projectInstallWordpress,
+      projectInstallLaravel: this.projectInstallLaravel,
+      craftInstall: this.craftInstall,
+      craftEnv: this.craftEnv,
+      projectUseVue: this.projectUseVue,
+      projectVersion: this.projectVersion,
+      projectVueVersion: this.projectVueVersion,
+      projectVuePlugins: this.projectVuePlugins,
+      projectAuthor: this.projectAuthor,
+      projectMail: this.projectMail,
+      projectUrl: this.projectUrl,
+      projectRepo: this.projectRepo
+    }
 
     // move src folder
-    this.directory('src/boilerplates/', 'src/boilerplates/');
-    this.directory('src/js/', 'src/js/');
-    this.directory('src/js/', 'src/js');
-    this.directory('src/scss/', 'src/scss/');
-    this.directory('src/gulpfile/', 'gulpfile/');
-    if(this.projectTwig) {
-      this.directory('src/twig/', 'src/views/');
-    } else if(this.projectUsage === 'Craft') {
-      this.directory('src/craft/', 'src/views/');
+    this.fs.copyTpl(
+      this.templatePath('src/boilerplates'),
+      this.destinationPath('src/boilerplates'),
+      params
+    );
+    this.fs.copyTpl(
+      this.templatePath('src/js'),
+      this.destinationPath('src/js'),
+      params
+    );
+    this.fs.copyTpl(
+      this.templatePath('src/scss'),
+      this.destinationPath('src/scss'),
+      params
+    );
+    this.fs.copyTpl(
+      this.templatePath('src/gulpfile'),
+      this.destinationPath('./gulpfile'),
+      params
+    );
+    this.fs.copyTpl(
+      this.templatePath('src/webpack/babelrc'),
+      this.destinationPath('./webpack/.babelrc'),
+      params
+    );
+    this.fs.copyTpl(
+      this.templatePath('src/webpack'),
+      this.destinationPath('./webpack'),
+      params
+    );
+    if(this.projectUsage === 'Craft') {
+      this.fs.copyTpl(
+        this.templatePath('src/craft'),
+        this.destinationPath('src/views/'),
+        params
+      );
+    } else if(this.projectUsage === 'Laravel') {
+      this.fs.copyTpl(
+        this.templatePath('src/Laravel'),
+        this.destinationPath('src/views/'),
+        params
+      );
     } else {
-      this.directory('src/php/', 'src/views/');
+      this.fs.copyTpl(
+        this.templatePath('src/php'),
+        this.destinationPath('src/views'),
+        params
+      );
     }
-    if(this.craftHearty) {
-      this.directory('craft/hearty/config/', 'dist/config');
-      this.directory('craft/hearty/systemFiles', 'src/systemFiles');
+    if(this.craftEnv === 'nystudio') {
+      this.fs.copyTpl(
+        this.templatePath('craft/nystudio/systemFiles'),
+        this.destinationPath('src/systemFiles'),
+        params
+      );
+    } else if (this.craftEnv === 'hearty') {
+      this.fs.copyTpl(
+        this.templatePath('craft/hearty/config'),
+        this.destinationPath('dist/config'),
+        params
+      );
+      this.fs.copyTpl(
+        this.templatePath('craft/hearty/systemFiles'),
+        this.destinationPath('src/systemFiles'),
+        params
+      );
       mkdirp('dist/plugins');
+    } else if (this.craftEnv === 'default') {
+      this.fs.copyTpl(
+        this.templatePath('craft/default/systemFiles'),
+        this.destinationPath('src/systemFiles'),
+        params
+      )
     } else {
       mkdirp('src/systemFiles');
     }
+    if(this.projectUseVue) {
+      this.fs.copyTpl(
+        this.templatePath('vue/App.vue'),
+        this.destinationPath('src/js/App.vue'),
+        params
+      );
+      mkdirp('src/js/components/');
+    }
+
+
+    if(this.projectVuePlugins.includes('vuex')) {
+      this.fs.copy(
+        this.templatePath('src/Vue/VueX/store/'),
+        this.destinationPath('src/js/store/')
+      )
+    }
+
+    if(this.projectVuePlugins.includes('vuerouter')) {
+      this.fs.copy(
+        this.templatePath('src/Vue/Router/index.js'),
+        this.destinationPath('src/js/router/index.js')
+      )
+    }
+
     mkdirp('src/images/cssimages');
     mkdirp('src/images/htmlimages');
     mkdirp('src/images/svg/single');
@@ -197,28 +384,6 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
     mkdirp('src/js/my-source');
     mkdirp('src/js/single');
     mkdirp('src/favicons');
-  },
-
-  projectfiles: function() {
-
-    var params = {
-      projectName: this.projectName,
-      projectDescription: this.projectDescription,
-      projectProxy: this.projectProxy,
-      projectUsage: this.projectUsage,
-      projectTwig: this.projectTwig,
-      projectInstallWordpress: this.projectInstallWordpress,
-      projectInstallLaravel: this.projectInstallLaravel,
-      projectInstallLaravelFormBoilerplate: this.projectInstallLaravelFormBoilerplate,
-      craftInstall: this.craftInstall,
-      craftHearty: this.craftHearty,
-      projectUseVue: this.projectUseVue,
-      projectVersion: this.projectVersion,
-      projectAuthor: this.projectAuthor,
-      projectMail: this.projectMail,
-      projectUrl: this.projectUrl,
-      projectRepo: this.projectRepo
-    }
 
     this.fs.copyTpl(
         this.templatePath('_package.json'),
@@ -247,7 +412,12 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
     );
     this.fs.copyTpl(
         this.templatePath('eslintrc'),
-        this.destinationPath('.eslintrc'),
+        this.destinationPath('.eslintrc.js'),
+        params
+    );
+    this.fs.copyTpl(
+        this.templatePath('stylelintrc'),
+        this.destinationPath('.stylelintrc'),
         params
     );
     this.fs.copyTpl(
@@ -256,43 +426,87 @@ var mhBoilerplateGenerator = yeoman.Base.extend({
         params
     );
     this.fs.copyTpl(
+        this.templatePath('postcss.config.js'),
+        this.destinationPath('.postcssrc.js'),
+        params
+    );
+    this.fs.copyTpl(
         this.templatePath('_readme.md'),
         this.destinationPath('README.md'),
         params
-    )
-  },
+    );
+  }
 
 
 
-  install: function () {
+  install() {
     var that = this;
-
-
-    this.log('Install dependencies');
-
-    this.installDependencies({
-      skipInstall: this.options['skip-install'],
-      callback: function () {
-        this.log('Init git repo');
-        this.spawnCommand('git', ['init']);
-        this.log('Running gulp init');
-        this.spawnCommand('gulp', ['init']);
-      }.bind(this) // bind the callback to the parent scope
-    });
+    const params = [
+      '', // Packages to Install
+      {}, // Options to pass to to dargs as arguments
+      function cb() {
+        that.spawnCommandSync('git', ['init']);
+        that.spawnCommandSync('npm', ['run', 'init']);
+      },
+      {} // options to pass child_process.spawn.
+    ];
+    // check if yarn is available and use it instead of npm
+      if(yarn) {
+        that.yarnInstall(...params);
+      } else {
+        that.npmInstall(...params)
+      }
 
     if (this.projectInstallLaravel) {
-      this.spawnCommand('laravel', ['new', 'dist']);
+      var done = this.async();
+      this.spawnCommand('composer', ['create-project', '--prefer-dist', 'laravel/laravel', 'dist']).on('close', done);
+      this.spawnCommand('rsync', ['-avz', '--exclude=css/', '--exclude=js/', 'dist/public/', 'src/systemFiles']);
     } else if (this.projectInstallWordpress) {
-      this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]);
-    } else if(this.craftInstall) {
+      var done = this.async();
+      this.spawnCommand('wp', ['core', 'download', '--path=dist/', '--locale=de_DE', '--skip-themes=["twentythirteen", "twentyfourteen"]', '--skip-plugins' ]).on('close', done);
+    } else if(this.craftInstall && !this.options.beta) {
       var done = this.async();
       this.spawnCommand('craft', ['install', 'dist']).on('close', done);
+    } else if(this.craftInstall && this.options.beta) {
+      var done = this.async();
+      this.spawnCommand('composer', ['create-project', 'craftcms/craft', 'dist', '-s beta']).on('close', done);
     }
 
-    if (this.projectInstallLaravelFormBoilerplate) {
-      that.composeWith('mh-boilerplate:laravel-forms');
+  }
+
+  end() {
+
+    if (this.projectInstallLaravel) {
+      var done = this.async();
+      this.spawnCommand('rsync', ['-avz', '--exclude=css/', '--exclude=js/', 'dist/public/', 'src/systemFiles']);
+    }
+
+
+    if(this.craftEnv === 'nystudio') {
+      this.fs.copy(
+        this.templatePath('craft/nystudio/environment/env.example.php'),
+        this.destinationPath('dist/.env.example.php')
+      );
+
+      this.log('Overwrite the Original Craft Files with the ones by the NYStudio Multi Environment');
+
+      if (this.fs.exists(this.destinationPath('dist/craft/config/db.php'))) {
+        this.fs.delete(this.destinationPath('dist/craft/config/db.php'));
+
+        this.fs.copy(
+          this.templatePath('craft/nystudio/config/db.php'),
+          this.destinationPath('dist/craft/config/db.php')
+        );
+      }
+
+      if (this.fs.exists(this.destinationPath('dist/craft/config/general.php'))) {
+        this.fs.delete(this.destinationPath('dist/craft/config/general.php'));
+
+        this.fs.copy(
+          this.templatePath('craft/nystudio/config/general.php'),
+          this.destinationPath('dist/craft/config/general.php')
+        );
+      }
     }
   }
-});
-
-module.exports = mhBoilerplateGenerator;
+}

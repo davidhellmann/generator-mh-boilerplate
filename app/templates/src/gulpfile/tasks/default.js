@@ -1,19 +1,32 @@
 /**
- * The Default gulp task
- **/
+ |--------------------------------------------------------------------------
+ | gulp
+ |--------------------------------------------------------------------------
+ *
+ * Default task run Browser Sync and Watch
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
+/*
+ |--------------------------------------------------------------------------
+ | default.js
+ |--------------------------------------------------------------------------
+ */
 
 import gulp from 'gulp';
-import runSequence from 'run-sequence';
+import run_sequence from 'run-sequence';
 
 const defaultTask = (cb) => {
-    runSequence(
-        [
-            'browser-sync',
-            'watch',
-            'watch:js'
-        ]
-    )
+  run_sequence(
+    [
+      'browser-sync',
+      'watch',
+    ]
+  )
 }
 
 gulp.task('default', defaultTask);
-module.exports = defaultTask;
+
+export default { defaultTask };

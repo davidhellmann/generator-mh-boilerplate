@@ -2,21 +2,7 @@
     <% if (projectProxy != '') { %>
     "proxy"      : "<%= projectProxy %>", <% } else { %>
     "proxy"      : "", <% } %>
-    <% if (projectTwig) { %>
-    "compiler"   : "twig", <% } else { %>
-    "compiler"   : "nothing", <% } %>
     "projectType": "<%= projectUsage %>",
-    "files"      : {
-        "jsApp": {
-        "srcName": "app.js",
-        "distName": "app.js"
-        },
-        "jsCombinePlugins"        : [
-        ],
-        "jsCombinePluginsFilename": "plugins.min.js",
-        "jsCopyScripts"           : [
-        ]
-    },
     "favicon": {
         "appName"       : "My App",
         "appDescription": "This is my Application",
@@ -78,65 +64,127 @@
     }
     },
     "src"        : {
-        "src"      : "src/",
-        "assets"   : "",
-        "views"    : "views/",
-        "systemFiles": "systemFiles/",
-        "css"      : "scss/",
-        "fonts"    : "fonts/",
-        "js"       : {
-            "base"    : "js/",
-            "mysource": "my-source/",
-            "json"    : "json/"
-        },
-        "favicons": "favicons/",
-        "images"   : {
-            "base"  : "images/",
-            "svg"   : {
-                "base"  : "svg/",
-                "single": "single/",
-                "sprite": "sprite/"
+        "base"       : "src/",
+        "views"      : "src/views/",
+        "systemFiles": "src/systemFiles/",
+        "css"        : "src/scss/",
+        "fonts"      : "src/fonts/",
+        "js"         : "src/js/",
+        "favicons"   : "src/favicons/",
+        "images"     : {
+            "base"       : "src/images/",
+            "svg"        : {
+                "base"       : "src/images/svg/",
+                "single"     : "single/",
+                "sprite"     : "sprite/"
             },
-            "bitmap": {
-                "cssimages" : "cssimages/",
-                "htmlimages": "htmlimages/"
+            "bitmap"     : {
+                "cssimages"  : "cssimages/",
+                "htmlimages" : "htmlimages/"
             }
         }
     },
     "dist"       : {
     <% if (projectUsage == 'HTML Protoypes') { %>
-        "dist"     : "dist/",
-        "views"    : "dist/",
-        "systemFiles": "dist/",<% } if (projectUsage == 'Wordpress') { %>
-        "dist"     : "dist/wp-content/themes/<%= projectName %>/",
-        "views"    : "dist/wp-content/themes/<%= projectName %>/",
-        "systemFiles": "dist/",<% } if (projectUsage == 'Craft' && !craftHearty) { %>
-        "dist"     : "dist/public/",
-        "views"    : "dist/craft/templates/",
-        "systemFiles": "dist/public/",<% } if (craftHearty && projectUsage == 'Craft') { %>
-        "dist"     : "dist/public/",
-        "views"    : "dist/templates/",
-        "systemFiles": "dist/public/",<% } if (projectUsage == 'laravel') { %>
-        "dist"     : "dist/public/",
-        "favicons": "favicons/",
-        "views"    : "dist/resources/views/",
-         "systemFiles": "dist/public/",<% } %>
-        "css"      : "assets/css/",
-        "favicons": "favicons/",
-        "fonts"    : "assets/fonts/",
-        "js"       : "assets/js/",
-        "images"   : {
-            "base"  : "assets/images/",
-            "svg"   : {
-                "base"  : "svg/",
-                "single": "single/",
-                "sprite": "sprite/"
+        "base"              : "dist/",
+        "views"             : "dist/",
+        "css"               : "dist/assets/css/",
+        "favicons"          : "dist/favicons/",
+        "fonts"             : "dist/assets/fonts/",
+        "js"                : "dist/assets/js/",
+        "images"            : {
+            "base"          : "dist/assets/images/",
+            "svg"           : {
+                "base"      : "dist/assets/images/svg/",
+                "single"    : "single/",
+                "sprite"    : "sprite/"
             },
-            "bitmap": {
+            "bitmap"        : {
                 "cssimages" : "cssimages/",
                 "htmlimages": "htmlimages/"
             }
         }
+    <% } if (projectUsage == 'Wordpress') { %>
+        "base"              : "dist/wp-content/themes/<%= projectName %>/",
+        "views"             : "dist/wp-content/themes/<%= projectName %>/",
+        "css"               : "dist/wp-content/themes/<%= projectName %>/assets/css/",
+        "favicons"          : "dist/wp-content/themes/<%= projectName %>/favicons/",
+        "fonts"             : "dist/wp-content/themes/<%= projectName %>/assets/fonts/",
+        "js"                : "dist/wp-content/themes/<%= projectName %>/assets/js/",
+        "images"            : {
+            "base"          : "dist/wp-content/themes/<%= projectName %>/assets/images/",
+            "svg"           : {
+                "base"      : "dist/wp-content/themes/<%= projectName %>/assets/images/svg/",
+                "single"    : "single/",
+                "sprite"    : "sprite/"
+            },
+            "bitmap"        : {
+                "cssimages" : "cssimages/",
+                "htmlimages": "htmlimages/"
+            }
+        }
+    <% } if (craftEnv == 'default' || craftEnv == 'nystudio' && projectUsage == 'Craft') { %>
+        "base"                  : "dist/public/",
+        "views"                 : "dist/craft/templates/",
+        "systemFiles"           : "dist/public/",
+        "css"                   : "dist/public/assets/css/",
+        "favicons"              : "dist/public/favicons/",
+        "fonts"                 : "dist/public/assets/fonts/",
+        "js"                    : "dist/public/assets/js/",
+        "images"                : {
+            "base"              : "dist/public/assets/images/",
+            "svg"               : {
+                "base"          : "dist/public/assets/images/svg/",
+                "single"        : "single/",
+                "sprite"        : "sprite/"
+            },
+            "bitmap"            : {
+                "cssimages"     : "cssimages/",
+                "htmlimages"    : "htmlimages/"
+            }
+        }
+    <% } if (craftEnv == 'hearty' && projectUsage == 'Craft') { %>
+        "base"                  : "dist/public/",
+        "views"                 : "dist/templates/",
+        "systemFiles"           : "dist/public/",
+        "css"                   : "dist/public/assets/css/",
+        "favicons"              : "dist/public/favicons/",
+        "fonts"                 : "dist/public/assets/fonts/",
+        "js"                    : "dist/public/assets/js/",
+        "images"                : {
+            "base"              : "dist/public/assets/images/",
+            "svg"               : {
+                "base"          : "dist/public/assets/images/svg/",
+                "single"        : "single/",
+                "sprite"        : "sprite/"
+            },
+            "bitmap"            : {
+                "cssimages"     : "cssimages/",
+                "htmlimages"    : "htmlimages/"
+            }
+        }
+    <% } if (projectUsage == 'Laravel') { %>
+        "base"                  : "dist/public/",
+        "views"                 : "dist/resources/views/",
+        "systemFiles"           : "dist/public/",
+        "css"                   : "dist/public/assets/css/",
+        "favicons"              : "dist/public/favicons/",
+        "fonts"                 : "dist/public/assets/fonts/",
+        "js"                    : "dist/public/assets/js/",
+        "images"                : {
+            "base"              : "dist/public/assets/images/",
+            "svg"               : {
+                "base"          : "dist/public/assets/images/svg/",
+                "single"        : "single/",
+                "sprite"        : "sprite/"
+            },
+            "bitmap"            : {
+                "cssimages"     : "cssimages/",
+                "htmlimages"    : "htmlimages/"
+            }
+        }
+     <% } %>
+
     }
 }
 

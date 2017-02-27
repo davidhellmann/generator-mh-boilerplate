@@ -6,13 +6,15 @@
     */
 
     return array(
+
         'db' => array(
             'server' => 'localhost',
-            'user' => 'user',
-            'password' => 'password',
-            'database' => 'database',
+            'user' => 'root',
+            'password' => 'root',
+            'database' => '',
         ),
-        'devMode' => false,
+
+        'devMode' => true,
         'phpMaxMemoryLimit' => '256M',
         'backupDbOnUpdate' => true,
         'translationDebugOutput' => false,
@@ -21,8 +23,6 @@
         'userSessionDuration'           => 'P101Y',
         'rememberedUserSessionDuration' => 'P101Y',
         'rememberUsernameDuration'      => 'P101Y',
-        'defaultCpLanguage' => 'en',
-        'translationDebugOutput' => false,
 
         //'testToEmailAddress'  => 'tester@testingtesting123.com',
 

@@ -8,7 +8,6 @@
         include "header/_metatags.php";
     ?>
     <title></title>
-    <script src="assets/js/vendor/modernizr-custom.min.js"></script>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body>

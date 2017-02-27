@@ -1,40 +1,48 @@
 /**
-   * Watch Task
-   **/
+ * Defines which Files gulp watches for Changes
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
 
-import config from '../../config.json';
+/*
+ |--------------------------------------------------------------------------
+ | watch.js
+ |--------------------------------------------------------------------------
+ */
+
 import gulp from 'gulp';
 import watch from 'gulp-watch';
-import gulpLoadPlugins from 'gulp-load-plugins';
+import config from '../../config.json';
 
-const watchTask = () => {
+const watch_task = () => {
+  /**
+   * Defined Paths to be watched and their corresponding gulp watch
+   */
 
-    // watch views
-    gulp.watch(config.src.src + config.src.views + '**/*.{php,html,twig}', ['views'])
 
-    // watch sass
-    gulp.watch(config.src.src + config.src.css + '**/*.scss', ['compile:css']);
+  const paths = {
+    'move:views': `${config.src.views}**/*`,
+    'move:images': [
+      `${config.src.images.base}**/*`,
+      `!${config.src.images.base}svg/**/*`,
+    ],
+    'svg:sprite': `${config.src.images.svg.base + config.src.images.svg.sprite}**/*.svg`,
+    'svg:single': `${config.src.images.svg.base + config.src.images.svg.single}**/*.svg`,
+  };
 
-    // watch js scripts
-    gulp.watch(config.src.src + config.src.js.base + config.src.js.mysource + '**/*.js', ['js-scripts']);
 
-    // watch js move
-    gulp.watch(config.src.src + config.src.js.base + 'single/**/*', ['js-move']);
+  /**
+   * loop through all the paths defined above and add a watcher for it
+   * the pattern is 'gulp command': path to watched files
+   */
 
-    // watch js json
-    gulp.watch(config.src.src + config.src.js.base + config.src.js.json + '**/*.json', ['js-json']);
 
-    // watch images
-    gulp.watch(config.src.src + config.src.images.base + '**/*', ['images']);
+  Object.keys(paths).forEach((key) => {
+    gulp.watch(paths[key], [key]);
+  });
+};
 
-    // watch SVG Stuff
-    gulp.watch(config.src.src + config.src.images.base + config.src.images.svg.base + config.src.images.svg.single + '**/*', ['svg-single']);
+gulp.task('watch', ['browser-sync'], watch_task);
 
-    gulp.watch(config.src.src + config.src.images.base + config.src.images.svg.base + config.src.images.svg.sprite + '**/*', ['svg-sprite']);
-
-    // reload!
-    gulp.watch(config.dist.dist + '**/*.{php,html,js,jpg,png,svg}', ['bs-reload']);
-}
-
-gulp.task('watch', ['browser-sync'], watchTask);
-module.exports = watchTask;
+export default watch_task;
