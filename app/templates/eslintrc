@@ -19,7 +19,6 @@ module.exports = {
     'camelcase': 0,
     "complexity": [2, 10],
     "no-bitwise": 2,
-    "curly": [2, "all"],
     "eqeqeq": 2,
     "wrap-iife": 2,
     "no-empty": 2,
@@ -36,8 +35,6 @@ module.exports = {
     "no-unused-vars": ['error', {
       args: 'none'
     }],
-    "no-empty": 2,
-    "comma-dangle": [2, "never"],
     "max-len": [2, 220],
     "comma-style": [2, "last"],
     "dot-notation": 2,

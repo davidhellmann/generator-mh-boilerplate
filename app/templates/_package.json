@@ -103,7 +103,7 @@
     "util": "^0.10.3",
     "utils-merge": "^1.0.0",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",<%_ if (projectUseVue) { _%>
+    "vinyl-source-stream": "^1.1.0",<%_ if (projectUseVue || projectUsage === 'vueapp') { _%>
     "vue-loader": "^11.1.0",
     "vue-style-loader": "^2.0.0",
     "vue-template-compiler": "^2.1.10",
@@ -125,15 +125,15 @@
     "lazysizes": "^3.0.0-rc4",
     "lodash": "^4.16.6",
     "modularscale-sass": "^2.1.1",
-    "svgxuse": "^1.1.23"
-    <%_ if(projectUseVue) { _%>,
+    <%_ if(projectUseVue || projectUsage === 'vueapp') { _%>
     "vue": "^2.2.0",
     <%_ } _%>
-    <%_ if (projectVuePlugins.includes('vuex')) { _%>
+    <%_ if (projectVuePlugins.includes('vuex') || projectUsage === 'vueapp') { _%>
     "vuex": "^2.2.1",
     <%_ } _%>
-    <%_ if (projectVuePlugins.includes('vuerouter')) { _%>
+    <%_ if (projectVuePlugins.includes('vuerouter') || projectUsage === 'vueapp') { _%>
     "vue-router": "^2.3.0",
     <%_ } _%>
+    "svgxuse": "^1.1.23"
   }
 }

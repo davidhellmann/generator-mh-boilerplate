@@ -1,13 +1,22 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-Vue.use(Router);
-
 // import your route Components here
-// import Example from '../views/Example.vue'
+<%_ if (projectUsage === 'vueapp') { %>
+import Home from '../views/Home.vue';
+<%_ } else { _%>
+// import Example from '../views/Example.vue';
+<%_ } _%>
+
+
+Vue.use(Router);
 
 export default new Router({
   routes: [
-    //{ path: '/Example', component: Example }
-  ]
+  <%_ if (projectUsage === 'vueapp') { _%>
+    { path: '/', component: Home },
+  <%_ } else { _%>
+    // { path: '/Example', component: Example },
+  <%_ } _%>
+  ],
 });

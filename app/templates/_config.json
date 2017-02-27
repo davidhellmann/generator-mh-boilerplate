@@ -85,7 +85,7 @@
         }
     },
     "dist"       : {
-    <% if (projectUsage == 'HTML Protoypes') { %>
+    <% if (projectUsage == 'vueapp') { %>
         "base"              : "dist/",
         "views"             : "dist/",
         "css"               : "dist/assets/css/",

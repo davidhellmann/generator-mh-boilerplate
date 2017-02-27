@@ -94,6 +94,14 @@ let chunks = [];
         inject: false,
       }
     ]
+    <% } else if (projectUsage === 'vueapp') { %>
+  const chunks_inject = [
+      {
+        filename: path.resolve(`${config.dist.views}/index.html`),
+        file: config.src.views + 'index.html',
+        inject: true,
+      }
+    ]
     <% } %>
 
 chunks_inject.forEach((chunk) => {
@@ -128,7 +136,7 @@ export default {
     chunkFilename: assetsPath('js/[id].[chunkhash].js'),
   },
   resolve: {
-    extensions: ['.js'<%_ if (projectUseVue === true ) { _%>, '.vue'<%_ } _%>, '.json'],
+    extensions: ['.js'<%_ if (projectUseVue === true || projectUsage === 'vueapp' ) { _%>, '.vue'<%_ } _%>, '.json'],
     modules: [
       resolve(config.src.base),
       resolve('node_modules'),
@@ -148,7 +156,7 @@ export default {
         enforce: 'pre',
         include: resolve(config.src.base),
       },
-    <%_ if (projectUseVue === true ) { _%>
+    <%_ if (projectUseVue === true || projectUsage === 'vueapp' ) { _%>
       {
         test: /\.vue$/,
         loader: 'vue-loader',

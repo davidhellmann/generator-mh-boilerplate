@@ -80,7 +80,6 @@ module.exports = class extends yeoman {
         type: 'input',
         name: 'projectName',
         message: 'Name the project (name of the theme folder in Wordpress)',
-        default: 'mh-boilerplate',
         validate: function (input) {
           // Do async stuff
           if (input.indexOf(' ') >= 0 || /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(input)) {
@@ -106,6 +105,10 @@ module.exports = class extends yeoman {
         choices: [
           "Craft",
           "Laravel",
+          {
+            name: "Vue Application",
+            value: 'vueapp',
+          },
           "Wordpress"
         ]
       },{
@@ -164,6 +167,9 @@ module.exports = class extends yeoman {
         message: 'Do you want to install Laravel?',
         default: false
       },{
+        when: function(answers) {
+          return answers.projectUsage !== 'vueapp'
+        },
         type: 'confirm',
         name: 'projectUseVue',
         message: 'Do you want to use Vue on your project?',
@@ -244,7 +250,7 @@ module.exports = class extends yeoman {
         this.craftEnv = checkAnswer(answers.craftEnv);
         this.projectUseVue = checkAnswer(answers.projectUseVue);
         this.projectVueVersion = answers.projectVueVersion;
-        this.projectVuePlugins = answers.projectVuePlugins;
+        this.projectVuePlugins = answers.projectVuePlugins || [];
         this.projectVersion = answers.projectVersion;
         this.projectAuthor = answers.projectAuthor;
         this.projectMail = answers.projectMail;
@@ -317,6 +323,12 @@ module.exports = class extends yeoman {
         this.destinationPath('src/views/'),
         params
       );
+    } else if(this.projectUsage === 'vueapp') {
+      this.fs.copyTpl(
+        this.templatePath('src/Vue/template/index.html'),
+        this.destinationPath('src/views/index.html'),
+        params
+      );
     } else {
       this.fs.copyTpl(
         this.templatePath('src/php'),
@@ -351,7 +363,7 @@ module.exports = class extends yeoman {
     } else {
       mkdirp('src/systemFiles');
     }
-    if(this.projectUseVue) {
+    if(this.projectUseVue || this.projectUsage === 'vueapp') {
       this.fs.copyTpl(
         this.templatePath('vue/App.vue'),
         this.destinationPath('src/js/App.vue'),
@@ -360,19 +372,42 @@ module.exports = class extends yeoman {
       mkdirp('src/js/components/');
     }
 
-
-    if(this.projectVuePlugins.includes('vuex')) {
+    if(this.projectUsage === 'vueapp') {
       this.fs.copy(
-        this.templatePath('src/Vue/VueX/store/'),
-        this.destinationPath('src/js/store/')
+        this.templatePath('src/Vue/views/'),
+        this.destinationPath('src/js/views/')
       )
     }
 
-    if(this.projectVuePlugins.includes('vuerouter')) {
-      this.fs.copy(
-        this.templatePath('src/Vue/Router/index.js'),
-        this.destinationPath('src/js/router/index.js')
-      )
+     const copyVueStuff = (vuex = true, vuerouter = true) => {
+      if(vuex) {
+        this.fs.copy(
+          this.templatePath('src/Vue/VueX/store/'),
+          this.destinationPath('src/js/store/')
+        )
+      }
+
+      if(vuerouter) {
+        this.fs.copyTpl(
+          this.templatePath('src/Vue/Router/index.js'),
+          this.destinationPath('src/js/router/index.js'),
+          params
+        )
+      }
+    };
+
+    if(this.projectUsage === 'vueapp') {
+      copyVueStuff();
+    }
+
+    if(this.projectVuePlugins) {
+      if(this.projectVuePlugins.includes('vuex')) {
+        copyVueStuff(true, false)
+      }
+
+      if(this.projectVuePlugins.includes('vuerouter')) {
+        copyVueStuff(false, true)
+      }
     }
 
     mkdirp('src/images/cssimages');
@@ -381,8 +416,6 @@ module.exports = class extends yeoman {
     mkdirp('src/images/svg/sprite');
     mkdirp('src/fonts');
     mkdirp('src/js/json');
-    mkdirp('src/js/my-source');
-    mkdirp('src/js/single');
     mkdirp('src/favicons');
 
     this.fs.copyTpl(
