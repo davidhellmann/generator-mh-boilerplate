@@ -80,7 +80,16 @@ module.exports = class extends yeoman {
         type: 'input',
         name: 'projectName',
         message: 'Name the project (name of the theme folder in Wordpress)',
-        default: 'mh-boilerplate'
+        default: 'mh-boilerplate',
+        validate: function (input) {
+          // Do async stuff
+          if (input.indexOf(' ') >= 0 || /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(input)) {
+            // Pass the return value in the done callback
+            console.log('\n' + chalk.styles.red.open + 'No whitespaces or special-chars allowed!' + chalk.styles.red.close);
+            return false;
+          }
+          return true;
+        }
       },{
         type: 'input',
         name: 'projectDescription',

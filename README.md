@@ -1,18 +1,17 @@
 # YO
 This is kind of special and mostly suited for my own requirements
 
-Thanks to [Sascha Fuchs](https://github.com/gisu) for the help and his framework [Kittn](http://kittn.de/) for the inspiration.
+Thanks to [Sascha Fuchs](https://github.com/gisu) for the help and his framework [Kittn](https://github.com/kittn/generator-kittn/) for the inspiration.
 
 Also thanks to [David Hellmann](https://github.com/davidhellmann) and his [yo boilerplate](https://github.com/davidhellmann/generator-dhBoilerplate).
 
---
-Using functions of Hugo Giraudel
-[http://hugogiraudel.com/2013/08/05/offsets-sass-mixin/](http://hugogiraudel.com/2013/08/05/offsets-sass-mixin/)
-[http://www.sitepoint.com/sass-mixin-css-triangles/](http://www.sitepoint.com/sass-mixin-css-triangles/)
+## Requirements
+* composer
+* git
 
-Using the REM Calc function of Foundation by zurb
-[http://foundation.zurb.com](http://foundation.zurb.com)
---
+## Nice to Have
+* Craft CLI
+* Wordpress CLI
 
 ## External Libraries
 - Include Media ([include-media.com](http://include-media.com/)) - Easy Media Queries
@@ -22,14 +21,21 @@ Using the REM Calc function of Foundation by zurb
 - fluid type mixin ([http://www.sassmeister.com/gist/7f22e44ace49b5124eec](http://www.sassmeister.com/gist/7f22e44ace49b5124eec))
 
 
-## Wordpress
-When you choose Wordpress the installer will do a fresh install of Wordpress via the WP-CLI tool, you need to install this tool [http://wp-cli.org/](http://wp-cli.org/)
-
-## Laravel
-For Laravel you need to follow these instructions first [http://laravel.com/docs/5.1/installation](http://laravel.com/docs/5.1/installation) because it uses the Laravel bin to create a new Laravel installation
 
 ## Craft
-After intializing install craft in the dist folder
+If you have installed [Craft CLI](https://github.com/rsanchez/craft-cli) it will be used to install Craft otherwise please install it by yourself
+
+We can give you two Config Presets
+* [NY Studio 107 Craft Multi Environment](https://github.com/nystudio107/craft-multi-environment) (Recommended)
+* [Hearty Conf](https://github.com/mmikkel/HeartyConfig-Craft) 
+
+
+## Laravel
+If you choose to Install Laravel it will create a new Project with composer
+
+## Wordpress
+When you choose Wordpress the installer will do a 
+fresh install of Wordpress via the WP-CLI tool, you need to install this tool [http://wp-cli.org/](http://wp-cli.org/)
 
 # Install
 
@@ -41,56 +47,40 @@ Jump to your Project Folder and type:
 
 Yeoman will set all necessary paths and other configs in the config.json
 
-Yeoman will initialize a git repo and will fire `gulp init` to initialize the project
+Yeoman will initialize a git repo and will fire `npm run init` to initialize the project
 
-# Commands
-
-Initialize Project
-```gulp init```
-
-Default task with BrowserSync
+# Important Commands
+### Initialize the Project
 ```
-gulp
+npm run init
 ```
 
-If you pull this project and the project owner hasn't done any JS work you will miss the JS Folders, to create them use:
-
+### Development Task
 ```
-gulp createDirs
+npm run dev
 ```
+Runs webpack-dashboard so you have an overview of your build packages, including the Default Gulp Task with BrowserSync, also webpack is compiling JavaScript and CSS
 
-This will create `src/js/json`, `src/js/my-scripts` and `src/js/single`
-
-Move all your JSON Files into `src/js/json`
-
-Move JS Files you write and want to get merged into `src/js/my-scripts` 
- 
-Move Single JS Files you *don't* want to be merged into a single file into `src/js/single` and define them in the config.json unter files.jsCopyScripts
-
-Librarys you want to merge together in a plugins.min.js must be defined in the config.json unter files.jsCombinePlugins
-
-# Build Tasks
-There are several build tasks which will clean your assets at first and then call all necessary tasks to recreate them.
-
-### Create Favicons from Single Picture under `src/favicons`
+### Gulp Task
+You can run every Gulp Task with
 ```
-gulp favicons
+npm run gulp $TASK_NAME$
 ```
 
-### Complete Rebuild will clean Views, CSS, JS and Images
-```
-gulp build
-```
+## Special Thanks
+- webdevs: [Website](http://webdevs.xyz)
+- Sascha Fuchs: [GitHub](https://github.com/gisu)
+- David Hellmann: [GitHub](https://github.com/davidhellmann)
+- CSS Tricks -  for Easing Map: [Website](https://css-tricks.com/snippets/sass/easing-map-get-function/)
+- Hugo Giraudel & Eduardo Bouças - for include media: [Website](http://include-media.com/)
+- @LukyVj - for family.scss: [Website](http://lukyvj.github.io/family.scss/)
+- inuitcss - for some snippets and inspiration: [website](https://github.com/inuitcss/inuitcss)
 
-### Publish, minifies css, js and images in the dist folder, you can use it before you zip your files
-```
-gulp publish
-```
+--
+Using functions of Hugo Giraudel
+[http://hugogiraudel.com/2013/08/05/offsets-sass-mixin/](http://hugogiraudel.com/2013/08/05/offsets-sass-mixin/)
+[http://www.sitepoint.com/sass-mixin-css-triangles/](http://www.sitepoint.com/sass-mixin-css-triangles/)
 
-### Deploy, clears everything in the dist folder, then builds from scratch and after all minifies css, js and images, can be used for the Task Pipeline in your deployment tool
-```
-gulp deploy
-```
-
-# Production
-We have a production task which will clean all assets at first, then recreate everything and finish with minifiyng CSS and JS
+Using the REM Calc function of Foundation by zurb
+[http://foundation.zurb.com](http://foundation.zurb.com)
+--

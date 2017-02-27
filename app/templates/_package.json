@@ -15,6 +15,7 @@
     "dev:single": "cross-env NODE_ENV=development gulp --env=browser-sync",
     "production": "cross-env NODE_ENV=production gulp build:production --env=production && cross-env NODE_ENV=production webpack --hide-modules --config=webpack/webpack.config.babel.js -p",
     "gulp": "gulp",
+    "images": "gulp move:images",
     "webpack": "cross-env NODE_ENV=production webpack --hide-modules --config=webpack/webpack.config.babel.js"
   },
   "devDependencies": {
