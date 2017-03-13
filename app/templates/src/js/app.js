@@ -41,7 +41,7 @@ new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
+  render: createElement => createElement(App)
 });
 
 <%_ } _%>
