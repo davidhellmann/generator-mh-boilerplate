@@ -191,7 +191,7 @@ export default {
               options: {
                 autoprefixer: false,
                 sourceMap: true,
-                importLoaders: 1,
+                importLoaders: 3,
                 url: false,
               },
             },
@@ -211,6 +211,10 @@ export default {
   },
   plugins: removeEmpty([
     new Webpack2Polyfill(),
+    new CleanWebpackPlugin([config.dist.css, config.dist.js], {
+      root: BASE_PATH,
+      verbose: true,
+    }),
     ifDevelopment(new Dashboard_plugin({ port: 3002 })),
     ifDevelopment(new webpack.HotModuleReplacementPlugin()),
     ifDevelopment(new webpack.NamedModulesPlugin()),
