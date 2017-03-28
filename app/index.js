@@ -6,6 +6,7 @@ const chalk = require('chalk');
 const yosay = require('yosay');
 const mkdirp = require('mkdirp');
 const commandExists = require('command-exists');
+const pkg = require('../package.json');
 let yarn = false;
 
 module.exports = class extends yeoman {
@@ -43,7 +44,7 @@ module.exports = class extends yeoman {
 |                                                                                   |
 |                                                                                   |
 |                                                                    +--------------+
-|                                                                    |       V.2.0.4|
+|                                                                    |        v${pkg.version}|
 +--------------------------------------------------------------------+--------------+
 `)}|                                                                                   |
 |Author: Martin Herweg (@martinherweg)                                              |
