@@ -16,7 +16,8 @@
     "production": "cross-env NODE_ENV=production gulp build:production --env=production && cross-env NODE_ENV=production webpack --hide-modules --config=webpack/webpack.config.babel.js -p",
     "gulp": "gulp",
     "images": "gulp move:images",
-    "webpack": "cross-env NODE_ENV=production webpack --hide-modules --config=webpack/webpack.config.babel.js"
+    "webpack": "cross-env NODE_ENV=production webpack --hide-modules --config=webpack/webpack.config.babel.js",
+    "webpack:analyze": "webpack-bundle-analyzer webpack/stats.json"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.4",

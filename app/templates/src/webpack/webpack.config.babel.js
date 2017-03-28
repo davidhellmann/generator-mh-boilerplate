@@ -9,6 +9,8 @@ import WriteFilePlugin from 'write-file-webpack-plugin';
 import StylelintPlugin from 'stylelint-webpack-plugin';
 import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin';
 import Webpack2Polyfill from 'webpack2-polyfill-plugin';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 
 const { ifProduction, ifNotProduction, ifDevelopment, ifNotDevelopment } = getIfUtils(process.env.NODE_ENV);
@@ -49,7 +51,7 @@ if (ifDevelopment()) {
 }
 
 function assetsPath(_path) {
-  return path.posix.join('/assets/', _path);
+  return path.posix.join('assets/', _path);
 }
 
 let chunks = [];
@@ -215,6 +217,12 @@ export default {
       root: BASE_PATH,
       verbose: true,
     }),
+    ifProduction(new BundleAnalyzerPlugin({
+      analyzerMode: 'disabled',
+      generateStatsFile: true,
+      statsFilename: `${BASE_PATH}/webpack/stats.json`,
+      logLevel: 'info',
+    })),
     ifDevelopment(new Dashboard_plugin({ port: 3002 })),
     ifDevelopment(new webpack.HotModuleReplacementPlugin()),
     ifDevelopment(new webpack.NamedModulesPlugin()),
