@@ -76,6 +76,9 @@ dist/.idea
 dist/Homestead.json
 dist/Homestead.yaml
 dist/.env
+dist/public
+dist/resources/views
+dist/resources/assets
 
 
 
