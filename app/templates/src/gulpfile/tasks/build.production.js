@@ -4,6 +4,9 @@ import run_sequence from 'run-sequence';
 const build_production = (cb) => {
   run_sequence(
     [
+      'clean:dist'
+    ],
+    [
       'favicons',
       'move:fonts',
       'move:images',
