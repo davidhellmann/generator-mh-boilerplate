@@ -65,5 +65,42 @@ describe('mh-boilerplate', () => {
         projectType: 'craft'
       });
     });
+
+    it('adds javascript', () => {
+      assert.file([
+        'src/js/'
+      ]);
+    });
+  });
+
+  describe('It is a Craft Project 🎉', () => {
+    it('fills config.json with project type craft', async () => {
+      await run()
+        .withPrompts({
+          projectUsage: 'craft'
+        });
+      assert.JSONFileContent('config.json', {
+        projectType: 'craft'
+      });
+    });
+
+    it('adds craft templates to the src folder', () => {
+      assert.file([
+        'src/views/index.html',
+        'src/views/layout/_layout.html',
+        'src/views/parts/site-header.html',
+        'src/views/parts/site-scripts.html'
+      ]);
+    });
+
+    it('adds webpack content to scripts and header', () => {
+      assert.fileContent('src/views/parts/site-scripts.html', `<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+  <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+<% } %>
+`);
+      assert.fileContent('src/views/parts/site-header.html', `<% for (var css in htmlWebpackPlugin.files.css) { %>
+      <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+    <% } %>`);
+    });
   });
 });
