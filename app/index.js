@@ -81,11 +81,11 @@ module.exports = class extends yeoman {
         type: 'input',
         name: 'projectName',
         message: `${chalk.bgMagenta.underline.bold('Project Name')}
-Please provide a Project Name (without spaces or special characters)`,
-        default: chalk.bgWhite('Current Name:' + process.cwd().split('/').pop(-1).toLowerCase().replace(/[^a-zA-Z0-9]/g, '')),
+Please provide a Project Name (without spaces or special characters) ${chalk.bgWhite('Current Name: ')}`,
+        default: process.cwd().split('/').pop(-1).toLowerCase().replace(/[^a-zA-Z0-9]/g, ''),
         validate: function (input) {
           // Do async stuff
-          if (input.indexOf(' ') >= 0 || /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(input)) {
+          if (input.indexOf(' ') >= 0 || /[~`!#$%\^&*+=[\]\\';,/{}|\\":<>\?]/g.test(input)) {
             // Pass the return value in the done callback
             console.log('\n' + chalk.styles.red.open + 'No whitespaces or special-chars allowed!' + chalk.styles.red.close);
             return false;
