@@ -1,13 +1,9 @@
 {
-  "name": "<%= projectName %>",
-  "version": "<%= projectVersion %>",
-  "description": "<%= projectDescription %>",
-  "author": {
-    "name": "<%= projectAuthor %>",
-    "email": "<%= projectMail %>",
-    "url": "<%= projectUrl %>"
-  },
-  "repository": "<%= projectRepo %>",
+  "name": "",
+  "version": "",
+  "description": "",
+  "authors": [],
+  "repository": "",
   "scripts": {
     "init_commands": "cross-env NODE_ENV=production gulp build:production --env=development --changed=false && cross-env NODE_ENV=production webpack --hide-modules --config=webpack/webpack.config.babel.js",
     "init": "npm run -s init_commands",
@@ -104,11 +100,7 @@
     "util": "^0.10.3",
     "utils-merge": "^1.0.0",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",<%_ if (projectUseVue || projectUsage === 'vueapp') { _%>
-    "vue-loader": "^12.2.0",
-    "vue-style-loader": "^3.0.1",
-    "vue-template-compiler": "^2.1.10",
-<%_ } _%>
+    "vinyl-source-stream": "^1.1.0",
     "webpack": "^2.2.1",
     "webpack-bundle-analyzer": "^2.3.1",
     "webpack2-polyfill-plugin": "^0.0.2",
@@ -116,26 +108,15 @@
     "webpack-dashboard": "^0.3.0",
     "webpack-dev-middleware": "^1.10.1",
     "webpack-hot-middleware": "^2.17.0",
-    "webpack-merge": "^3.0.0",
     "write-file-webpack-plugin": "^4.0.2",
     "yargs": "^8.0.1"
   },
   "dependencies": {
     "axios": "^0.16.1",
-    "es6-promise": "^4.0.5",
     "include-media": "^1.4.9",
     "lazysizes": "^4.0.0-rc1",
     "lodash": "^4.16.6",
     "modularscale-sass": "^3.0.2",
-    <%_ if(projectUseVue || projectUsage === 'vueapp') { _%>
-    "vue": "^2.2.0",
-    <%_ } _%>
-    <%_ if (projectVuePlugins.includes('vuex') || projectUsage === 'vueapp') { _%>
-    "vuex": "^2.2.1",
-    <%_ } _%>
-    <%_ if (projectVuePlugins.includes('vuerouter') || projectUsage === 'vueapp') { _%>
-    "vue-router": "^2.3.0",
-    <%_ } _%>
     "svgxuse": "^1.1.23"
   }
 }
