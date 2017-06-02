@@ -58,6 +58,29 @@ const generalPrompts = [
       }
       return `${answers.projectName}.dev`;
     }
+  },
+  {
+    type: 'list',
+    name: 'projectUsage',
+    message: message({
+      headline: 'Project Type',
+      description: 'Choose your Project Type',
+      defaultValue: false
+    }),
+    choices: [
+      {
+        name: 'Craft',
+        value: 'craft'
+      },
+      {
+        name: 'Laravel',
+        value: 'laravel'
+      },
+      {
+        name: 'Vue Application',
+        value: 'vueapp'
+      }
+    ]
   }
 ];
 
