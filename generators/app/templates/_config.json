@@ -1,13 +1,11 @@
 {
-    <% if (projectProxy != '') { %>
-    "proxy"      : "<%= projectProxy %>", <% } else { %>
-    "proxy"      : "", <% } %>
-    "projectType": "<%= projectUsage %>",
+    "proxy"      : "",
+    "projectType": "",
     "favicon": {
         "appName"       : "My App",
         "appDescription": "This is my Application",
-        "developerName" : "<%= projectAuthor %>",
-        "developerURL"  : "<%= projectUrl %>",
+        "developerName" : "",
+        "developerURL"  : "",
         "background"    : "#020307",
         "path"          : "favicons",
         "logging"       : false,
@@ -85,7 +83,6 @@
         }
     },
     "dist"       : {
-    <% if (projectUsage == 'vueapp') { %>
         "base"              : "dist/",
         "views"             : "dist/",
         "css"               : "dist/assets/css/",
@@ -104,87 +101,6 @@
                 "htmlimages": "htmlimages/"
             }
         }
-    <% } if (projectUsage == 'Wordpress') { %>
-        "base"              : "dist/wp-content/themes/<%= projectName %>/",
-        "views"             : "dist/wp-content/themes/<%= projectName %>/",
-        "css"               : "dist/wp-content/themes/<%= projectName %>/assets/css/",
-        "favicons"          : "dist/wp-content/themes/<%= projectName %>/favicons/",
-        "fonts"             : "dist/wp-content/themes/<%= projectName %>/assets/fonts/",
-        "js"                : "dist/wp-content/themes/<%= projectName %>/assets/js/",
-        "images"            : {
-            "base"          : "dist/wp-content/themes/<%= projectName %>/assets/images/",
-            "svg"           : {
-                "base"      : "dist/wp-content/themes/<%= projectName %>/assets/images/svg/",
-                "single"    : "single/",
-                "sprite"    : "sprite/"
-            },
-            "bitmap"        : {
-                "cssimages" : "cssimages/",
-                "htmlimages": "htmlimages/"
-            }
-        }
-    <% } if (craftEnv == 'default' || craftEnv == 'nystudio' && projectUsage == 'Craft') { %>
-        "base"                  : "dist/public/",
-        "views"                 : "dist/craft/templates/",
-        "systemFiles"           : "dist/public/",
-        "css"                   : "dist/public/assets/css/",
-        "favicons"              : "dist/public/favicons/",
-        "fonts"                 : "dist/public/assets/fonts/",
-        "js"                    : "dist/public/assets/js/",
-        "images"                : {
-            "base"              : "dist/public/assets/images/",
-            "svg"               : {
-                "base"          : "dist/public/assets/images/svg/",
-                "single"        : "single/",
-                "sprite"        : "sprite/"
-            },
-            "bitmap"            : {
-                "cssimages"     : "cssimages/",
-                "htmlimages"    : "htmlimages/"
-            }
-        }
-    <% } if (craftEnv == 'hearty' && projectUsage == 'Craft') { %>
-        "base"                  : "dist/public/",
-        "views"                 : "dist/templates/",
-        "systemFiles"           : "dist/public/",
-        "css"                   : "dist/public/assets/css/",
-        "favicons"              : "dist/public/favicons/",
-        "fonts"                 : "dist/public/assets/fonts/",
-        "js"                    : "dist/public/assets/js/",
-        "images"                : {
-            "base"              : "dist/public/assets/images/",
-            "svg"               : {
-                "base"          : "dist/public/assets/images/svg/",
-                "single"        : "single/",
-                "sprite"        : "sprite/"
-            },
-            "bitmap"            : {
-                "cssimages"     : "cssimages/",
-                "htmlimages"    : "htmlimages/"
-            }
-        }
-    <% } if (projectUsage == 'Laravel') { %>
-        "base"                  : "dist/public/",
-        "views"                 : "dist/resources/views/",
-        "systemFiles"           : "dist/public/",
-        "css"                   : "dist/public/assets/css/",
-        "favicons"              : "dist/public/favicons/",
-        "fonts"                 : "dist/public/assets/fonts/",
-        "js"                    : "dist/public/assets/js/",
-        "images"                : {
-            "base"              : "dist/public/assets/images/",
-            "svg"               : {
-                "base"          : "dist/public/assets/images/svg/",
-                "single"        : "single/",
-                "sprite"        : "sprite/"
-            },
-            "bitmap"            : {
-                "cssimages"     : "cssimages/",
-                "htmlimages"    : "htmlimages/"
-            }
-        }
-     <% } %>
-
     }
 }
 

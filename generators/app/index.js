@@ -6,18 +6,21 @@ const yosay = require('yosay');
 // Importing modules
 const promptsFunction = require('./modules/prompts');
 const basePackageJson = require('./modules/writing-modules/_package.json');
+const baseConfigJson = require('./modules/writing-modules/_writeConfig.json');
 
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
     this.promptsFunction = promptsFunction.bind(this);
     this.basePackageJson = basePackageJson.bind(this);
+    this.baseConfigJson = baseConfigJson.bind(this);
   }
   prompting() {
     // Have Yeoman greet the user.
     this.log(yosay(
       'Welcome to the marvelous ' + chalk.red('generator-mh-boilerplate') + ' generator!'
     ));
+    this.log(`${chalk.cyan.bold(`[ Prompting ]`)}`);
     // Execute function so we get its returned array;
     const prompts = promptsFunction();
     return this.prompt(prompts).then(props => {
@@ -27,13 +30,23 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    this.log(`${chalk.cyan.bold(`[ Writing ]`)}`);
+    // Getting the template files
     const pkg = this.fs.readJSON(this.templatePath('_package.json'), {});
+    const config = this.fs.readJSON(this.templatePath('_config.json'), {});
+
     // Write Basic package.json
     this.basePackageJson({
       pkg
     });
 
+    // Write basic config json
+    this.baseConfigJson({
+      config
+    });
+
     this.fs.writeJSON(this.destinationPath('package.json'), pkg); // eslint-disable-line no-undef
+    this.fs.writeJSON(this.destinationPath('config.json'), config); // eslint-disable-line no-undef
   }
 
   install() {
