@@ -1,10 +1,14 @@
 'use strict';
 
 // Import some prompt modules
-const generalPrompts = require('./prompt-modules/_general');
+const projectPrompts = require('./prompt-modules/_project');
+const authorPrompts = require('./prompt-modules/_author');
 
 function prompts() {
-  return [...generalPrompts];
+  return [
+    ...projectPrompts,
+    ...authorPrompts
+  ];
 }
 
 module.exports = prompts;
