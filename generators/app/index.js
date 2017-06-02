@@ -47,6 +47,22 @@ module.exports = class extends Generator {
 
     this.fs.writeJSON(this.destinationPath('package.json'), pkg); // eslint-disable-line no-undef
     this.fs.writeJSON(this.destinationPath('config.json'), config); // eslint-disable-line no-undef
+
+    /*
+     |--------------------------------------------------------------------------
+     | Moving Craft Boilerplate Folders
+     |--------------------------------------------------------------------------
+     */
+    this.log(`${chalk.cyan.bold(`[ Moving Basic Folders ]`)}`);
+    progress.start('moving base files');
+    // Move basic js if no framework is choosen
+    this.fs.copyTpl(
+      this.templatePath('src/js'),
+      this.destinationPath('src/js')
+    );
+    progress.stop();
+
+    /*
   }
 
   install() {
