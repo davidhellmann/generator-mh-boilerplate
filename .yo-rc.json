@@ -1,3 +1,9 @@
 {
-  "generator-generator": {}
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Martin Herweg",
+      "authorEmail": "martin@herweg.co",
+      "authorUrl": "https://martinherweg.de"
+    }
+  }
 }
