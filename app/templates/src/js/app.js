@@ -26,7 +26,7 @@ import App from './App.vue';
   <%_ if (projectVuePlugins.includes('vuex')) { _%>
   store,
   <%_ } _%>
-  render: h => h(App)
+  render: createElement => createElement(App)
 });
 
 <%_ } _%>
