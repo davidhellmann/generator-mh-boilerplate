@@ -2,6 +2,9 @@
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
+const Pleasent = require('pleasant-progress');
+
+const progress = new Pleasent();
 
 // Importing modules
 const promptsFunction = require('./modules/prompts');
@@ -63,6 +66,17 @@ module.exports = class extends Generator {
     progress.stop();
 
     /*
+     |--------------------------------------------------------------------------
+     | Moving Basic Boilerplate Folders
+     |--------------------------------------------------------------------------
+     */
+    this.log(`${chalk.cyan.bold(`[ Moving Craft Folders ]`)}`);
+    progress.start('moving craft files');
+    this.fs.copy(
+      this.templatePath('src/craft'),
+      this.destinationPath('src/views/')
+    );
+    progress.stop();
   }
 
   install() {
