@@ -1,4 +1,5 @@
 'use strict';
+/* eslint-disable new-cap */
 var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
@@ -36,7 +37,7 @@ describe('mh-boilerplate', () => {
   describe('Basic Files and Infos', () => {
     // Test package.json content
     it('fill package.json with correct Information', () => {
-      assert.JSONFileContent('package.json', { // eslint-disable-line new-cap
+      assert.JSONFileContent('package.json', {
         name: project.name,
         description: project.description,
         version: project.version,
@@ -46,12 +47,22 @@ describe('mh-boilerplate', () => {
 
     // Fills config.json
     it('fills config.json with information', () => {
-      assert.JSONFileContent('config.json', { // eslint-disable-line new-cap
+      assert.JSONFileContent('config.json', {
         proxy: project.proxy,
         favicon: {
           developerURL: author.homepage,
           developerName: author.name
         }
+      });
+    });
+
+    it('fills config.json with project type information', async () => {
+      await run()
+        .withPrompts({
+          projectUsage: 'craft'
+        });
+      assert.JSONFileContent('config.json', {
+        projectType: 'craft'
       });
     });
   });
