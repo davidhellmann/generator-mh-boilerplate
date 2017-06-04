@@ -106,6 +106,40 @@ describe('mh-boilerplate', () => {
       ]);
     });
 
+    describe('it is a craft project with NY Studio Environment', () => {
+      beforeEach(async () => {
+        await run()
+          .withPrompts({
+            projectUsage: 'craft',
+            craftInstall: true,
+            craftEnv: 'nystudio'
+          });
+      });
+
+      it('adds environment file', () => {
+        assert.file([
+          'dist/.env.example.php'
+        ]);
+      });
+
+      it('adds the nystudio general and db file', () => {
+        assert.fileContent('dist/craft/config/db.php', `// All environments
+        '*' => array(
+            'tablePrefix' => 'craft',
+            'server' => getenv('CRAFTENV_DB_HOST'),
+            'database' => getenv('CRAFTENV_DB_NAME'),
+            'user' => getenv('CRAFTENV_DB_USER'),
+            'password' => getenv('CRAFTENV_DB_PASS'),
+        ),`);
+
+        assert.fileContent('dist/craft/config/general.php', `'siteUrl' => getenv('CRAFTENV_SITE_URL'),`);
+      });
+
+      it('add nystudio index.php to systemFiles', () => {
+        assert.fileContent('src/systemFiles/index.php', `if (file_exists('../.env.php'))`);
+      });
+    });
+
     it('adds webpack content to scripts and header', () => {
       assert.fileContent('src/views/parts/site-scripts.html', `<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
   <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
