@@ -3,7 +3,7 @@
 var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
-const fs = require('fs'); // eslint-disable-line no-unused-vars
+const fs = require('fs-extra'); // eslint-disable-line no-unused-vars
 
 // Define some variables
 const project = {
@@ -82,6 +82,18 @@ describe('mh-boilerplate', () => {
       assert.JSONFileContent('config.json', {
         projectType: 'craft'
       });
+    });
+
+    it('If the user wants to it downloads Craft', async () => {
+      await run()
+        .withPrompts({
+          projectUsage: 'craft',
+          craftInstall: true
+        });
+
+      assert.file([
+        'dist/craft/'
+      ]);
     });
 
     it('adds craft templates to the src folder', () => {
