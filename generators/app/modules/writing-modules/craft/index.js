@@ -36,6 +36,14 @@ const craftFolders = {
           dest: 'src/systemFiles/'
         },
       ]
+    },
+    defaultConfig: {
+      files: [
+        {
+          src: 'default/systemFiles/',
+          dest: 'src/systemFiles',
+        }
+      ]
     }
   }
 };
