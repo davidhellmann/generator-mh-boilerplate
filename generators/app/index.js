@@ -104,10 +104,11 @@ module.exports = class extends Generator {
      |--------------------------------------------------------------------------
      */
     this.logComment({message: 'Moving Craft Folders'});
-    this.fs.copy(
-      this.templatePath('src/craft'),
-      this.destinationPath('src/views/')
-    );
+    try {
+      await this.writingCraft().writing(this);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   install() {
