@@ -91,5 +91,11 @@ describe('mh-boilerplate', () => {
         'gulpfile/tasks/browser-sync.js'
       ]);
     });
+
+    it('initializes a git repository', () => {
+      assert.file([
+        '.git/'
+      ]);
+    });
   });
 });

@@ -33,7 +33,8 @@ module.exports = class extends Generator {
 
     this.commands = {
       composer: false,
-      yarn: false
+      yarn: false,
+      git: false
     };
   }
 
@@ -43,6 +44,8 @@ module.exports = class extends Generator {
     this.commands.composer = true;
     await commandExists('yarn');
     this.commands.yarn = true;
+    await commandExists('git');
+    this.commands.git = true;
   }
 
   prompting() {
@@ -141,6 +144,22 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.installDependencies();
+    if (this.commands.yarn) {
+      this.yarnInstall();
+    } else {
+      this.npmInstall();
+    }
+
+    this.logComment({
+      message: '> Initializing git and make first commit',
+      short: true,
+      color: 'green'
+    });
+
+    if(this.commands.git) {
+      this.spawnCommandSync('git', ['init']);
+      this.spawnCommandSync('git', ['add', '-A']);
+      this.spawnCommandSync('git', ['commit', '-m "initial commit"']);
+    }
   }
 };
