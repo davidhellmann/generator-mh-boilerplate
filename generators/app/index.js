@@ -14,6 +14,11 @@ const baseConfigJson = require('./modules/writing-modules/_writeConfig.json');
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
+
+    this.logComment = function({ message = 'Logging', color = 'cyan'} = {}) {
+      this.log(`\n\n  ${chalk[color].bold(message)}\n  ${chalk[color].bold('-----------------------------------------------------------------------------------------------')}\n`);
+    }.bind(this);
+
     this.promptsFunction = promptsFunction.bind(this);
     this.basePackageJson = basePackageJson.bind(this);
     this.baseConfigJson = baseConfigJson.bind(this);
@@ -23,7 +28,7 @@ module.exports = class extends Generator {
     this.log(yosay(
       'Welcome to the marvelous ' + chalk.red('generator-mh-boilerplate') + ' generator!'
     ));
-    this.log(`${chalk.cyan.bold(`[ Prompting ]`)}`);
+    this.logComment({ message: 'Prompting'});
     // Execute function so we get its returned array;
     const prompts = promptsFunction();
     return this.prompt(prompts).then(props => {
@@ -33,7 +38,7 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    this.log(`${chalk.cyan.bold(`[ Writing ]`)}`);
+    this.logComment({ message: 'Writing files'});
     // Getting the template files
     const pkg = this.fs.readJSON(this.templatePath('_package.json'), {});
     const config = this.fs.readJSON(this.templatePath('_config.json'), {});
@@ -56,7 +61,7 @@ module.exports = class extends Generator {
      | Moving Craft Boilerplate Folders
      |--------------------------------------------------------------------------
      */
-    this.log(`${chalk.cyan.bold(`[ Moving Basic Folders ]`)}`);
+    this.logComment({ message: 'Moving Basic Folder'});
     progress.start('moving base files');
     // Move basic js if no framework is choosen
     this.fs.copyTpl(
@@ -70,7 +75,7 @@ module.exports = class extends Generator {
      | Moving Basic Boilerplate Folders
      |--------------------------------------------------------------------------
      */
-    this.log(`${chalk.cyan.bold(`[ Moving Craft Folders ]`)}`);
+    this.logComment({message: 'Moving Craft Folders'});
     progress.start('moving craft files');
     this.fs.copy(
       this.templatePath('src/craft'),
