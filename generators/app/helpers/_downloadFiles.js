@@ -11,7 +11,7 @@ const bar = new ProgressBar('[:bar] :percent :etas', {
 
 const downloadFiles = ({url, destination} = {}) => {
   commentLog({
-    message: 'Downloading',
+    message: `Downloading ${url}`,
     color: 'green',
     short: true
   });
