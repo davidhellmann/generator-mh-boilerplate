@@ -4,6 +4,7 @@ const chalk = require('chalk');
 const yosay = require('yosay');
 const filesystem = require('fs-extra'); // eslint-disable-line no-unused-vars
 const commandExists = require('command-exists');
+const ProgressBar = require('progress'); // eslint-disable-line no-unused-vars
 
 // Import Helpers
 const logComment = require('./helpers/_logComment');
@@ -12,6 +13,7 @@ const logComment = require('./helpers/_logComment');
 const promptsFunction = require('./modules/prompts');
 const basePackageJson = require('./modules/writing-modules/_package.json');
 const baseConfigJson = require('./modules/writing-modules/_writeConfig.json');
+const filesEnvironment = require('./config/_filesEnvironment');
 
 // Craft CMS
 const writingCraft = require('./modules/writing-modules/craft');
@@ -24,6 +26,7 @@ module.exports = class extends Generator {
     this.promptsFunction = promptsFunction.bind(this);
     this.basePackageJson = basePackageJson.bind(this);
     this.baseConfigJson = baseConfigJson.bind(this);
+    this.filesEnviroment = filesEnvironment;
 
     // CRAFT CMS
     this.writingCraft = writingCraft.bind(this);
@@ -70,6 +73,55 @@ module.exports = class extends Generator {
 
   async writing() {
     this.logComment({message: 'Writing files'});
+    /*
+     |--------------------------------------------------------------------------
+     | Writing Craft
+     |--------------------------------------------------------------------------
+     */
+    if (this.props.projectUsage === 'craft') {
+      this.logComment({message: 'Moving Craft Folders'});
+      try {
+        await this.writingCraft().writing(this);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    /*
+     |--------------------------------------------------------------------------
+     | Moving Basic Boilerplate Files
+     |--------------------------------------------------------------------------
+     */
+    this.logComment({message: 'Moving Basic Folder', short: true});
+    // Move basic js if no framework is choosen
+    this.fs.copyTpl(
+      this.templatePath('src/js'),
+      this.destinationPath('src/js')
+    );
+
+    this.fs.copy(
+      this.templatePath('src/scss/'),
+      this.destinationPath('src/scss')
+    );
+
+    // Const filesEnvironmentProgress = new ProgressBar('[:bar] :percent :etas', {
+    //  complete: '=',
+    //  incomplete: ' ',
+    //  width: 20,
+    //  total: 0
+    // });
+
+    // filesEnvironmentProgress.total = this.filesEnviroment.files.length;
+
+    this.filesEnviroment.files.forEach(file => {
+      this.fs.copyTpl(
+        this.templatePath(file.src),
+        this.destinationPath(file.dest),
+        this.props
+      );
+      // FilesEnvironmentProgress.tick(1);
+    });
+
     // Getting the template files
     const pkg = this.fs.readJSON(this.templatePath('_package.json'), {});
     const config = this.fs.readJSON(this.templatePath('_config.json'), {});
@@ -86,29 +138,6 @@ module.exports = class extends Generator {
 
     await this.fs.writeJSON(this.destinationPath('package.json'), pkg);
     await this.fs.writeJSON(this.destinationPath('config.json'), config);
-
-    /*
-     |--------------------------------------------------------------------------
-     | Moving Craft Boilerplate Folders
-     |--------------------------------------------------------------------------
-     */
-    this.logComment({message: 'Moving Basic Folder', short: true});
-    // Move basic js if no framework is choosen
-    this.fs.copyTpl(
-      this.templatePath('src/js'),
-      this.destinationPath('src/js')
-    );
-    /*
-     |--------------------------------------------------------------------------
-     | Moving Basic Boilerplate Folders
-     |--------------------------------------------------------------------------
-     */
-    this.logComment({message: 'Moving Craft Folders'});
-    try {
-      await this.writingCraft().writing(this);
-    } catch (e) {
-      console.error(e);
-    }
   }
 
   install() {
