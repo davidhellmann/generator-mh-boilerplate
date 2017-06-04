@@ -59,9 +59,9 @@ module.exports = class extends Generator {
   async configuring() {
     this.logComment({message: 'Configure Project'});
     // Install Craft or Laravel and configure their Folders for our needs.
-    if (this.props.projectUsage === 'craft') {
+    if (this.props.projectUsage === 'craft' && this.props.craftInstall) {
       try {
-        await this.writingCraft(this);
+        await this.writingCraft().download(this);
       } catch (e) {
         console.error(e);
       }
