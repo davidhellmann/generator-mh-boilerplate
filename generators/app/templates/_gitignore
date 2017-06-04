@@ -1,6 +1,6 @@
 ###############################################################################
 ##                                                                            #
-##       GIT IGNORE FOR WORDPRESS SITES                                       #
+##       GIT IGNORE                                                           #
 ##       ------------------------------                                       #
 ##       By: BigWilliam <hello@bigwilliam.com>                                #
 ##       License: MIT - aka you can use/modify this how you want :)           #
@@ -61,72 +61,14 @@ bower_components
 Package Syncing.last-run
 
 ## Main Stuff ##
-
-<% if (projectUsage == 'Laravel') { %>
-
-#===================================#
-#     Laravel IGNORE                #
-#===================================#
-dist/node_modules
-dist/public/storage
-dist/public/hot
-dist/storage/*.key
-dist/vendor
-dist/.idea
-dist/Homestead.json
-dist/Homestead.yaml
-dist/.env
-dist/public
-dist/resources/views
-dist/resources/assets
-
-
-
-<% } if (projectUsage == 'Wordpress') { %>
-#===================================#
-#     Theme IGNORE                  #
-#===================================#
-
-### WordPress ###
-dist/*
-!favicon.ico
-!favicon.png
-!robots.txt
-!humans.txt
-
-# ignore the wp-content
-dist/wp-content/*
-
-# do not ignore the theme!
-!dist/wp-content/themes/<%= projectName %>
-
-# add more things which should not be ignore if necessary
-# !dist/wp-content/specificPlugin
-
-<% } if (projectUsage == 'Craft') { %>
-#===================================#
-#     Craft CMS                  #
-#===================================#
-dist/craft/storage/*
-!dist/craft/storage/logo/*
-dist/public/
-<% } if(craftEnv == 'nystudio') { %>
-dist/.env.php
-<% } if(craftEnv == 'hearty') { %>
-dist/craft/license.key
-dist/craft/
-dist/public/
-dist/config/config.local.php
-dist/templates/
-!dist/craft/translations/*
+<% if(typeof projectIgnore !== 'undefined') { %>
+<%= projectIgnore %>
 <% } %>
 
 
 #===================================#
 #     PROJECT SPECIFIC STUFF        #
 #===================================#
-README.html
-
 
 ## Depreciated stuff, keeping here for reference ##
 

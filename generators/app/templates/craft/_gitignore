@@ -1,0 +1,9 @@
+#===================================#
+#     Craft CMS                  #
+#===================================#
+dist/craft/storage/*
+!dist/craft/storage/logo/*
+dist/public/
+<%- if(craftEnv == 'nystudio') { %>
+dist/.env.php
+<%- } %>
