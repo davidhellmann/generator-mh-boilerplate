@@ -1,15 +1,21 @@
 const downloadCraft = require('../../../helpers/_downloadFiles');
 
-const writingCraft = () => {
-  return {
-    download: context => {
+const writingCraft = context => {
+  return new Promise(async resolve => {
+    async function download() {
+      if (!context.props.craftInstall) {
+        return;
+      }
       const craftUrl = 'http://buildwithcraft.com/latest.zip?accept_license=yes';
-      return downloadCraft({
+      await downloadCraft({
         url: craftUrl,
         destination: context.destinationPath('./dist/')
       });
     }
-  };
+
+    await download();
+    resolve();
+  });
 };
 
 module.exports = writingCraft;
