@@ -78,6 +78,12 @@ const writingCraft = () => {
           );
         });
 
+        const craftIgnore = fs.readFileSync(context.templatePath('craft/_gitignore'), {
+          encoding: 'UTF-8'
+        });
+
+        context.props.projectIgnore = craftIgnore;
+
         resolve();
       })
     }
