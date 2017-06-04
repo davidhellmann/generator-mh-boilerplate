@@ -6,6 +6,17 @@ const when = require('../../helpers/promptsWhen');
 const craftPrompts = [
   {
     when: when('craft'),
+    type: 'confirm',
+    name: 'craftInstall',
+    message: message({
+      headline: 'Install Craft?',
+      message: 'Download and installs the latest Craft Version',
+      defaultValue: false
+    }),
+    default: true
+  },
+  {
+    when: when('craft'),
     type: 'list',
     name: 'craftEnv',
     message: message({
@@ -20,10 +31,6 @@ const craftPrompts = [
       {
         name: 'Default',
         value: 'default'
-      },
-      {
-        name: 'Hearty Config',
-        value: 'hearty'
       }
     ],
     default: 0
