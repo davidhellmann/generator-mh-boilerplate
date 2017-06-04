@@ -1,4 +1,5 @@
 'use strict';
+process.env.NODE_ENV = 'test';
 /* eslint-disable new-cap */
 var path = require('path');
 var assert = require('yeoman-assert');

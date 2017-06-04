@@ -20,6 +20,9 @@ const downloadFiles = ({url, destination} = {}) => {
     extract: true,
     mode: '775'
   }).on('response', res => {
+    if (process.env.NODE_ENV === 'test') {
+      return;
+    }
     bar.total = res.headers['content-length'];
     res.on('data', data => bar.tick(data.length));
   }).then(() => commentLog({

@@ -1,6 +1,9 @@
 const chalk = require('chalk');
 
 function logComment({message = 'Logging', color = 'cyan', short = true} = {}) {
+  if (process.env.NODE_ENV === 'test') {
+    return;
+  }
   let consoleMessage = '';
 
   if (short) {
