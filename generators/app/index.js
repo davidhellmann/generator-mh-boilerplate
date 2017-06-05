@@ -156,8 +156,11 @@ module.exports = class extends Generator {
       color: 'green'
     });
 
-    if(this.commands.git) {
+    if (this.commands.git) {
       this.spawnCommandSync('git', ['init']);
+      if (process.env.NODE_ENV === 'test') {
+        return;
+      }
       this.spawnCommandSync('git', ['add', '-A']);
       this.spawnCommandSync('git', ['commit', '-m "initial commit"']);
     }
