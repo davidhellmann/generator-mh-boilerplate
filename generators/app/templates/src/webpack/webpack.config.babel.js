@@ -56,56 +56,6 @@ function assetsPath(_path) {
 
 let chunks = [];
 
-<% if (projectUsage === 'Craft') { %>
-  const chunks_inject = [
-      {
-        filename: path.resolve(`${config.dist.views}parts/site-header.html`),
-        file: config.src.views + 'parts/site-header.html',
-        inject: false
-      },
-      {
-        filename: path.resolve(`${config.dist.views}parts/site-scripts.html`),
-        file: config.src.views + 'parts/site-scripts.html',
-        inject: false
-      }
-    ]
-
-    <% } else if (projectUsage === 'Wordpress') { %>
-  const chunks_inject = [
-      {
-        filename: path.resolve(`${config.dist.views}header.php`),
-        file: config.src.views + 'header.php',
-        inject: false,
-      },
-      {
-        filename: path.resolve(`${config.dist.views}footer.php`),
-        file: config.src.views + 'footer.php',
-        inject: false,
-      }
-    ]
-    <% } else if (projectUsage === 'Laravel') { %>
-  const chunks_inject = [
-      {
-        filename: path.resolve(`${config.dist.views}_parts/site-header.blade.php`),
-        file: config.src.views + '_parts/site-header.blade.php',
-        inject: false,
-      },
-      {
-        filename: path.resolve(`${config.dist.views}_parts/site-scripts.blade.php`),
-        file: config.src.views + '_parts/site-scripts.blade.php',
-        inject: false,
-      }
-    ]
-    <% } else if (projectUsage === 'vueapp') { %>
-  const chunks_inject = [
-      {
-        filename: path.resolve(`${config.dist.views}/index.html`),
-        file: config.src.views + 'index.html',
-        inject: true,
-      }
-    ]
-    <% } %>
-
 chunks_inject.forEach((chunk) => {
   const plugin = new HtmlWebpackPlugin({
     filename: chunk.filename,
@@ -138,40 +88,23 @@ export default {
     chunkFilename: assetsPath('js/[id].[chunkhash].js'),
   },
   resolve: {
-    extensions: ['.js'<%_ if (projectUseVue === true || projectUsage === 'vueapp' ) { _%>, '.vue'<%_ } _%>, '.json'],
+    extensions: ['.js', '.json'],
     modules: [
       resolve(config.src.base),
       resolve('node_modules'),
     ],
     alias: {
-    <%_ if (projectVueVersion === 'Standalone') { _%>
-      'vue$': 'vue/dist/vue.esm.js',
-    <%_ } _%>
       'src': resolve(config.src.base),
     },
   },
   module: {
     rules: [
       {
-        test: /\.(js<%_ if (projectUseVue === true ) { _%>|vue<% } %>)$/,
+        test: /\.(js)$/,
         use: 'eslint-loader',
         enforce: 'pre',
         include: resolve(config.src.base),
       },
-    <%_ if (projectUseVue === true || projectUsage === 'vueapp' ) { _%>
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-            scss: ifProduction(ExtractTextPlugin.extract({
-              use: 'css-loader!sass-loader',
-              fallback: 'vue-style-loader',
-            }),'vue-style-loader!css-loader!sass-loader'),  // <style lang="scss">
-          }
-        }
-      },
-      <% } %>
       {
         test: /\.js$/,
         use: 'babel-loader',

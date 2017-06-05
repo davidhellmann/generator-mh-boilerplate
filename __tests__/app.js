@@ -92,6 +92,13 @@ describe('mh-boilerplate', () => {
       ]);
     });
 
+    it('adds webpack config', () => {
+      assert.file([
+        'webpack/webpack.config.babel.js',
+        'webpack/.babelrc'
+      ]);
+    });
+
     it('initializes a git repository', () => {
       assert.file([
         '.git/'

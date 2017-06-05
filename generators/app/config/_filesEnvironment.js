@@ -9,6 +9,14 @@ module.exports = {
       dest: 'gulpfile/'
     },
     {
+      src: 'src/webpack/babelrc',
+      dest: 'webpack/.babelrc'
+    },
+    {
+      src: 'src/webpack/webpack.config.babel.js',
+      dest: 'webpack/webpack.config.babel.js'
+    },
+    {
       src: '_gitignore',
       dest: '.gitignore'
     },
