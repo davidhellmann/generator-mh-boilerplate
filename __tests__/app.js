@@ -19,6 +19,7 @@ const author = {
   homepage: 'https://martinherweg.de'
 };
 
+const {scripts} = require('../generators/app/modules/packageJson-modules/_scripts');
 const run = () => helpers.run(path.join(__dirname, '../generators/app'));
 
 describe('mh-boilerplate', () => {
@@ -37,12 +38,14 @@ describe('mh-boilerplate', () => {
   // Test for Basic Files
   describe('Basic Files and Infos', () => {
     // Test package.json content
-    it('fill package.json with correct Information', () => {
+    it.only('fill package.json with correct Information', () => {
+      console.log(scripts);
       assert.JSONFileContent('package.json', {
         name: project.name,
         description: project.description,
         version: project.version,
-        authors: [{name: author.name, email: author.email, homepage: author.homepage}]
+        authors: [{name: author.name, email: author.email, homepage: author.homepage}],
+        scripts
       });
     });
 
