@@ -6,12 +6,18 @@
     }
  *
  * @param type (String)
+ * @param question (String)
+ * @param condition (String)
  * @returns {function(*)}
  */
-const when = type => {
+const when = ({type, question, condition = '='}) => {
   // Return actual when function provided by inquirer
   return promptAnswers => {
-    return promptAnswers.projectUsage === type;
+    if(condition === '=') {
+      return promptAnswers[question] === type;
+    } else if(condition === '!=') {
+      return promptAnswers[question] !== type;
+    }
   };
 };
 

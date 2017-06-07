@@ -5,7 +5,10 @@ const when = require('../../helpers/promptsWhen');
 
 const craftPrompts = [
   {
-    when: when('laravel'),
+    when: when({
+      question: 'projectUsage',
+      type: 'laravel'
+    }),
     type: 'confirm',
     name: 'laravelInstall',
     message: message({

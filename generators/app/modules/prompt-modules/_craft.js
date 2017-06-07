@@ -5,7 +5,10 @@ const when = require('../../helpers/promptsWhen');
 
 const craftPrompts = [
   {
-    when: when('craft'),
+    when: when({
+      question: 'projectUsage',
+      type: 'craft'
+    }),
     type: 'confirm',
     name: 'craftInstall',
     message: message({
@@ -16,7 +19,10 @@ const craftPrompts = [
     default: true
   },
   {
-    when: when('craft'),
+    when: when({
+      question: 'projectUsage',
+      type: 'craft'
+    }),
     type: 'list',
     name: 'craftEnv',
     message: message({
