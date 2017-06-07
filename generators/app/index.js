@@ -40,12 +40,18 @@ module.exports = class extends Generator {
 
   async initializing() {
     this.logComment({message: 'Initializing the Generator'});
-    await commandExists('composer');
-    this.commands.composer = true;
-    await commandExists('yarn');
-    this.commands.yarn = true;
-    await commandExists('git');
-    this.commands.git = true;
+    try {
+      await commandExists('composer');
+      this.commands.composer = true;
+      await commandExists('yarn');
+      this.commands.yarn = true;
+      await commandExists('git');
+      this.commands.git = true;
+    } catch (e) {
+      if (e) {
+        console.error(e);
+      }
+    }
   }
 
   prompting() {
@@ -96,25 +102,15 @@ module.exports = class extends Generator {
      |--------------------------------------------------------------------------
      */
     this.logComment({message: 'Moving Basic Folder', short: true});
-    // Move basic js if no framework is choosen
-    this.fs.copyTpl(
-      this.templatePath('src/js'),
-      this.destinationPath('src/js')
-    );
 
-    this.fs.copy(
-      this.templatePath('src/scss/'),
-      this.destinationPath('src/scss')
-    );
+    const filesEnvironmentProgress = new ProgressBar('[:bar] :percent :etas', {
+      complete: '=',
+      incomplete: ' ',
+      width: 20,
+      total: 0
+    });
 
-    // Const filesEnvironmentProgress = new ProgressBar('[:bar] :percent :etas', {
-    //  complete: '=',
-    //  incomplete: ' ',
-    //  width: 20,
-    //  total: 0
-    // });
-
-    // filesEnvironmentProgress.total = this.filesEnviroment.files.length;
+    filesEnvironmentProgress.total = this.filesEnviroment.files.length;
 
     this.filesEnviroment.files.forEach(file => {
       this.fs.copyTpl(
@@ -122,7 +118,7 @@ module.exports = class extends Generator {
         this.destinationPath(file.dest),
         this.props
       );
-      // FilesEnvironmentProgress.tick(1);
+      filesEnvironmentProgress.tick(1);
     });
 
     // Getting the template files

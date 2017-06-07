@@ -43,6 +43,14 @@ module.exports = {
     {
       src: '_stylelintrc',
       dest: '.stylelintrc'
+    },
+    {
+      src: 'src/scss/',
+      dest: 'src/scss/'
+    },
+    {
+      src: 'src/js/',
+      dest: 'src/js/'
     }
   ]
 };
