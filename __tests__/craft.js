@@ -22,6 +22,7 @@ describe('It is a Craft Project 🎉', () => {
   });
 
   it('add craft to .gitignore', () => {
+    assert.noFileContent('.gitignore', '&lt;%- if(craftEnv == &#39;nystudio&#39;) { %&gt;');
     assert.fileContent('.gitignore', 'dist/craft/storage/*');
   });
 
@@ -74,6 +75,11 @@ describe('it is a craft project with NY Studio Environment', () => {
       'dist/.env.example.php',
       'dist/.env.php'
     ]);
+  });
+
+  it('adds .env.php to gitignore', () => {
+    assert.noFileContent('.gitignore', '&lt;%- if(craftEnv == &#39;nystudio&#39;) { %&gt;');
+    assert.fileContent('.gitignore', '.env.php');
   });
 
   it('adds the nystudio general and db file', () => {

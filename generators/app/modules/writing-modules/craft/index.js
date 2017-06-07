@@ -1,5 +1,6 @@
 /* eslint-disable */
 const fs = require('fs-extra');
+const ejs = require('ejs');
 const downloadCraft = require('../../../helpers/_downloadFiles');
 const deleteFiles = require('../../../helpers/_deleteFolderRecursive');
 
@@ -82,6 +83,11 @@ const writingCraft = () => {
           encoding: 'UTF-8',
         });
 
+        const _ignoreFile = ejs.render(craftIgnore, {
+          craftEnv: context.props.craftEnv
+        });
+
+
         // copy .env.example.php to .env.php
         if(context.fs.exists(context.destinationPath('dist/.env.example.php'))) {
           context.fs.copy(
@@ -90,7 +96,7 @@ const writingCraft = () => {
           )
         }
 
-        context.props.projectIgnore = craftIgnore;
+        context.props.projectIgnore = _ignoreFile;
 
         resolve();
       })
