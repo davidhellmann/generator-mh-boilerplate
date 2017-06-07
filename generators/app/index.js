@@ -18,6 +18,9 @@ const filesEnvironment = require('./config/_filesEnvironment');
 // Craft CMS
 const writingCraft = require('./modules/writing-modules/craft');
 
+// Laravel
+const writingLaravel = require('./modules/writing-modules/laravel');
+
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
@@ -30,6 +33,9 @@ module.exports = class extends Generator {
 
     // CRAFT CMS
     this.writingCraft = writingCraft.bind(this);
+
+    // Laravel
+    this.writingLaravel = writingLaravel.bind(this);
 
     this.commands = {
       composer: false,
@@ -78,6 +84,14 @@ module.exports = class extends Generator {
         console.error(e);
       }
     }
+
+    if (this.props.projectUsage === 'laravel' && this.props.laravelInstall) {
+      try {
+        await this.writingLaravel().download(this);
+      } catch (e) {
+        console.error(e);
+      }
+    }
   }
 
   async writing() {
@@ -96,6 +110,22 @@ module.exports = class extends Generator {
       }
     }
 
+    /*
+     |--------------------------------------------------------------------------
+     | Writing Laravel
+     |--------------------------------------------------------------------------
+     */
+
+    if (this.props.projectUsage === 'laravel') {
+      this.logComment({
+        message: 'Moving Laravel Folders'
+      });
+      try {
+        await this.writingLaravel().writing(this);
+      } catch (e) {
+        console.error(e);
+      }
+    }
     /*
      |--------------------------------------------------------------------------
      | Moving Basic Boilerplate Files
