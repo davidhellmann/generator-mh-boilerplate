@@ -5,6 +5,10 @@ const when = require('../../helpers/promptsWhen');
 
 const vuePrompts = [
   {
+    when: when({
+      question: 'projectFramework',
+      type: 'vue'
+    }),
     type: 'list',
     name: 'projectVueVersion',
     message: message({
@@ -15,7 +19,8 @@ const vuePrompts = [
     choices: [
       'Standalone',
       'Runtime only (You have to use .vue Files or Render Functions!)'
-    ]
+    ],
+    default: 0
   },
   {
     when: when({

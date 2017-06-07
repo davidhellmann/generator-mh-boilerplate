@@ -20,6 +20,9 @@ const writingCraft = require('./modules/writing-modules/craft');
 // Laravel
 const writingLaravel = require('./modules/writing-modules/laravel');
 
+// Vue JS
+const writingVue = require('./modules/writing-modules/vue');
+
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
@@ -94,6 +97,8 @@ module.exports = class extends Generator {
 
   async writing() {
     this.logComment({message: 'Writing files'});
+    // Getting the template files
+    const pkg = this.fs.readJSON(this.templatePath('_package.json'), {});
     /*
      |--------------------------------------------------------------------------
      | Writing Craft
@@ -124,6 +129,23 @@ module.exports = class extends Generator {
         console.error(e);
       }
     }
+
+    if (this.props.projectFramework === 'vue' || this.props.projectUsage === 'vueapp') {
+      this.logComment({
+        message: 'Adding Vue to the Project'
+      });
+
+      try {
+        await writingVue.writingVue().writing({
+          files: {
+            pkg
+          },
+          context: this
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
     /*
      |--------------------------------------------------------------------------
      | Moving Basic Boilerplate Files
@@ -148,9 +170,6 @@ module.exports = class extends Generator {
       );
       filesEnvironmentProgress.tick(1);
     });
-
-    // Getting the template files
-    const pkg = this.fs.readJSON(this.templatePath('_package.json'), {});
     // Write Basic package.json
     this.writePackageJson({
       context: this,

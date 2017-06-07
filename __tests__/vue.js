@@ -7,11 +7,13 @@ const fs = require('fs-extra'); // eslint-disable-line no-unused-vars
 
 const vueDependencies = require('../generators/app/modules/packageJson-modules/dependencies/_vue');
 
+const {renderInstance} = require('../generators/app/modules/writing-modules/vue/');
+
 const runwithVue = (plugins = []) => {
   return helpers.run(path.join(__dirname, '../generators/app'))
     .withPrompts({
       projectFramework: 'vue',
-      vuePlugins: plugins
+      projectVuePlugins: plugins
     });
 };
 
@@ -31,6 +33,13 @@ describe('It is a Vue Project 🎉', () => {
       dependencies: vueDependencies.dependencies
     });
   });
+
+  it('adds vue instance to app.js', async () => {
+    await runwithVue();
+    const vueCode = renderInstance([]);
+    expect(vueCode).toMatchSnapshot();
+    assert.fileContent('src/js/app.js', renderInstance([]));
+  });
 });
 
 describe('Vue Project with Plugins', () => {
@@ -44,11 +53,17 @@ describe('Vue Project with Plugins', () => {
         dependencies: vueDependencies.vueXDependencies
       });
     });
+
+    it('adds VueX to Vue instance to app.js', async () => {
+      const vueCode = renderInstance(['store']);
+      expect(vueCode).toMatchSnapshot();
+      assert.fileContent('src/js/app.js', renderInstance(['store']));
+    });
   });
 
   describe('It uses Vue Router', () => {
     beforeAll(async () => {
-      await runwithVue(['router']);
+      await runwithVue(['vuerouter']);
     });
 
     it('Router to dependencies', () => {
@@ -56,11 +71,17 @@ describe('Vue Project with Plugins', () => {
         dependencies: vueDependencies.routerDependencies
       });
     });
+
+    it('adds Vue Router to Vue instance to app.js', async () => {
+      const vueCode = renderInstance(['router']);
+      expect(vueCode).toMatchSnapshot();
+      assert.fileContent('src/js/app.js', renderInstance(['router']));
+    });
   });
 
   describe('It uses Vue Router and VueX', () => {
     beforeAll(async () => {
-      await runwithVue(['router', 'vuex']);
+      await runwithVue(['vuerouter', 'vuex']);
     });
 
     it('adds router and vuex dependencies', () => {
@@ -68,6 +89,12 @@ describe('Vue Project with Plugins', () => {
       assert.jsonFileContent('package.json', {
         dependencies: pluginDependencies
       });
+    });
+
+    it('adds VueX and Vue Router to Vue instance to app.js', async () => {
+      const vueCode = renderInstance(['store', 'router']);
+      expect(vueCode).toMatchSnapshot();
+      assert.fileContent('src/js/app.js', renderInstance(['store', 'router']));
     });
   });
 });
