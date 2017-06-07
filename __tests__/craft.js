@@ -71,7 +71,8 @@ describe('it is a craft project with NY Studio Environment', () => {
 
   it('adds environment file', () => {
     assert.file([
-      'dist/.env.example.php'
+      'dist/.env.example.php',
+      'dist/.env.php'
     ]);
   });
 
