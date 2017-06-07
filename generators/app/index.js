@@ -11,8 +11,7 @@ const logComment = require('./helpers/_logComment');
 
 // Importing modules
 const promptsFunction = require('./modules/prompts');
-const basePackageJson = require('./modules/writing-modules/_package.json');
-const baseConfigJson = require('./modules/writing-modules/_writeConfig.json');
+const writePackageJson = require('./modules/writing-modules/_package.json');
 const filesEnvironment = require('./config/_filesEnvironment');
 
 // Craft CMS
@@ -27,8 +26,7 @@ module.exports = class extends Generator {
 
     this.logComment = logComment.bind(this);
     this.promptsFunction = promptsFunction.bind(this);
-    this.basePackageJson = basePackageJson.bind(this);
-    this.baseConfigJson = baseConfigJson.bind(this);
+    this.writePackageJson = writePackageJson.bind(this);
     this.filesEnviroment = filesEnvironment;
 
     // CRAFT CMS
@@ -153,20 +151,15 @@ module.exports = class extends Generator {
 
     // Getting the template files
     const pkg = this.fs.readJSON(this.templatePath('_package.json'), {});
-    const config = this.fs.readJSON(this.templatePath('_config.json'), {});
-
     // Write Basic package.json
-    this.basePackageJson({
-      pkg
-    });
-
-    // Write basic config json
-    this.baseConfigJson({
-      config
+    this.writePackageJson({
+      context: this,
+      files: {
+        pkg
+      }
     });
 
     await this.fs.writeJSON(this.destinationPath('package.json'), pkg);
-    await this.fs.writeJSON(this.destinationPath('config.json'), config);
   }
 
   install() {

@@ -1,19 +1,13 @@
 'use strict';
-const extend = require('deep-extend');
+const packageJsonModules = require('../packageJson-modules/');
 
-function basePackageJson(files = {}) {
-  extend(files.pkg, {
-    name: this.props.projectName,
-    description: this.props.projectDescription,
-    version: this.props.projectVersion,
-    authors: [
-      {
-        name: this.props.authorName,
-        email: this.props.authorEmail,
-        homepage: this.props.authorHomepage
-      }
-    ]
-  });
-}
+const writePackageJson = ({
+                            context,
+                            files = {}
+                          } = {}) => {
+  packageJsonModules({
+    pkg: files.pkg
+  }, context);
+};
 
-module.exports = basePackageJson;
+module.exports = writePackageJson;
