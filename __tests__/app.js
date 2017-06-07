@@ -20,6 +20,12 @@ const author = {
 };
 
 const {scripts} = require('../generators/app/modules/packageJson-modules/_scripts');
+const {webpackDependencies} = require('../generators/app/modules/packageJson-modules/devDependencies/_webpack');
+const {gulpDependencies} = require('../generators/app/modules/packageJson-modules/devDependencies/_gulp');
+const {cssDependencies} = require('../generators/app/modules/packageJson-modules/devDependencies/_css');
+const {javascriptDependencies} = require('../generators/app/modules/packageJson-modules/devDependencies/_javascript');
+const {otherDependencies} = require('../generators/app/modules/packageJson-modules/devDependencies/_other');
+
 const run = () => helpers.run(path.join(__dirname, '../generators/app'));
 
 describe('mh-boilerplate', () => {
@@ -38,25 +44,38 @@ describe('mh-boilerplate', () => {
   // Test for Basic Files
   describe('Basic Files and Infos', () => {
     // Test package.json content
-    it.only('fill package.json with correct Information', () => {
-      console.log(scripts);
+    it('fill package.json with correct Information', () => {
       assert.JSONFileContent('package.json', {
         name: project.name,
         description: project.description,
         version: project.version,
         authors: [{name: author.name, email: author.email, homepage: author.homepage}],
-        scripts
+        scripts,
+        devDependencies: otherDependencies
       });
     });
 
-    // Fills config.json
-    it('fills config.json with information', () => {
-      assert.JSONFileContent('config.json', {
-        proxy: project.proxy,
-        favicon: {
-          developerURL: author.homepage,
-          developerName: author.name
-        }
+    it('adds devDependencies for css work', () => {
+      assert.JSONFileContent('package.json', {
+        devDependencies: cssDependencies
+      });
+    });
+
+    it('adds devDependencies for gulp', () => {
+      assert.JSONFileContent('package.json', {
+        devDependencies: gulpDependencies
+      });
+    });
+
+    it('adds devDependencies for javascript', () => {
+      assert.JSONFileContent('package.json', {
+        devDependencies: javascriptDependencies
+      });
+    });
+
+    it('add webpack devDependencies to package.json', () => {
+      assert.JSONFileContent('package.json', {
+        devDependencies: webpackDependencies
       });
     });
 
