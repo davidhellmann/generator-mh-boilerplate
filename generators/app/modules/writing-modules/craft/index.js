@@ -79,8 +79,16 @@ const writingCraft = () => {
         });
 
         const craftIgnore = fs.readFileSync(context.templatePath('craft/_gitignore'), {
-          encoding: 'UTF-8'
+          encoding: 'UTF-8',
         });
+
+        // copy .env.example.php to .env.php
+        if(context.fs.exists(context.destinationPath('dist/.env.example.php'))) {
+          context.fs.copy(
+            context.destinationPath('dist/.env.example.php'),
+            context.destinationPath('dist/.env.php')
+          )
+        }
 
         context.props.projectIgnore = craftIgnore;
 
