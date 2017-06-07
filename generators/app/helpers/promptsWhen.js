@@ -13,9 +13,9 @@
 const when = ({type, question, condition = '='}) => {
   // Return actual when function provided by inquirer
   return promptAnswers => {
-    if(condition === '=') {
+    if (condition === '=') {
       return promptAnswers[question] === type;
-    } else if(condition === '!=') {
+    } else if (condition === '!=') {
       return promptAnswers[question] !== type;
     }
   };

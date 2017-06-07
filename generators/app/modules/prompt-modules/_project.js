@@ -3,6 +3,7 @@ const chalk = require('chalk');
 
 // Importing message helper function
 const message = require('../../helpers/promptMessage');
+const when = require('../../helpers/promptsWhen');
 
 const generalPrompts = [
   {
@@ -79,6 +80,34 @@ const generalPrompts = [
       {
         name: 'Vue Application',
         value: 'vueapp'
+      }
+    ]
+  },
+  {
+    when: when({
+      question: 'projectUsage',
+      type: 'vueapp',
+      condition: '!='
+    }),
+    type: 'list',
+    name: 'projectFramework',
+    message: message({
+      headline: 'JavaScript Framework',
+      description: 'Choose your favorite JavaScript framework',
+      defaultValue: false
+    }),
+    choices: [
+      {
+        name: 'None',
+        value: 'none'
+      },
+      {
+        name: 'Vue.js',
+        value: 'vue'
+      },
+      {
+        name: 'React',
+        value: 'react'
       }
     ]
   }
