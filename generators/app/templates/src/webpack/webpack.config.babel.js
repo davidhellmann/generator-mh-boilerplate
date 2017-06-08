@@ -61,12 +61,12 @@ let chunks = [];
       {
         filename: path.resolve(`${config.dist.views}parts/site-header.html`),
         file: config.src.views + 'parts/site-header.html',
-        inject: false
+        inject: false,
       },
       {
         filename: path.resolve(`${config.dist.views}parts/site-scripts.html`),
         file: config.src.views + 'parts/site-scripts.html',
-        inject: false
+        inject: false,
       }
     ]
     <% } else if (projectUsage === 'laravel') { %>

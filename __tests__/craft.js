@@ -44,6 +44,21 @@ describe('It is a Craft Project 🎉', () => {
       <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
     <% } %>`);
   });
+  /* eslint-disable */
+  it('adds Craft chunks to webpack config', () => {
+    assert.fileContent('webpack/webpack.config.babel.js', 'const chunks_inject = [\n\
+      {\n\
+        filename: path.resolve(`${config.dist.views}parts/site-header.html`),\n\
+        file: config.src.views + \'parts/site-header.html\',\n\
+        inject: false,\n\
+      },\n\
+      {\n\
+        filename: path.resolve(`${config.dist.views}parts/site-scripts.html`),\n\
+        file: config.src.views + \'parts/site-scripts.html\',\n\
+        inject: false,\n\
+      }\n\
+    ]');
+  });
 });
 
 describe('it downloads craft', () => {
