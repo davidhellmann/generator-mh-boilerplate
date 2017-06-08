@@ -40,6 +40,24 @@ describe('It is a Vue Project 🎉', () => {
     expect(vueCode).toMatchSnapshot();
     assert.fileContent('src/js/app.js', renderInstance([]));
   });
+
+  it('adds vue config to webpack', () => {
+    assert.fileContent('webpack/webpack.config.babel.js', `'vue$': 'vue/dist/vue.esm.js',`);
+    /* eslint-disable */
+    assert.fileContent('webpack/webpack.config.babel.js', `{
+      test: /\\.vue$/,
+      loader: 'vue-loader',
+      options: {
+        loaders: {
+          scss: ifProduction(ExtractTextPlugin.extract({
+            use: 'css-loader!sass-loader',
+            fallback: 'vue-style-loader',
+          }),'vue-style-loader!css-loader!sass-loader'),
+        }
+      }
+    },`);
+    /* eslint-enable */
+  });
 });
 
 describe('Vue Project with Plugins', () => {

@@ -17,8 +17,14 @@ const vuePrompts = [
       defaultValue: false
     }),
     choices: [
-      'Standalone',
-      'Runtime only (You have to use .vue Files or Render Functions!)'
+      {
+        name: 'Standalone',
+        value: 'standalone'
+      },
+      {
+        name: 'Runtime only (You have to use .vue Files or Render Functions!)',
+        value: 'runtime'
+      }
     ],
     default: 0
   },

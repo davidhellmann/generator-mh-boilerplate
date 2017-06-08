@@ -56,6 +56,42 @@ function assetsPath(_path) {
 
 let chunks = [];
 
+<% if (projectUsage === 'craft') { %>
+  const chunks_inject = [
+      {
+        filename: path.resolve(`${config.dist.views}parts/site-header.html`),
+        file: config.src.views + 'parts/site-header.html',
+        inject: false
+      },
+      {
+        filename: path.resolve(`${config.dist.views}parts/site-scripts.html`),
+        file: config.src.views + 'parts/site-scripts.html',
+        inject: false
+      }
+    ]
+    <% } else if (projectUsage === 'laravel') { %>
+  const chunks_inject = [
+      {
+        filename: path.resolve(`${config.dist.views}_parts/site-header.blade.php`),
+        file: config.src.views + '_parts/site-header.blade.php',
+        inject: false,
+      },
+      {
+        filename: path.resolve(`${config.dist.views}_parts/site-scripts.blade.php`),
+        file: config.src.views + '_parts/site-scripts.blade.php',
+        inject: false,
+      }
+    ]
+    <% } else if (projectUsage === 'vueapp') { %>
+  const chunks_inject = [
+      {
+        filename: path.resolve(`${config.dist.views}/index.html`),
+        file: config.src.views + 'index.html',
+        inject: true,
+      }
+    ]
+    <% } %>
+
 chunks_inject.forEach((chunk) => {
   const plugin = new HtmlWebpackPlugin({
     filename: chunk.filename,
@@ -88,19 +124,22 @@ export default {
     chunkFilename: assetsPath('js/[id].[chunkhash].js'),
   },
   resolve: {
-    extensions: ['.js', '.json'],
+    extensions: ['.js',<%_ if (projectFramework === 'vue' || projectUsage === 'vueapp' ) { _%>, '.vue'<%_ } _%> '.json'],
     modules: [
       resolve(config.src.base),
       resolve('node_modules'),
     ],
     alias: {
+<%_ if (projectFramework === 'vue') { _%>
+'vue$': 'vue/dist/vue.esm.js',
+<%_ } _%>
       'src': resolve(config.src.base),
     },
   },
   module: {
     rules: [
       {
-        test: /\.(js)$/,
+        test: /\.(js<%_ if (projectFramework === 'vue' ) { _%>|vue<% } %>)$/,
         use: 'eslint-loader',
         enforce: 'pre',
         include: resolve(config.src.base),
@@ -110,6 +149,20 @@ export default {
         use: 'babel-loader',
         include: resolve(config.src.base),
       },
+    <%_ if (projectFramework === 'vue' || projectUsage === 'vueapp' ) { _%>
+    {
+      test: /\.vue$/,
+      loader: 'vue-loader',
+      options: {
+        loaders: {
+          scss: ifProduction(ExtractTextPlugin.extract({
+            use: 'css-loader!sass-loader',
+            fallback: 'vue-style-loader',
+          }),'vue-style-loader!css-loader!sass-loader'),
+        }
+      }
+    },
+    <% } %>
       {
         test: /\.json$/,
         use: 'json-loader',

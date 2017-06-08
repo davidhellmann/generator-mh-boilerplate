@@ -2,7 +2,6 @@
 const fs = require('fs-extra');
 const logComment = require('../../../helpers/_logComment');
 const vueDependencies = require('../../packageJson-modules/dependencies/_vue');
-
 let vueImports = [`import Vue from 'vue';`, `\nimport App from './App.vue';`];
 
 exports.renderInstance = function (vueInstanceOptions) {
