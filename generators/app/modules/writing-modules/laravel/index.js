@@ -30,6 +30,29 @@ const writingLaravel = () => {
 
         context.props.projectIgnore = laravelIgnore;
 
+        // Copy our Folders
+        laravelFolders.SRC.files.forEach(file => {
+          context.fs.copy(
+            context.templatePath(`laravel/${file.src}`),
+            context.destinationPath(file.dest)
+          );
+        });
+
+        laravelFolders.COPY_AND_DELETE.forEach(file => {
+          if(fs.existsSync(file.src)) {
+            context.fs.copy(
+              context.destinationPath(file.src),
+              context.destinationPath(file.dest)
+            )
+          }
+        });
+
+        //Delete Files Folder we recreate ourself
+        deleteFiles({
+          filelist: laravelFolders.DELETE,
+          context
+        });
+
         resolve();
       })
     }

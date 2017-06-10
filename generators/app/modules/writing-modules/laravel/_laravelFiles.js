@@ -1,10 +1,18 @@
 const craftFolders = {
   COPY_AND_DELETE: [
-    'dist/resources/views/',
-    'dist/public/'
+    {
+      src: 'dist/resources/views/',
+      dest: 'src/views/original/'
+    },
+    {
+      src: 'dist/public/',
+      dest: 'src/systemFiles/'
+    }
   ],
   DELETE: [
-    'dist/resources/assets/'
+    'dist/resources/assets/',
+    'dist/resources/views/',
+    'dist/public/'
   ],
   SRC: {
     files: [
@@ -12,15 +20,7 @@ const craftFolders = {
         src: 'templates/',
         dest: 'src/views/'
       }
-    ],
-    defaultConfig: {
-      files: [
-        {
-          src: 'default/systemFiles/',
-          dest: 'src/systemFiles'
-        }
-      ]
-    }
+    ]
   }
 };
 
