@@ -1,6 +1,10 @@
 {
   "presets": [
-    ["es2015", { "modules": false }]
+    ["env", {
+      "modules": false,
+      "useBuiltIns": true,
+      "debug": false
+    }]
   ],
   "plugins": ["syntax-dynamic-import"]
 }
