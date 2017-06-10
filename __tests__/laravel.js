@@ -40,17 +40,32 @@ describe('its a Laravel Application Whoops 🎉', () => {
     assert.fileContent('.gitignore', laravelIgnore);
   });
 
+  it('adds Laravel templates to the src folder', () => {
+    assert.file([
+      'src/views/index.blade.php',
+      'src/views/_layout/_layout.blade.php',
+      'src/views/_parts/site-header.blade.php',
+      'src/views/_parts/site-scripts.blade.php'
+    ]);
+  });
+
+  it('removes original Laravel views and Public Folder', () => {
+    assert.noFile([
+      'dist/resources/views/welcome.blade.php'
+    ]);
+  });
+
   /* eslint-disable */
   it('adds laravel chunks to webpack config', () => {
     assert.fileContent('webpack/webpack.config.babel.js', 'const chunks_inject = [\n\
       {\n\
-        filename: path.resolve(`${config.dist.views}_parts/site-header.blade.php`),\n\
-        file: config.src.views + \'_parts/site-header.blade.php\',\n\
+        filename: path.resolve(`${config.distPaths.views}_parts/site-header.blade.php`),\n\
+        file: config.srcPaths.views + \'_parts/site-header.blade.php\',\n\
         inject: false,\n\
       },\n\
       {\n\
-        filename: path.resolve(`${config.dist.views}_parts/site-scripts.blade.php`),\n\
-        file: config.src.views + \'_parts/site-scripts.blade.php\',\n\
+        filename: path.resolve(`${config.distPaths.views}_parts/site-scripts.blade.php`),\n\
+        file: config.srcPaths.views + \'_parts/site-scripts.blade.php\',\n\
         inject: false,\n\
       }\n\
     ]');
@@ -72,7 +87,6 @@ describe('if the user wants we install laravel', () => {
       'dist/bootstrap/',
       'dist/config/',
       'dist/database/',
-      'dist/public/',
       'dist/resources/',
       'dist/routes/',
       'dist/storage/',
