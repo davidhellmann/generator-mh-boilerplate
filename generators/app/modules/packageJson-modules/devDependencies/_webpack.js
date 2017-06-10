@@ -26,7 +26,7 @@ exports.webpackDependencies = {
   'webpack-bundle-analyzer': '^2.3.1',
   'webpack2-polyfill-plugin': '^0.0.2',
   'webpack-config-utils': '^2.3.0',
-  'webpack-dashboard': '^0.3.0',
+  "webpack-dashboard": "^0.4.0",
   'webpack-dev-middleware': '^1.10.1',
   'webpack-hot-middleware': '^2.17.0',
   'write-file-webpack-plugin': '^4.0.2'
