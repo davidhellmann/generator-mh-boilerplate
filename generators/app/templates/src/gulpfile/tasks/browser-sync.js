@@ -17,7 +17,7 @@
  |--------------------------------------------------------------------------
  */
 
-import config from '../../config.json';
+import config from '../../package.json';
 import gulp from 'gulp';
 import browserSync from 'browser-sync';
 import webpack from 'webpack';

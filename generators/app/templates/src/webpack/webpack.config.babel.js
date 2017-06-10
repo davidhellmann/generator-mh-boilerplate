@@ -1,7 +1,7 @@
 import webpack from 'webpack';
 import { getIfUtils, removeEmpty } from 'webpack-config-utils';
 import path from 'path';
-import config from '../config.json';
+import config from '../package.json';
 import Dashboard_plugin from 'webpack-dashboard/plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';

@@ -19,7 +19,7 @@
 
 import gulp from 'gulp';
 import gulp_load_plugins from 'gulp-load-plugins';
-import config from '../../config.json';
+import config from '../../package.json';
 import error_handler from '../lib/error_handler';
 
 const $ = gulp_load_plugins();

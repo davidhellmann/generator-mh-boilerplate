@@ -2,7 +2,7 @@ import gulp from 'gulp';
 import del from 'del';
 import runSequence from 'run-sequence';
 
-import config from '../../config.json';
+import config from '../../package.json';
 
 gulp.task('clean:views', (cb) => {
   return del([

@@ -20,7 +20,7 @@
  |--------------------------------------------------------------------------
  */
 
-import config from '../../config.json';
+import config from '../../package.json';
 import copy_files from '../lib/copy_files';
 import gulp from 'gulp';
 

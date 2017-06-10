@@ -21,7 +21,7 @@
  |--------------------------------------------------------------------------
  */
 
-import config from '../../config.json';
+import config from '../../package.json';
 import gulp from 'gulp'
 import gulp_load_plugins from 'gulp-load-plugins';
 

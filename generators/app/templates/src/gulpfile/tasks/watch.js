@@ -13,7 +13,7 @@
 
 import gulp from 'gulp';
 import watch from 'gulp-watch';
-import config from '../../config.json';
+import config from '../../package.json';
 
 const watch_task = () => {
   /**

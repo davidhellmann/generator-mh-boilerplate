@@ -16,7 +16,7 @@
  */
 
 
-import config from '../../config.json';
+import config from '../../package.json';
 
 import gulp from 'gulp';
 import path from 'path';
