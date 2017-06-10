@@ -25,12 +25,14 @@ exports.packageJsonCss = (files = {}, context) => {
     devDependencies: exports.devDependencies
   });
 
-  if (context.props.projectVuePlugins.includes('vuex')) {
-    exports.dependencies = Object.assign(exports.dependencies, exports.vueXDependencies);
-  }
+  if (typeof context.props.projectVuePlugins !== 'undefined') {
+    if (context.props.projectVuePlugins.includes('vuex')) {
+      exports.dependencies = Object.assign(exports.dependencies, exports.vueXDependencies);
+    }
 
-  if (context.props.projectVuePlugins.includes('vuerouter')) {
-    exports.dependencies = Object.assign(exports.dependencies, exports.routerDependencies);
+    if (context.props.projectVuePlugins.includes('vuerouter')) {
+      exports.dependencies = Object.assign(exports.dependencies, exports.routerDependencies);
+    }
   }
 
   extend(files.pkg, {

@@ -27,35 +27,45 @@ exports.writingVue = () => {
           context
         );
 
-        if(context.props.projectVuePlugins.includes('vuex')) {
-          if (!vueImports.includes(`\nimport store from './store';`)) {
-            vueImports.push(`\nimport store from './store';`);
+        if (typeof context.props.projectVuePlugins !== 'undefined') {
+          if(context.props.projectVuePlugins.includes('vuex')) {
+            if (!vueImports.includes(`\nimport store from './store';`)) {
+              vueImports.push(`\nimport store from './store';`);
+            }
+
+            if (!vueInstance.includes('store')) {
+              vueInstance.push('store');
+            }
+
+            context.fs.copy(
+              context.templatePath('vue/VueX/store/'),
+              context.destinationPath('src/js/store/')
+            );
           }
 
-          if (!vueInstance.includes('store')) {
-            vueInstance.push('store');
-          }
 
-          context.fs.copy(
-            context.templatePath('vue/VueX/store/'),
-            context.destinationPath('src/js/store/')
-          );
+          if(context.props.projectVuePlugins.includes('vuerouter')) {
+            if (!vueImports.includes(`\nimport router from './router';`)) {
+              vueImports.push(`\nimport router from './router';`);
+            }
+
+            if (!vueInstance.includes('router')) {
+              vueInstance.push('router');
+            }
+
+            // Copy store boilerplate to the app
+            context.fs.copy(
+              context.templatePath('vue/Router/index.js'),
+              context.destinationPath('src/js/router/index.js')
+            );
+          }
         }
 
-        if(context.props.projectVuePlugins.includes('vuerouter')) {
-          if (!vueImports.includes(`\nimport router from './router';`)) {
-            vueImports.push(`\nimport router from './router';`);
-          }
-
-          if (!vueInstance.includes('router')) {
-            vueInstance.push('router');
-          }
-
-          // Copy store boilerplate to the app
+        if(context.props.projectUsage === 'vueapp') {
           context.fs.copy(
-            context.templatePath('vue/Router/index.js'),
-            context.destinationPath('src/js/router/index.js')
-          );
+            context.templatePath('vue/template/index.html'),
+            context.destinationPath('dist/index.html')
+          )
         }
 
         context.props.imports = vueImports;

@@ -6,6 +6,8 @@ function basePackageJson(files = {}, context) {
     name: context.props.projectName,
     description: context.props.projectDescription,
     version: context.props.projectVersion,
+    projectType: context.props.projectUsage,
+    proxy: context.props.projectProxy,
     authors: [
       {
         name: context.props.authorName,

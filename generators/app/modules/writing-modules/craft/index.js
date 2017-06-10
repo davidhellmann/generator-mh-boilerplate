@@ -3,6 +3,7 @@ const fs = require('fs-extra');
 const ejs = require('ejs');
 const downloadCraft = require('../../../helpers/_downloadFiles');
 const deleteFiles = require('../../../helpers/_deleteFolderRecursive');
+const writePaths = require('../../packageJson-modules/paths/_distPaths');
 
 const craftFolders = {
   DELETE: [
