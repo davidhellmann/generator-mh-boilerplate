@@ -105,7 +105,7 @@ describe('mh-boilerplate', () => {
         '.gitignore',
         'gulpfile.babel.js',
         'package.json',
-        '.postcss.config.js',
+        'postcss.config.js',
         'README.md',
         '.stylelintrc'
       ]);
