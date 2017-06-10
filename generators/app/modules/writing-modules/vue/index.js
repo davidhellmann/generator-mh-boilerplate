@@ -1,6 +1,7 @@
 /* eslint-disable */
 const fs = require('fs-extra');
 const logComment = require('../../../helpers/_logComment');
+const vueFiles = require('./_vueFiles');
 const vueDependencies = require('../../packageJson-modules/dependencies/_vue');
 let vueImports = [`import Vue from 'vue';`, `\nimport App from './App.vue';`];
 
@@ -70,6 +71,15 @@ exports.writingVue = () => {
 
         context.props.imports = vueImports;
         context.props.applicationCode = exports.renderInstance(vueInstance);
+
+        // Copy our Folders
+        vueFiles.SRC.files.forEach(file => {
+          context.fs.copy(
+            context.templatePath(`vue/${file.src}`),
+            context.destinationPath(file.dest)
+          );
+        });
+
 
         resolve();
       })
