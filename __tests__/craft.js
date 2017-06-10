@@ -5,6 +5,8 @@ var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 const fs = require('fs-extra'); // eslint-disable-line no-unused-vars
 
+const {configPaths} = require('../generators/app/modules/packageJson-modules/paths/_distPaths');
+
 const run = () => helpers.run(path.join(__dirname, '../generators/app'));
 
 describe('It is a Craft Project 🎉', () => {
@@ -15,9 +17,15 @@ describe('It is a Craft Project 🎉', () => {
       });
   });
 
-  it('fills config.json with project type craft', async () => {
-    assert.JSONFileContent('config.json', {
+  it('fills package.json with project type craft', () => {
+    assert.JSONFileContent('package.json', {
       projectType: 'craft'
+    });
+  });
+
+  it('add dist Paths for Craft', () => {
+    assert.jsonFileContent('package.json', {
+      distPaths: configPaths.craft
     });
   });
 

@@ -97,6 +97,10 @@ module.exports = class extends Generator {
 
   async writing() {
     this.logComment({message: 'Writing files'});
+    // This is a bit hacky
+    if (this.props.projectUsage === 'vueapp') {
+      this.props.projectFramework = false;
+    }
     // Getting the template files
     const pkg = this.fs.readJSON(this.templatePath('_package.json'), {});
     /*

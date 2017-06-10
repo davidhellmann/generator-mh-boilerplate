@@ -56,8 +56,15 @@ describe('It is a Vue Project 🎉', () => {
         }
       }
     },`);
-    /* eslint-enable */
   });
+
+  it('copies index.html file to dist', async () => {
+    await runwithVue()
+      .withPrompts({
+        projectUsage: 'vueapp'
+      });
+    assert.file('dist/index.html');
+  })
 });
 
 describe('Vue Project with Plugins', () => {

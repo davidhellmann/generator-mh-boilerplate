@@ -5,6 +5,8 @@ var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 const fs = require('fs-extra'); // eslint-disable-line no-unused-vars
 
+const {configPaths} = require('../generators/app/modules/packageJson-modules/paths/_distPaths');
+
 const run = () => helpers.run(path.join(__dirname, '../generators/app'));
 
 describe('its a Laravel Application Whoops 🎉', () => {
@@ -19,9 +21,15 @@ describe('its a Laravel Application Whoops 🎉', () => {
       });
   });
 
-  it('fills config.json with projectType Laravel', () => {
-    assert.jsonFileContent('config.json', {
+  it('fills package.json with projectType Laravel', () => {
+    assert.jsonFileContent('package.json', {
       projectType: 'laravel'
+    });
+  });
+
+  it('add dist Paths for Craft', () => {
+    assert.jsonFileContent('package.json', {
+      distPaths: configPaths.laravel
     });
   });
 

@@ -26,6 +26,10 @@ const {cssDependencies} = require('../generators/app/modules/packageJson-modules
 const {javascriptDependencies} = require('../generators/app/modules/packageJson-modules/devDependencies/_javascript');
 const {otherDependencies} = require('../generators/app/modules/packageJson-modules/devDependencies/_other');
 
+// Const {srcPaths} = require('../generators/app/modules/packageJson-modules/paths/_srcPaths');
+// const distPaths = require('../generators/app/modules/packageJson-modules/paths/_distPaths');
+// const packageJson = fs.readJsonSync(path.join(__dirname, '../generators/app/templates/_package.json'));
+
 const run = () => helpers.run(path.join(__dirname, '../generators/app'));
 
 describe('mh-boilerplate', () => {
@@ -118,12 +122,6 @@ describe('mh-boilerplate', () => {
       assert.file([
         'webpack/webpack.config.babel.js',
         'webpack/.babelrc'
-      ]);
-    });
-
-    it('initializes a git repository', () => {
-      assert.file([
-        '.git/'
       ]);
     });
   });
