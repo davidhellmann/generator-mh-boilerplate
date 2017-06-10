@@ -4,6 +4,7 @@ var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 const fs = require('fs-extra'); // eslint-disable-line no-unused-vars
+const commandExists = require('command-exists');
 
 const {configPaths} = require('../generators/app/modules/packageJson-modules/paths/_distPaths');
 
@@ -72,17 +73,34 @@ describe('its a Laravel Application Whoops 🎉', () => {
   });
 });
 
-describe('if the user wants we install laravel', () => {
-  beforeAll(() => {
-    return run()
-      .withPrompts({
-        projectUsage: 'laravel',
-        laravelInstall: true
-      });
-  });
+describe('if the user wants and composer is available we install laravel', async () => {
+  try {
+    await commandExists('composer');
+    beforeAll(() => {
+      return run()
+        .withPrompts({
+          projectUsage: 'laravel',
+          laravelInstall: true
+        });
+    });
 
-  it('adds Laravel', () => {
-    assert.file([
+    it('adds Laravel', () => {
+      assert.file([
+        'dist/app/',
+        'dist/bootstrap/',
+        'dist/config/',
+        'dist/database/',
+        'dist/resources/',
+        'dist/routes/',
+        'dist/storage/',
+        'dist/tests/',
+        'dist/vendor/',
+        'dist/vendor/laravel/'
+      ]);
+    });
+  } catch(e) {
+    console.error('Composer is not available');
+    assert.noFile([
       'dist/app/',
       'dist/bootstrap/',
       'dist/config/',
@@ -93,6 +111,6 @@ describe('if the user wants we install laravel', () => {
       'dist/tests/',
       'dist/vendor/',
       'dist/vendor/laravel/'
-    ]);
-  });
+    ])
+  }
 });
