@@ -38,7 +38,7 @@ module.exports = {
     },
     {
       src: '_postcss.config.js',
-      dest: '.postcss.config.js'
+      dest: 'postcss.config.js'
     },
     {
       src: '_stylelintrc',
