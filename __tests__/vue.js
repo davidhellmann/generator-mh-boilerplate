@@ -41,6 +41,13 @@ describe('It is a Vue Project 🎉', () => {
     assert.fileContent('src/js/app.js', renderInstance([]));
   });
 
+  it('adds Vue Examples', () => {
+    assert.file([
+      'src/js/App.vue',
+      'src/js/views/Home.vue'
+    ]);
+  });
+
   it('adds vue config to webpack', () => {
     assert.fileContent('webpack/webpack.config.babel.js', `'vue$': 'vue/dist/vue.esm.js',`);
     /* eslint-disable */
