@@ -21,7 +21,7 @@ const { ifProduction, ifNotProduction, ifDevelopment, ifNotDevelopment } = getIf
  |--------------------------------------------------------------------------
  */
 const BASE_PATH = path.join(path.resolve(__dirname, '../'));
-const ASSETS_ROOT = path.resolve(BASE_PATH, config.dist.base);
+const ASSETS_ROOT = path.resolve(BASE_PATH, config.distPaths.base);
 
 
 
@@ -59,34 +59,34 @@ let chunks = [];
 <% if (projectUsage === 'craft') { %>
   const chunks_inject = [
       {
-        filename: path.resolve(`${config.dist.views}parts/site-header.html`),
-        file: config.src.views + 'parts/site-header.html',
+        filename: path.resolve(`${config.distPaths.views}parts/site-header.html`),
+        file: config.srcPaths.views + 'parts/site-header.html',
         inject: false,
       },
       {
-        filename: path.resolve(`${config.dist.views}parts/site-scripts.html`),
-        file: config.src.views + 'parts/site-scripts.html',
+        filename: path.resolve(`${config.distPaths.views}parts/site-scripts.html`),
+        file: config.srcPaths.views + 'parts/site-scripts.html',
         inject: false,
       }
     ]
     <% } else if (projectUsage === 'laravel') { %>
   const chunks_inject = [
       {
-        filename: path.resolve(`${config.dist.views}_parts/site-header.blade.php`),
-        file: config.src.views + '_parts/site-header.blade.php',
+        filename: path.resolve(`${config.distPaths.views}_parts/site-header.blade.php`),
+        file: config.srcPaths.views + '_parts/site-header.blade.php',
         inject: false,
       },
       {
-        filename: path.resolve(`${config.dist.views}_parts/site-scripts.blade.php`),
-        file: config.src.views + '_parts/site-scripts.blade.php',
+        filename: path.resolve(`${config.distPaths.views}_parts/site-scripts.blade.php`),
+        file: config.srcPaths.views + '_parts/site-scripts.blade.php',
         inject: false,
       }
     ]
     <% } else if (projectUsage === 'vueapp') { %>
   const chunks_inject = [
       {
-        filename: path.resolve(`${config.dist.views}/index.html`),
-        file: config.src.views + 'index.html',
+        filename: path.resolve(`${config.distPaths.views}/index.html`),
+        file: config.srcPaths.views + 'index.html',
         inject: true,
       }
     ]
@@ -124,16 +124,16 @@ export default {
     chunkFilename: assetsPath('js/[id].[chunkhash].js'),
   },
   resolve: {
-    extensions: ['.js',<%_ if (projectFramework === 'vue' || projectUsage === 'vueapp' ) { _%>, '.vue'<%_ } _%> '.json'],
+    extensions: ['.js','.json'<%_ if (projectFramework === 'vue' || projectUsage === 'vueapp' ) { _%>, '.vue'<%_ } _%> ],
     modules: [
-      resolve(config.src.base),
+      resolve(config.srcPaths.base),
       resolve('node_modules'),
     ],
     alias: {
 <%_ if (projectFramework === 'vue') { _%>
 'vue$': 'vue/dist/vue.esm.js',
 <%_ } _%>
-      'src': resolve(config.src.base),
+      'src': resolve(config.srcPaths.base),
     },
   },
   module: {
@@ -142,12 +142,12 @@ export default {
         test: /\.(js<%_ if (projectFramework === 'vue' ) { _%>|vue<% } %>)$/,
         use: 'eslint-loader',
         enforce: 'pre',
-        include: resolve(config.src.base),
+        include: resolve(config.srcPaths.base),
       },
       {
         test: /\.js$/,
         use: 'babel-loader',
-        include: resolve(config.src.base),
+        include: resolve(config.srcPaths.base),
       },
     <%_ if (projectFramework === 'vue' || projectUsage === 'vueapp' ) { _%>
     {
@@ -169,7 +169,7 @@ export default {
       },
       {
         test: /\.scss$/,
-        include: resolve(config.src.css),
+        include: resolve(config.srcPaths.css),
         exclude: [resolve('node_modules'), resolve('dist/')],
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -202,7 +202,7 @@ export default {
   },
   plugins: removeEmpty([
     new Webpack2Polyfill(),
-    new CleanWebpackPlugin([config.dist.css, config.dist.js], {
+    new CleanWebpackPlugin([config.distPaths.css, config.distPaths.js], {
       root: BASE_PATH,
       verbose: true,
     }),

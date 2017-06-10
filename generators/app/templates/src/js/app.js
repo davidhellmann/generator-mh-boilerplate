@@ -1,6 +1,6 @@
 import 'lazysizes';
-import 'svgxuse'
-import 'babel-polyfill';
+import 'svgxuse';
+import 'babel-polyfill'; // eslint-disable-line
 import '../scss/app.scss'; /* eslint-disable */
 
 <% if(typeof imports !== 'undefined') { -%>

@@ -29,8 +29,8 @@ const argv = yargs.argv;
 const changed = argv.changed || true;
 
 const paths = {
-  src: [`${config.src.systemFiles}**/*`, `${config.src.systemFiles}**/.*`],
-  dest: `${config.dist.systemFiles}`,
+  src: [`${config.srcPaths.systemFiles}**/*`, `${config.srcPaths.systemFiles}**/.*`],
+  dest: `${config.distPaths.systemFiles}`,
 };
 
 const system_files = () => {

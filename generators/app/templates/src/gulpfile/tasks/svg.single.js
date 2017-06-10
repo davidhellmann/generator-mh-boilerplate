@@ -26,17 +26,17 @@ const $ = gulpLoadPlugins();
 
 const paths = {
   src: [
-    `${config.src.images.svg.base + config.src.images.svg.single}**/*.svg`,
-    `${config.src.images.svg.base + config.src.images.svg.sprite}**/*.svg`,
+    `${config.srcPaths.images.svg.base + config.srcPaths.images.svg.single}**/*.svg`,
+    `${config.srcPaths.images.svg.base + config.srcPaths.images.svg.sprite}**/*.svg`,
   ],
-  dest: `${config.dist.images.svg.base + config.dist.images.svg.single}`,
-  dest_inline: `${config.dist.views}`,
+  dest: `${config.distPaths.images.svg.base + config.distPaths.images.svg.single}`,
+  dest_inline: `${config.distPaths.views}`,
 };
 
 const copy_vectors = () => gulp
     .src(paths.src)
     .pipe($.imagemin({
-      svgoPlugins: config.minify.images.svgoPlugins
+      svgoPlugins: config.svgoConfig
     }))
     .on('error', error_handler)
     .pipe($.cheerio({

@@ -22,13 +22,13 @@ const watch_task = () => {
 
 
   const paths = {
-    'move:views': `${config.src.views}**/*`,
+    'move:views': `${config.srcPaths.views}**/*`,
     'move:images': [
-      `${config.src.images.base}**/*`,
-      `!${config.src.images.base}svg/**/*`,
+      `${config.srcPaths.images.base}**/*`,
+      `!${config.srcPaths.images.base}svg/**/*`,
     ],
-    'svg:sprite': `${config.src.images.svg.base + config.src.images.svg.sprite}**/*.svg`,
-    'svg:single': `${config.src.images.svg.base + config.src.images.svg.single}**/*.svg`,
+    'svg:sprite': `${config.srcPaths.images.svg.base + config.srcPaths.images.svg.sprite}**/*.svg`,
+    'svg:single': `${config.srcPaths.images.svg.base + config.srcPaths.images.svg.single}**/*.svg`,
   };
 
 

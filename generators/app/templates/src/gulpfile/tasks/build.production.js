@@ -2,9 +2,11 @@ import gulp from 'gulp';
 import run_sequence from 'run-sequence';
 
 const build_production = (cb) => {
-  run_sequence(
+  return run_sequence(
     [
-      'clean:dist'
+      'clean:views',
+      'clean:images',
+      'clean:favicons',
     ],
     [
       'favicons',
@@ -14,7 +16,8 @@ const build_production = (cb) => {
       'move:views',
       'svg:sprite',
       'svg:single'
-    ]
+    ],
+    cb
   )
 }
 

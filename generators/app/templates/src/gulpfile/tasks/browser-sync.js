@@ -63,13 +63,13 @@ const browserSyncTask = () => {
       }),
     ],
     files: [
-      `${config.dist.views}**/*.{php,html,twig}`,
-      `${config.dist.images.base}**/*.{jpg,png,gif,svg}`,
-      `${config.dist.css}**/*`,
+      `${config.distPaths.views}**/*.{php,html,twig}`,
+      `${config.distPaths.images.base}**/*.{jpg,png,gif,svg}`,
+      `${config.distPaths.css}**/*`,
     ],
   });
 
-  browserSync.watch(config.dist.base + '**/*.css', function(event, file) {
+  browserSync.watch(config.distPaths.base + '**/*.css', function(event, file) {
     if (event === 'change') {
       browserSync.reload('*.css');
     }

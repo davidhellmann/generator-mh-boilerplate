@@ -29,8 +29,8 @@ const argv = yargs.argv;
 const changed = argv.changed || true;
 
 const paths = {
-  src: `${config.src.views}**/*`,
-  dest: `${config.dist.views}`,
+  src: `${config.srcPaths.views}**/*`,
+  dest: `${config.distPaths.views}`,
 };
 
 const move_views = () => {

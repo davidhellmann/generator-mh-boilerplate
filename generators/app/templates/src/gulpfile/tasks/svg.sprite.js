@@ -26,8 +26,8 @@ import error_handler from '../lib/error_handler';
 const $ = gulpLoadPlugins();
 
 const paths = {
-  src: `${config.src.images.svg.base + config.src.images.svg.sprite}**/*`,
-  dest: `${config.dist.images.svg.base + config.dist.images.svg.sprite}`,
+  src: `${config.srcPaths.images.svg.base + config.srcPaths.images.svg.sprite}**/*`,
+  dest: `${config.distPaths.images.svg.base + config.distPaths.images.svg.sprite}`,
   assets: path.resolve(__dirname, '../../'),
 };
 
@@ -43,11 +43,11 @@ const svg_sprite_config = {
       padding: 10,
     },
   },
-  dest: config.dist.base,
+  dest: config.distPaths.base,
   transform: [
     {
       svgo: {
-        plugins: config.minify.images.svgoPlugins,
+        plugins: config.svgoConfig,
       },
     },
   ],
@@ -57,7 +57,7 @@ const svg_sprite_config = {
       sprite: `${paths.dest}/sprite.css.svg`,
       render: {
         scss: {
-          dest: `${config.src.css}_____generic/_generic.svg-sprite.scss`,
+          dest: `${config.srcPaths.css}_____generic/_generic.svg-sprite.scss`,
         },
       },
     },

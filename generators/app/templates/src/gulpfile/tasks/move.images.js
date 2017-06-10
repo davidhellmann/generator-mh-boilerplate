@@ -26,10 +26,10 @@ const $ = gulpLoadPlugins();
 
 const paths = {
   src: [
-    `${config.src.images.base}**/*`,
-    `!${config.src.images.base}svg/**/*`,
+    `${config.srcPaths.images.base}**/*`,
+    `!${config.srcPaths.images.base}svg/**/*`,
   ],
-  dest: `${config.dist.images.base}`,
+  dest: `${config.distPaths.images.base}`,
 };
 
 const copy_images = () => {
