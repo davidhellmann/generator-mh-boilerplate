@@ -7,10 +7,16 @@ const {packageJsonJavascript} = require('./devDependencies/_javascript');
 const {packageJsonOther} = require('./devDependencies/_other');
 const {writeSrcPaths} = require('./paths/_srcPaths');
 const {writeDistPaths} = require('./paths/_distPaths');
+const {packageJsonBrowsersList} = require('./_browserlist');
+const {packageJsonFavicon} = require('./_favicon');
+const {packageJsonSvgo} = require('./_svgo');
 
 const packageJsonModules = (files = {}, context) => {
   _base(files, context);
   packageJsonScripts(files);
+  packageJsonBrowsersList(files);
+  packageJsonFavicon(files);
+  packageJsonSvgo(files);
   packageJsonWebpack(files);
   packageJsonGulp(files);
   packageJsonCss(files);

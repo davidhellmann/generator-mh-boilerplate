@@ -20,6 +20,8 @@ const author = {
 };
 
 const {scripts} = require('../generators/app/modules/packageJson-modules/_scripts');
+const {browsersList} = require('../generators/app/modules/packageJson-modules/_browserlist');
+const {faviconEntries} = require('../generators/app/modules/packageJson-modules/_favicon');
 const {webpackDependencies} = require('../generators/app/modules/packageJson-modules/devDependencies/_webpack');
 const {gulpDependencies} = require('../generators/app/modules/packageJson-modules/devDependencies/_gulp');
 const {cssDependencies} = require('../generators/app/modules/packageJson-modules/devDependencies/_css');
@@ -56,6 +58,18 @@ describe('mh-boilerplate', () => {
         authors: [{name: author.name, email: author.email, homepage: author.homepage}],
         scripts,
         devDependencies: otherDependencies
+      });
+    });
+
+    it('adds browserlist entry to package.json', () => {
+      assert.jsonFileContent('package.json', {
+        browserslist: browsersList
+      });
+    });
+
+    it('adds favicon configuration to package.json', () => {
+      assert.jsonFileContent('package.json', {
+        favicon: faviconEntries
       });
     });
 
