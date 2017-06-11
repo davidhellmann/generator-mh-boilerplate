@@ -8,11 +8,13 @@ exports.configPaths = {
   },
   craft: {
     base: `dist/public`,
-    views: 'dist/craft/templates/'
+    views: 'dist/craft/templates/',
+    systemFiles: 'dist/public/'
   },
   laravel: {
     base: 'dist/public',
-    views: 'dist/resources/views/'
+    views: 'dist/resources/views/',
+    systemFiles: 'dist/public/'
   }
 };
 

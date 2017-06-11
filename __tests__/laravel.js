@@ -99,7 +99,7 @@ describe('if the user wants and composer is available we install laravel', async
       ]);
     });
   } catch(e) {
-    console.error('Composer is not available');
+    console.error('Composer is not available, test passes');
     assert.noFile([
       'dist/app/',
       'dist/bootstrap/',
