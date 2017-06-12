@@ -47,6 +47,14 @@
 
         // The base path environmentVariable for Assets; it can be hard-coded as well
         'BASE_PATH' => realpath(dirname(__FILE__)) . '/public/',
+
+        // Assets Path
+        'ASSETS_PATH' => realpath(dirname(__FILE__)) . '/public/assets/',
+        'ASSETS_URL' => $protocol . $_SERVER['HTTP_HOST'] . '/assets/',
+
+      // Upload Path
+        'UPLOAD_PATH' => realpath(dirname(__FILE__)) . '/public/uploads/',
+        'UPLOAD_URL' => $protocol . $_SERVER['HTTP_HOST'] . '/uploads/',
     );
 
 // Set all of the .env values, auto-prefixed with `CRAFTENV_`

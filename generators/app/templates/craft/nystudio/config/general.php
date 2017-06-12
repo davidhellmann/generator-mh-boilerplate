@@ -22,8 +22,12 @@
 
             // Set the environmental variables
             'environmentVariables' => array(
-                'baseUrl'  => getenv('CRAFTENV_BASE_URL'),
-                'basePath' => getenv('CRAFTENV_BASE_PATH'),
+              'baseUrl'  => getenv('CRAFTENV_BASE_URL'),
+              'basePath' => getenv('CRAFTENV_BASE_PATH'),
+              'assetsPath' => getenv('CRAFTENV_ASSETS_PATH'),
+              'assetsUrl' => getenv('CRAFTENV_ASSETS_URL'),
+              'uploadPath' => getEnv('CRAFTENV_UPLOAD_PATH'),
+              'uploadUrl' => getEnv('CRAFTENV_UPLOAD_URL')
             ),
         ),
 
