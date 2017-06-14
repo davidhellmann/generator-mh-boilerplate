@@ -1,3 +1,10 @@
+/**
+ * Dependencies for Webpack
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 'use strict';
 const extend = require('deep-extend');
 

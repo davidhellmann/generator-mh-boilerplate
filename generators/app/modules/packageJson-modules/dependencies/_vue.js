@@ -1,3 +1,10 @@
+/**
+ * Dependencies and devDependencies for VueJs
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 'use strict';
 const extend = require('deep-extend');
 
@@ -20,7 +27,7 @@ exports.routerDependencies = {
   'vue-router': '^2.5.3'
 };
 
-exports.packageJsonCss = (files = {}, context) => {
+exports.packageJsonVue = (files = {}, context) => {
   extend(files.pkg, {
     devDependencies: exports.devDependencies
   });

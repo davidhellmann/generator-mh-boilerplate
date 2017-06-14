@@ -1,3 +1,10 @@
+/**
+ * Combine all the different Prompts
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 'use strict';
 
 // Import some prompt modules

@@ -1,3 +1,10 @@
+/**
+ * Adding a Comment Log Style function
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 const chalk = require('chalk');
 
 function logComment({message = 'Logging', color = 'cyan', short = true} = {}) {

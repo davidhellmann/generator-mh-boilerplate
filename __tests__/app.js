@@ -1,4 +1,10 @@
 'use strict';
+/**
+ * Base Test for the Generator
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
 process.env.NODE_ENV = 'test';
 /* eslint-disable new-cap */
 var path = require('path');

@@ -1,3 +1,10 @@
+/**
+ * Bringing together all the package.json extends
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 const _base = require('./_base');
 const {packageJsonScripts} = require('./_scripts');
 const {packageJsonWebpack} = require('./devDependencies/_webpack');

@@ -1,4 +1,9 @@
 /**
+ * When Helper Function for Prompts
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ *
  * When helper function to stop repeat myself
  * Wrapping When Function to pass the prompt Type
  * {

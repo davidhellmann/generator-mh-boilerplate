@@ -1,3 +1,10 @@
+/**
+ * Define Src Paths for package.json
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 const extend = require('deep-extend');
 
 exports.srcPaths = {

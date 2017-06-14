@@ -1,3 +1,10 @@
+/**
+ * Dependencies for everything that doesn't match css, javascript, gulp or webpack
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 'use strict';
 const extend = require('deep-extend');
 

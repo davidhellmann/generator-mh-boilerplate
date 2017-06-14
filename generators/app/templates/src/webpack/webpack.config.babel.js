@@ -1,3 +1,10 @@
+/**
+ * Webpack Config for Javascript and CSS Bundling
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 import webpack from 'webpack';
 import { getIfUtils, removeEmpty } from 'webpack-config-utils';
 import path from 'path';

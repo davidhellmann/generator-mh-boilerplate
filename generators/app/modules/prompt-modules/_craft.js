@@ -1,3 +1,10 @@
+/**
+ * Prompt Questions for Craft CMS
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 'use strict';
 // Importing message helper function
 const message = require('../../helpers/promptMessage');
@@ -13,7 +20,7 @@ const craftPrompts = [
     name: 'craftInstall',
     message: message({
       headline: 'Install Craft?',
-      message: 'Download and installs the latest Craft Version',
+      description: 'Download the Latest Craft Version (You still need to add your Database credentials and run the Installation Process)',
       defaultValue: false
     }),
     default: true
@@ -27,15 +34,24 @@ const craftPrompts = [
     name: 'craftEnv',
     message: message({
       headline: 'Craft Environment',
-      description: 'Choose your preffered Craft Environment'
+      description: 'Choose your preffered Craft Environment',
+      defaultValue: false
     }),
     choices: [
       {
-        name: 'NY Studio Multienvironment with .env.php (Default)',
+        name: message({
+          headline: 'NY Studio Multienvironment with .env.php (Default)',
+          description: 'Please visit https://github.com/nystudio107/craft-multi-environment for further Information',
+          defaultValue: false
+        }),
         value: 'nystudio'
       },
       {
-        name: 'Default',
+        name: message({
+          headline: 'Craft Default Configuration',
+          description: 'Please visit https://craftcms.com/docs/requirements for further Information',
+          defaultValue: false
+        }),
         value: 'default'
       }
     ],

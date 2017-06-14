@@ -1,3 +1,10 @@
+/**
+ * Download files and extract them
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 const download = require('download');
 const ProgressBar = require('progress');
 const commentLog = require('./_logComment');

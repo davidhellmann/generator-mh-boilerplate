@@ -1,3 +1,10 @@
+/**
+ * Define some global Files
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 module.exports = {
   files: [
     {

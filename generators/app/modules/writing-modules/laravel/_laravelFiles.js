@@ -1,4 +1,11 @@
-const craftFolders = {
+/**
+ * List of files for Laravel Project
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
+const LaravelFolders = {
   COPY_AND_DELETE: [
     {
       src: 'dist/resources/views/',
@@ -24,4 +31,4 @@ const craftFolders = {
   }
 };
 
-module.exports = craftFolders;
+module.exports = LaravelFolders;

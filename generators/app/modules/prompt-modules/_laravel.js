@@ -1,3 +1,10 @@
+/**
+ * Prompt Questions for Laravel
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 'use strict';
 // Importing message helper function
 const message = require('../../helpers/promptMessage');

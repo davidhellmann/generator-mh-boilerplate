@@ -1,3 +1,10 @@
+/**
+ * Write the Craft Project
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 /* eslint-disable */
 const fs = require('fs-extra');
 const ejs = require('ejs');

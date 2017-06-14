@@ -1,3 +1,10 @@
+/**
+ * Prompt Questions about the Project
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 'use strict';
 const chalk = require('chalk');
 

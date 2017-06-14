@@ -1,3 +1,10 @@
+/**
+ * Delete Folders and Files Recursive
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 const fs = require('fs-extra');
 const logMessage = require('./_logComment');
 

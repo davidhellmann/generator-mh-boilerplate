@@ -1,3 +1,10 @@
+/**
+ * Yeoman Generator
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 'use strict';
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');

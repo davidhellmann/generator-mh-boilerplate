@@ -1,3 +1,10 @@
+/**
+ * Files for a Vue Project
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 const vueFolders = {
   SRC: {
     files: [

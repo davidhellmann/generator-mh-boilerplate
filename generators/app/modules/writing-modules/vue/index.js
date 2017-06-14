@@ -1,3 +1,10 @@
+/**
+ * Write a Vue Project
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 /* eslint-disable */
 const fs = require('fs-extra');
 const logComment = require('../../../helpers/_logComment');
@@ -23,7 +30,7 @@ exports.writingVue = () => {
     writing: ({ files, context }) => {
       return new Promise((resolve) => {
         const vueInstance = [];
-        vueDependencies.packageJsonCss(
+        vueDependencies.packageJsonVue(
           files,
           context
         );

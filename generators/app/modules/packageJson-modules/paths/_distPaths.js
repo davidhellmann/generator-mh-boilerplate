@@ -1,3 +1,10 @@
+/**
+ * Defining the different dist Paths for different Projects
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 const extend = require('deep-extend');
 
 exports.configPaths = {
