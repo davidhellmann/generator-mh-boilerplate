@@ -1,0 +1,19 @@
+{# layout.twig #}
+{# set basic Variables defined in general/environmentVaribales or in the specific config file#}
+{% set siteUrl = craft.config.environmentVariables.siteUrl %}
+{% set basePath = craft.config.environmentVariables.basePath %}
+{% set baseUrl = craft.config.environmentVariables.basePath %}
+{% set uploadPath = craft.config.environmentVariables.uploadPath %}
+{% set uploadUrl = craft.config.environmentVariables.uploadUrl %}
+{% set assetsPath = craft.config.environmentVariables.assetsPath %}
+{% set assetsUrl = craft.config.environmentVariables.assetsUrl %}
+<!DOCTYPE html>
+    {% include 'parts/site-header' %}
+
+<main id="content" role="main">
+    {% block content %}{% endblock %}
+</main>
+
+{% include 'parts/site-scripts' %}
+</body>
+</html>

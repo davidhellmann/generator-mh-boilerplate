@@ -1,0 +1,16 @@
+
+#===================================#
+#     Laravel IGNORE                #
+#===================================#
+dist/node_modules
+dist/public/storage
+dist/public/hot
+dist/storage/*.key
+dist/vendor
+dist/.idea
+dist/Homestead.json
+dist/Homestead.yaml
+dist/.env
+dist/public
+dist/resources/views
+dist/resources/assets

@@ -1,0 +1,3 @@
+coverage
+**/templates
+generators/app/index-old.js
