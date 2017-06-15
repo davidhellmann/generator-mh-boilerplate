@@ -21,7 +21,7 @@ const project = {
 };
 const author = {
   name: 'Martin Herweg',
-  email: 'martin@herweg.co',
+  email: 'info@martinherweg.de',
   homepage: 'https://martinherweg.de'
 };
 
