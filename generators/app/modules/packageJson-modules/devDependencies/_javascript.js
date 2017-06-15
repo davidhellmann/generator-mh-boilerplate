@@ -16,7 +16,7 @@ const eslint = {
   'eslint-friendly-formatter': '^3.0.0',
   'eslint-plugin-html': '^2.0.1',
   'eslint-plugin-import': '^2.2.0',
-  'prettier-eslint-cli': '^4.1.1',
+  'prettier-eslint-cli': '^4.1.1'
 };
 
 const babel = {
