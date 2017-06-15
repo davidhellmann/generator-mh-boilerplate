@@ -7,8 +7,7 @@
 
 'use strict';
 const Generator = require('yeoman-generator');
-const chalk = require('chalk');
-const yosay = require('yosay');
+const chalk = require('chalk'); // eslint-disable-line no-unused-vars
 const filesystem = require('fs-extra'); // eslint-disable-line no-unused-vars
 const commandExists = require('command-exists');
 const ProgressBar = require('progress'); // eslint-disable-line no-unused-vars
