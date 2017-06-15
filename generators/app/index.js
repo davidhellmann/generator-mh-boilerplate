@@ -18,6 +18,7 @@ const logComment = require('./helpers/_logComment');
 
 // Importing modules
 const promptsFunction = require('./modules/prompts');
+const intro = require('./modules/intro');
 const writePackageJson = require('./modules/writing-modules/_package.json');
 const filesEnvironment = require('./config/_filesEnvironment');
 
@@ -70,9 +71,7 @@ module.exports = class extends Generator {
 
   prompting() {
     // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the marvelous ' + chalk.red('generator-mh-boilerplate') + ' generator!'
-    ));
+    this.log(intro);
     this.logComment({message: 'Prompting'});
     // Execute function so we get its returned array;
     const prompts = promptsFunction();
