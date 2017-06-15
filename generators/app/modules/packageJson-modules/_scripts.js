@@ -5,7 +5,6 @@
  * @author   Martin Herweg <info@martinherweg.de>
  */
 
-
 'use strict';
 const extend = require('deep-extend');
 

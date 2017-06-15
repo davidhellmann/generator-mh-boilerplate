@@ -1,5 +1,5 @@
 /**
- * package.json configuration for favicon task
+ * Package.json configuration for favicon task
  *
  * @package  generator-mh-boilerplate
  * @author   Martin Herweg <info@martinherweg.de>
