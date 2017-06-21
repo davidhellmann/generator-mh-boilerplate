@@ -54,17 +54,14 @@ module.exports = class extends Generator {
 
   async initializing() {
     this.logComment({message: 'Initializing the Generator'});
-    try {
-      await commandExists('composer');
-      this.commands.composer = true;
-      await commandExists('yarn');
-      this.commands.yarn = true;
-      await commandExists('git');
-      this.commands.git = true;
-    } catch (e) {
-      if (e) {
-        console.error(e);
-      }
+
+    for (const command in this.commands) {
+      await commandExists(command)
+        .then((command) => {
+        console.log(command);
+          this.commands[command] = true;
+        })
+        .catch((error) => console.warn(error));
     }
   }
 
@@ -73,7 +70,7 @@ module.exports = class extends Generator {
     this.log(intro);
     this.logComment({message: 'Prompting'});
     // Execute function so we get its returned array;
-    const prompts = promptsFunction();
+    const prompts = promptsFunction(this);
     return this.prompt(prompts).then(props => {
       // To access props later use this.props.someAnswer;
       this.props = props;
