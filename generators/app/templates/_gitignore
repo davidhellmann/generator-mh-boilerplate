@@ -69,6 +69,7 @@ Package Syncing.last-run
 #===================================#
 #     PROJECT SPECIFIC STUFF        #
 #===================================#
+webpack/stats.json
 
 ## Depreciated stuff, keeping here for reference ##
 

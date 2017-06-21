@@ -4,6 +4,9 @@
 dist/craft/storage/*
 !dist/craft/storage/logo/*
 dist/public/
+dist/craft/app/*
+dist/craft/templates/*
+dist/scripts/env.sh
 <% if(craftEnv == 'nystudio') { -%>
 dist/.env.php
 <% } -%>
