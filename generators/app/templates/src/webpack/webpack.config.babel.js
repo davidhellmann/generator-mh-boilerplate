@@ -147,7 +147,10 @@ export default {
     rules: [
       {
         test: /\.(js<%_ if (projectFramework === 'vue' ) { _%>|vue<% } %>)$/,
-        use: 'eslint-loader',
+        loader: 'eslint-loader',
+        options: {
+          formatter: require("eslint-friendly-formatter"),
+        },
         enforce: 'pre',
         include: resolve(config.srcPaths.base),
       },
@@ -265,6 +268,7 @@ export default {
       log: false,
       test: /^(?!.+(?:hot-update.(js|json))).+$/,
     }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
   ]),
 };
 
