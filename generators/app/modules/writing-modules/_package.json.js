@@ -9,9 +9,9 @@
 const packageJsonModules = require('../packageJson-modules/');
 
 const writePackageJson = ({
-                            context,
-                            files = {}
-                          } = {}) => {
+  context,
+  files = {}
+} = {}) => {
   packageJsonModules({
     pkg: files.pkg
   }, context);
