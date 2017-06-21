@@ -13,7 +13,6 @@ exports.dependencies = {
 };
 
 exports.devDependencies = {
-  'eslint-plugin-html': '^2.0.1',
   'vue-loader': '^12.0.4',
   'vue-style-loader': '^3.0.1',
   'vue-template-compiler': '^2.3.3'
