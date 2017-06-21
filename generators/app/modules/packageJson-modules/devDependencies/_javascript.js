@@ -9,12 +9,12 @@
 const extend = require('deep-extend');
 
 const eslint = {
-  eslint: '^3.16.0',
+  eslint: '^4.0.0',
   'eslint-config-airbnb-base': '^11.1.0',
   'eslint-config-defaults': '^9.0.0',
   'eslint-formatter-pretty': '^1.1.0',
   'eslint-friendly-formatter': '^3.0.0',
-  'eslint-plugin-html': '^2.0.1',
+  'eslint-plugin-html': '^3.0.0',
   'eslint-plugin-import': '^2.2.0',
   'prettier-eslint-cli': '^4.1.1'
 };

@@ -29,7 +29,7 @@ exports.webpackDependencies = {
   'style-loader': '^0.18.1',
   'stylelint-webpack-plugin': '^0.7.0',
   'url-loader': '^0.5.7',
-  webpack: '^2.2.1',
+  webpack: '^3.0.0',
   'webpack-bundle-analyzer': '^2.3.1',
   'webpack2-polyfill-plugin': '^0.0.2',
   'webpack-config-utils': '^2.3.0',
