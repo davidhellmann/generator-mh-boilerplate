@@ -73,6 +73,10 @@ exports.writingVue = () => {
           context.fs.copy(
             context.templatePath('vue/template/index.html'),
             context.destinationPath('dist/index.html')
+          );
+          context.fs.copy(
+            context.templatePath('vue/template/index.html'),
+            context.destinationPath('src/views/index.html')
           )
         }
 

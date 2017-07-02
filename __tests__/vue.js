@@ -77,6 +77,7 @@ describe('It is a Vue Project 🎉', () => {
       .withPrompts({
         projectUsage: 'vueapp'
       });
+    assert.file('src/views/index.html');
     assert.file('dist/index.html');
   })
 });
