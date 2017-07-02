@@ -39,6 +39,7 @@ const favicons = () => {
       developerURL: config.favicon.developerURL, // Your (or your developer's) URL. `string`
       background: config.favicon.background, // Background colour for flattened icons. `string`
       path: config.favicon.path, // Path for overriding default icons path. `string`
+      theme_color: config.favicon.theme_color,
       display: 'standalone', // Android display: "browser" or "standalone". `string`
       orientation: 'portrait', // Android orientation: "portrait" or "landscape". `string`
       version: '1.0', // Your application's version number. `number`

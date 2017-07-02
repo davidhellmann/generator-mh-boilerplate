@@ -15,6 +15,7 @@ exports.faviconEntries = {
   developerURL: '',
   background: '#020307',
   path: 'favicons',
+  theme_color: '#020307',
   logging: false,
   online: false,
   icons: {
