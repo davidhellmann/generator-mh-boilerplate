@@ -66,8 +66,8 @@ let chunks = [];
 <% if (projectUsage === 'craft') { %>
   const chunks_inject = [
       {
-        filename: path.resolve(`${config.distPaths.views}parts/site-header.html`),
-        file: config.srcPaths.views + 'parts/site-header.html',
+        filename: path.resolve(`${config.distPaths.views}parts/webpack-header.html`),
+        file: config.srcPaths.views + 'parts/webpack-header.html',
         inject: false,
       },
       {
@@ -79,8 +79,8 @@ let chunks = [];
     <% } else if (projectUsage === 'laravel') { %>
   const chunks_inject = [
       {
-        filename: path.resolve(`${config.distPaths.views}_parts/site-header.blade.php`),
-        file: config.srcPaths.views + '_parts/site-header.blade.php',
+        filename: path.resolve(`${config.distPaths.views}_parts/webpack-header.blade.php`),
+        file: config.srcPaths.views + '_parts/webpack-header.blade.php',
         inject: false,
       },
       {

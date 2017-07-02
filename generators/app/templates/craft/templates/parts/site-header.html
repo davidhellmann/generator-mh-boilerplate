@@ -6,9 +6,10 @@
     <base href="{{ siteUrl }}">
     <title>{% if title is defined %}{{ title }} - {% endif %}{{ siteName }}</title>
 	<link rel="home" href="{{ siteUrl }}" />
+    {% include 'parts/header/_favicons' %}
+  
 	{% hook 'seomaticRender' %}
-    <% for (var css in htmlWebpackPlugin.files.css) { %>
-      <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
-    <% } %>
+    {% include 'parts/header/webpack-header' %}
+    
 </head>
 <body>

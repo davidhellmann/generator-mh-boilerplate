@@ -53,6 +53,7 @@ describe('its a Laravel Application Whoops 🎉', () => {
       'src/views/index.blade.php',
       'src/views/_layout/_layout.blade.php',
       'src/views/_parts/site-header.blade.php',
+      'src/views/_parts/webpack-header.blade.php',
       'src/views/_parts/site-scripts.blade.php'
     ]);
   });
@@ -67,8 +68,8 @@ describe('its a Laravel Application Whoops 🎉', () => {
   it('adds laravel chunks to webpack config', () => {
     assert.fileContent('webpack/webpack.config.babel.js', 'const chunks_inject = [\n\
       {\n\
-        filename: path.resolve(`${config.distPaths.views}_parts/site-header.blade.php`),\n\
-        file: config.srcPaths.views + \'_parts/site-header.blade.php\',\n\
+        filename: path.resolve(`${config.distPaths.views}_parts/webpack-header.blade.php`),\n\
+        file: config.srcPaths.views + \'_parts/webpack-header.blade.php\',\n\
         inject: false,\n\
       },\n\
       {\n\

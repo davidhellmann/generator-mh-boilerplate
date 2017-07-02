@@ -46,6 +46,7 @@ describe('It is a Craft Project 🎉', () => {
       'src/views/index.html',
       'src/views/layout/_layout.html',
       'src/views/parts/site-header.html',
+      'src/views/parts/webpack-header.html',
       'src/views/parts/site-scripts.html'
     ]);
   });
@@ -55,16 +56,16 @@ describe('It is a Craft Project 🎉', () => {
   <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
 <% } %>
 `);
-    assert.fileContent('src/views/parts/site-header.html', `<% for (var css in htmlWebpackPlugin.files.css) { %>
-      <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
-    <% } %>`);
+    assert.fileContent('src/views/parts/webpack-header.html', `<% for (var css in htmlWebpackPlugin.files.css) { %>
+  <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+<% } %>`);
   });
   /* eslint-disable */
   it('adds Craft chunks to webpack config', () => {
     assert.fileContent('webpack/webpack.config.babel.js', 'const chunks_inject = [\n\
       {\n\
-        filename: path.resolve(`${config.distPaths.views}parts/site-header.html`),\n\
-        file: config.srcPaths.views + \'parts/site-header.html\',\n\
+        filename: path.resolve(`${config.distPaths.views}parts/webpack-header.html`),\n\
+        file: config.srcPaths.views + \'parts/webpack-header.html\',\n\
         inject: false,\n\
       },\n\
       {\n\
