@@ -24,6 +24,7 @@ exports.webpackDependencies = {
   'json-loader': '^0.5.4',
   'lodash-webpack-plugin': '^0.11.4',
   'node-sass': '^4.5.0',
+  'optimize-css-assets-webpack-plugin': '^2.0.0',
   'postcss-loader': '^2.0.5',
   'sass-loader': '^6.0.2',
   'style-loader': '^0.18.1',
@@ -34,7 +35,7 @@ exports.webpackDependencies = {
   'webpack2-polyfill-plugin': '^0.0.2',
   'webpack-config-utils': '^2.3.0',
   'webpack-dashboard': '^0.4.0',
-  'webpack-dev-middleware': '^1.10.1',
+  'webpack-dev-middleware': '^1.11.0',
   'webpack-hot-middleware': '^2.17.0',
   'write-file-webpack-plugin': '^4.0.2'
 };

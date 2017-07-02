@@ -259,6 +259,13 @@ export default {
     new ExtractTextPlugin({
       filename: ifDevelopment(assetsPath('css/[name].css'), assetsPath('css/[name].[chunkhash].css')),
     }),
+    ifProduction(
+      new OptimizeCSSPlugin({
+        cssProcessorOptions: {
+          safe: true,
+        },
+      }),
+    ),
     new StylelintPlugin({
       context: resolve('src/scss/'),
       syntax: 'scss',
