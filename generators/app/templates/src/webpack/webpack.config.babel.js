@@ -15,6 +15,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WriteFilePlugin from 'write-file-webpack-plugin';
 import StylelintPlugin from 'stylelint-webpack-plugin';
 import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin';
+import OptimizeCSSPlugin from 'optimize-css-assets-webpack-plugin';
 import Webpack2Polyfill from 'webpack2-polyfill-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
