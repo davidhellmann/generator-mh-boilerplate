@@ -25,7 +25,7 @@ import error_handler from '../lib/error_handler';
 const $ = gulp_load_plugins();
 
 const paths = {
-  src: `${config.srcPaths.favicons}`,
+  src: `${config.srcPaths.favicons}*.png`,
   dest: `${config.distPaths.favicons}`,
 };
 
