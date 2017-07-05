@@ -36,6 +36,7 @@ exports.writeDistPaths = function ({files = {}, projectUsage = 'default'}) {
     fonts: `${assetBase}/fonts/`,
     js: `${assetBase}/js/`,
     images: {
+      base: `${assetBase}/images/`,
       svg: {
         single: `${assetBase}/images/svg/single/`,
         sprite: `${assetBase}/images/svg/sprite/`
