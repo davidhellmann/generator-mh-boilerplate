@@ -29,7 +29,7 @@ const paths = {
     `${config.srcPaths.images.svg.base + config.srcPaths.images.svg.single}**/*.svg`,
     `${config.srcPaths.images.svg.base + config.srcPaths.images.svg.sprite}**/*.svg`,
   ],
-  dest: `${config.distPaths.images.svg.base + config.distPaths.images.svg.single}`,
+  dest: `${config.distPaths.images.svg.single}`,
   dest_inline: `${config.distPaths.views}`,
 };
 

@@ -27,7 +27,7 @@ const $ = gulpLoadPlugins();
 
 const paths = {
   src: `${config.srcPaths.images.svg.base + config.srcPaths.images.svg.sprite}**/*`,
-  dest: `${config.distPaths.images.svg.base + config.distPaths.images.svg.sprite}`,
+  dest: `${config.distPaths.images.svg.sprite}`,
   assets: path.resolve(__dirname, '../../'),
 };
 
