@@ -20,13 +20,40 @@ describe('It is a Craft Project 🎉', () => {
   beforeAll(async () => {
     await run()
       .withPrompts({
-        projectUsage: 'craft'
+        projectUsage: 'craft',
+        craftInstall: false
       });
   });
 
   it('fills package.json with project type craft', () => {
     assert.JSONFileContent('package.json', {
       projectType: 'craft'
+    });
+  });
+
+  it('adds downloadPlugin Script to scripts Folder', () => {
+    assert.file([
+      'scripts/downloadPlugin.js'
+    ]);
+  });
+
+  it('adds pluginFolder directory to package.json', () => {
+    assert.jsonFileContent('package.json', {
+      distPaths: {
+        pluginFolder: 'dist/craft/plugins'
+      }
+    });
+  });
+
+  it('adds downloadPlugin dependencies to package.json', () => {
+    assert.jsonFileContent('package.json', {
+      devDependencies: {
+        inquirer: '^3.1.1',
+        download: '^6.2.5',
+        progress: '^2.0.0',
+        'fs-extra': '^3.0.1',
+        'deep-extend': '^0.5.0'
+      }
     });
   });
 
@@ -78,13 +105,14 @@ describe('It is a Craft Project 🎉', () => {
 });
 
 describe('it downloads craft', () => {
-  it('If the user wants to it downloads Craft', async () => {
+  beforeAll(async () => {
     await run()
       .withPrompts({
         projectUsage: 'craft',
-        craftInstall: true
+        craftInstall: true,
       });
-
+  });
+  it('If the user wants to it downloads Craft', async () => {
     assert.file([
       'dist/craft/'
     ]);
@@ -96,7 +124,7 @@ describe('it is a craft project with NY Studio Environment', () => {
     await run()
       .withPrompts({
         projectUsage: 'craft',
-        craftInstall: true,
+        craftInstall: false,
         craftEnv: 'nystudio'
       });
   });
