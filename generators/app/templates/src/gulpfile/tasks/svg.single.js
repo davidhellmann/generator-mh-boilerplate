@@ -30,8 +30,16 @@ const paths = {
     `${config.srcPaths.images.svg.base + config.srcPaths.images.svg.sprite}**/*.svg`,
   ],
   dest: `${config.distPaths.images.svg.single}`,
-  dest_inline: `${config.distPaths.views}`,
+  dest_inline: `${config.distPaths.svg.inline}`,
 };
+
+const template_extension = <% if (projectUsage == 'craft') { -%>
+'.svg.html'
+<% } else if (projectUsage == 'laravel') { -%>
+'_svg.blade.php'
+<% } else if (projectUsage == 'vueapp') { -%>
+'.vue'
+<% } %>
 
 const copy_vectors = () => gulp
     .src(paths.src)
@@ -45,13 +53,14 @@ const copy_vectors = () => gulp
         const file_base = file.base;
         file_name = file_name.replace(file_base, '');
         file_name = file_name.replace('.svg', '');
-        $('svg').addClass(`icon-${file_name.toLowerCase()}`);
+        file_name = file_name.replace('icon-', '');
+        $('svg').addClass(`m-icon m-icon__${file_name.toLowerCase()}`);
       },
       parserOptions: { xmlMode: true },
     }))
     .pipe(gulp.dest(paths.dest))
     .pipe($.rename({
-      extname: '.svg.html',
+      extname: template_extension,
     }))
     .pipe(gulp.dest(`${paths.dest_inline}svg/`));
 
