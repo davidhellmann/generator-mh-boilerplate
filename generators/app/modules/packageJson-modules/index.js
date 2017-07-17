@@ -12,6 +12,7 @@ const {packageJsonGulp} = require('./devDependencies/_gulp');
 const {packageJsonCss} = require('./devDependencies/_css');
 const {packageJsonJavascript} = require('./devDependencies/_javascript');
 const {packageJsonOther} = require('./devDependencies/_other');
+const {packageJsonCraftDownloadPluginDependencies} = require('./devDependencies/_craftDownloadPlugin');
 const {writeSrcPaths} = require('./paths/_srcPaths');
 const {writeDistPaths} = require('./paths/_distPaths');
 const {packageJsonBrowsersList} = require('./_browserlist');
@@ -34,6 +35,7 @@ const packageJsonModules = (files = {}, context) => {
   });
 
   if (context.props.projectUsage === 'craft') {
+    packageJsonCraftDownloadPluginDependencies(files);
     writeDistPaths({
       files,
       projectUsage: 'craft'

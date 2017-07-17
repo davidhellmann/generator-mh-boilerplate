@@ -24,6 +24,10 @@ const craftFolders = {
       {
         src: 'templates/',
         dest: 'src/views/'
+      },
+      {
+        src: 'scripts/downloadPlugin.js',
+        dest: 'scripts/downloadPlugin.js',
       }
     ],
     nyStudio: {

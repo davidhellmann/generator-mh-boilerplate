@@ -16,7 +16,8 @@ exports.configPaths = {
   craft: {
     base: `dist/public`,
     views: 'dist/craft/templates/',
-    systemFiles: 'dist/public/'
+    systemFiles: 'dist/public/',
+    pluginFolder: 'dist/craft/plugins'
   },
   laravel: {
     base: 'dist/public',
@@ -26,6 +27,7 @@ exports.configPaths = {
 };
 
 exports.writeDistPaths = function ({files = {}, projectUsage = 'default'}) {
+  const projectPaths = exports.configPaths[projectUsage];
   const assetBase = `${exports.configPaths[projectUsage].base}/assets`;
   let inlineSvgPath = exports.configPaths[projectUsage].views;
   if(projectUsage === 'vueapp') {
@@ -33,9 +35,6 @@ exports.writeDistPaths = function ({files = {}, projectUsage = 'default'}) {
   }
 
   let _distPaths = {
-    base: exports.configPaths[projectUsage].base,
-    views: exports.configPaths[projectUsage].views,
-    systemFiles: exports.configPaths[projectUsage].systemFiles,
     css: `${assetBase}/css/`,
     favicons: `${exports.configPaths[projectUsage].base}/favicons/`,
     fonts: `${assetBase}/fonts/`,
@@ -53,7 +52,8 @@ exports.writeDistPaths = function ({files = {}, projectUsage = 'default'}) {
       }
     }
   };
+
   extend(files.pkg, {
-    distPaths: _distPaths
+    distPaths: Object.assign(projectPaths, _distPaths)
   });
 };
