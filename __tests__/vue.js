@@ -63,12 +63,15 @@ describe('It is a Vue Project 🎉', () => {
       loader: 'vue-loader',
       options: {
         loaders: {
-          scss: ifProduction(ExtractTextPlugin.extract({
-            use: 'css-loader!sass-loader',
-            fallback: 'vue-style-loader',
-          }),'vue-style-loader!css-loader!sass-loader'),
-        }
-      }
+          scss: ifProduction(
+            ExtractTextPlugin.extract({
+              use: [{ loader: 'css-loader', options: {url: false}}, { loader: 'sass-loader'}],
+              fallback: 'vue-style-loader',
+            }),
+            [{ loader: 'vue-style-loader'}, { loader: 'css-loader', options: {url: false}}, { loader: 'sass-loader'}]
+          ),
+        },
+      },
     },`);
   });
 
