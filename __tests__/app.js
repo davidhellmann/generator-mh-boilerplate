@@ -145,12 +145,12 @@ describe('mh-boilerplate', () => {
       ]);
     });
 
-    it.only('adds modules script', () => {
+    it('adds modules script', () => {
       assert.file([
-        'scripts/module/_template.html',
-        'scripts/module/_script.js',
-        'scripts/module/_styles.scss',
-        'scripts/module_template.vue',
+        'scripts/moduleTemplates/_template.html',
+        'scripts/moduleTemplates/_script.js',
+        'scripts/moduleTemplates/_style.scss',
+        'scripts/moduleTemplates/_template.vue',
         'scripts/module.js'
       ]);
     });
