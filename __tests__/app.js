@@ -144,5 +144,21 @@ describe('mh-boilerplate', () => {
         'webpack/.babelrc'
       ]);
     });
+
+    it.only('adds modules script', () => {
+      assert.file([
+        'scripts/module/_template.html',
+        'scripts/module/_script.js',
+        'scripts/module/_styles.scss',
+        'scripts/module_template.vue',
+        'scripts/module.js'
+      ]);
+    });
+
+    it('adds createDirs scripts', () => {
+      assert.file([
+        'scripts/createDirs.js'
+      ]);
+    });
   });
 });
