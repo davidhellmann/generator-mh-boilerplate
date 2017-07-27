@@ -46,10 +46,10 @@ function createModule({moduleName, components = {} }) {
     }
 
     if (components.vue) {
-      fs.copyTpl(path.resolve(__dirname, './moduleTemplates/_template.vue'), `${vuePath}/components/${fileName}.vue`, {
+      fs.copyTpl(path.resolve(__dirname, './moduleTemplates/_template.vue'), path.resolve(`${vuePath}/${moduleName}.vue`), {
         moduleName: dist.template,
       });
-      console.log(`${vuePath}/components/${fileName}.vue`);
+      console.log(`${vuePath}/${moduleName}.vue`);
     }
 
     console.log('Everything created');
