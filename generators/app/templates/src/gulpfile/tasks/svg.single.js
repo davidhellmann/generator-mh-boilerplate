@@ -30,7 +30,7 @@ const paths = {
     `${config.srcPaths.images.svg.base + config.srcPaths.images.svg.sprite}**/*.svg`,
   ],
   dest: `${config.distPaths.images.svg.single}`,
-  dest_inline: `${config.distPaths.svg.inline}`,
+  dest_inline: `${config.srcPaths.views}`,
 };
 
 const template_extension = <% if (projectUsage == 'craft') { -%>

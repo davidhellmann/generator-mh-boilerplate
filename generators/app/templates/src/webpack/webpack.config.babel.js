@@ -209,44 +209,45 @@ export default {
       },
     {
       test: /\.css$/,
-        use: ifProduction(ExtractTextPlugin.extract({
+      use: ifProduction(ExtractTextPlugin.extract({
       fallback: 'style-loader',
       use: ['css-loader'],
     }), ['style-loader', 'css-loader']),
     },
-      {
-        test: /\.scss$/,
-        include: resolve(config.srcPaths.css),
-        exclude: [resolve('node_modules'), resolve('dist/')],
-        use: ifProduction(ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: CSS_LOADERS,
-      }), ['style-loader', ...CSS_LOADERS]),
-      },
+    {
+      test: /\.scss$/,
+      include: resolve(config.srcPaths.css),
+      exclude: [resolve('node_modules'), resolve('dist/')],
+      use: ifProduction(ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: CSS_LOADERS,
+    }), ['style-loader', ...CSS_LOADERS]),
+    },
     {
       test: /\.(png|jpg|gif|svg)$/,
-        loader: 'url-loader',
+      loader: 'url-loader',
       options: {
-      limit: 10000,
-        name: (path) => {
-        console.log(path);
+        limit: 10000,
+          name: (path) => {
+          console.log(path);
+        },
       },
-    },
     },
     {
       // Match woff2 in addition to patterns like .woff?v=1.1.1.
       test: /\.(woff|woff2|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader',
-      options: {
-      // Limit at 10k. Above that it emits separate files
-      limit: 10000,
+        options: {
+        // Limit at 10k. Above that it emits separate files
+        limit: 10000,
 
-        // url-loader sets mimetype if it's passed.
-        // Without this it derives it from the file extension
-        mimetype: 'application/font-woff',
+          // url-loader sets mimetype if it's passed.
+          // Without this it derives it from the file extension
+          mimetype: 'application/font-woff',
 
-        // Output below fonts directory
-        name: assetsPath('fonts/[name].[ext]'),
+          // Output below fonts directory
+          name: assetsPath('fonts/[name].[ext]'),
+      },
     },
     ],
   },

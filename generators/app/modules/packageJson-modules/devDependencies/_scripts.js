@@ -9,7 +9,7 @@
 const extend = require('deep-extend');
 
 exports.scriptsDependencies = {
-  'fs-extra': '^3.0.1',
+  'fs-extra': '^4.0.0',
   'mem-fs': '^1.1.3',
   'mem-fs-editor': '^3.0.2',
   inquirer: '^3.1.1'

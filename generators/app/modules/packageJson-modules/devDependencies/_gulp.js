@@ -28,7 +28,7 @@ exports.gulpDependencies = {
   'gulp-svg-sprite': '^1.3.6',
   'gulp-watch': '^4.3.11',
   'require-dir': '^0.3.0',
-  'run-sequence': '^1.1.2',
+  'run-sequence': '^2.1.0',
   util: '^0.10.3',
   yargs: '^8.0.1'
 };
