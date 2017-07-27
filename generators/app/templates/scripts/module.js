@@ -24,7 +24,7 @@ function createModule({moduleName, components = {} }) {
   <% } %>
   try {
     if (components.js) {
-      fs.copyTpl(path.resolve(__dirname, './module/_script.js'), `${srcPath}/modules/${fileName}.scripts.js`, {
+      fs.copyTpl(path.resolve(__dirname, './moduleTemplates/_script.js'), `${srcPath}/modules/${fileName}.scripts.js`, {
         moduleName: dist.template,
       });
       console.log(`${srcPath}/modules/${fileName}.scripts.js`);
@@ -32,23 +32,24 @@ function createModule({moduleName, components = {} }) {
 
 
     if (components.css) {
-      fs.copyTpl(path.resolve(__dirname, './module/_style.scss'), `${srcPath}/modules/${fileName}.styles.scss`, {
+      fs.copyTpl(path.resolve(__dirname, './moduleTemplates/_style.scss'), `${srcPath}/modules/${fileName}.styles.scss`, {
         moduleName: dist.template,
       });
       console.log(`${srcPath}/modules/${fileName}.styles.scss`);
     }
 
     if (components.template) {
-      fs.copyTpl(path.resolve(__dirname, './module/_template.html'), `${srcPath}/modules/${fileName}-template${fileExtension}`, {
+      fs.copyTpl(path.resolve(__dirname, './moduleTemplates/_template.html'), `${srcPath}/modules/${fileName}-template${fileExtension}`, {
         moduleName: dist.template,
       });
       console.log(`${srcPath}/modules/${fileName}-template${fileExtension}`);
     }
 
     if (components.vue) {
-      fs.copyTpl(path.resolve(__dirname, './module/_template.vue', `${vuePath}/${fileName}`), {
-        moduleName: dist.template
+      fs.copyTpl(path.resolve(__dirname, './moduleTemplates/_template.vue'), `${vuePath}/components/${fileName}.vue`, {
+        moduleName: dist.template,
       });
+      console.log(`${vuePath}/components/${fileName}.vue`);
     }
 
     console.log('Everything created');

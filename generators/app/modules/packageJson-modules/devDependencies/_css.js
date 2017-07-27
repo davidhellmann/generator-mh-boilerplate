@@ -13,7 +13,7 @@ const stylelint = {
   'stylelint-config-sass-guidelines': '^3.0.1',
   'stylelint-order': '^0.6.0',
   'stylelint-scss': '^1.4.3',
-  'stylelint-selector-bem-pattern': '^1.0.0',
+  'stylelint-selector-bem-pattern': '^1.0.0'
 };
 
 const postcss = {
