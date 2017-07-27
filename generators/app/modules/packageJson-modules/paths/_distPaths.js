@@ -30,7 +30,7 @@ exports.writeDistPaths = function ({files = {}, projectUsage = 'default'}) {
   const projectPaths = exports.configPaths[projectUsage];
   const assetBase = `${exports.configPaths[projectUsage].base}/assets`;
   let inlineSvgPath = exports.configPaths[projectUsage].views;
-  if(projectUsage === 'vueapp') {
+  if (projectUsage === 'vueapp') {
     inlineSvgPath = `${assetBase}/js/modules/icons/`;
   }
 
@@ -44,7 +44,7 @@ exports.writeDistPaths = function ({files = {}, projectUsage = 'default'}) {
       svg: {
         single: `${assetBase}/images/svg/single/`,
         sprite: `${assetBase}/images/svg/sprite/`,
-        inline: inlineSvgPath,
+        inline: inlineSvgPath
       },
       bitmap: {
         cssimages: `${assetBase}/images/cssimages/`,

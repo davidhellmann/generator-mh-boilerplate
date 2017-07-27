@@ -30,6 +30,9 @@ const writingLaravel = require('./modules/writing-modules/laravel');
 // Vue JS
 const writingVue = require('./modules/writing-modules/vue');
 
+// Script Helpers
+const writingScripts = require('./modules/writing-modules/scripts');
+
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
@@ -44,6 +47,9 @@ module.exports = class extends Generator {
 
     // Laravel
     this.writingLaravel = writingLaravel.bind(this);
+
+    // Scripts
+    this.writingScripts = writingScripts.bind(this);
 
     this.commands = {
       composer: false,
@@ -104,6 +110,9 @@ module.exports = class extends Generator {
     }
     // Getting the template files
     const pkg = this.fs.readJSON(this.templatePath('_package.json'), {});
+
+    await this.writingScripts().writing(this);
+
     /*
      |--------------------------------------------------------------------------
      | Writing Craft

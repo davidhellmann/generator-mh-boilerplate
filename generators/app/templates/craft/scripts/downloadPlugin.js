@@ -63,22 +63,24 @@ async function downloadPlugin(pluginUrl) {
     if (argv.update) {
       willUpdate = true;
     } else {
-      console.log(`${chalk.styles.yellow.open}Plugin ${isInstalled} is already installed${chalk.styles.yellow.close}`);
+      console.log(chalk`{yellow Plugin ${isInstalled} is already installed}`);
     }
 
     // check if the user wants to install one single Plugin or uses the update Flag
     if (!argv.scripts && !argv.update) {
-      await inquirer
-        .prompt([
-          {
-            type: 'confirm',
-            name: 'update',
-            message: `Do you want to update ${isInstalled}?`,
-          },
-        ])
-        .then((answers) => {
-          if (answers.update) willUpdate = true;
-        });
+      try {
+        await inquirer
+          .prompt([
+            {
+              type: 'confirm',
+              name: 'update',
+              message: `Do you want to update ${isInstalled}?`,
+            },
+          ])
+          .then((answers) => {
+            if (answers.update) willUpdate = true;
+          });
+      } catch(e) { console.error(e); }
     }
     if (!willUpdate) return;
   }
@@ -104,7 +106,6 @@ function findPlugin(pluginUrl) {
   // Using fs to get all files in the Folder, returns array with all files
   // filter them for just the directories
   const installedPluginsList = installedPlugins(craftPluginFolder);
-
   // split the given plugin url to get an array so we can get the plugin name by url
   let url = pluginUrl.split('/');
   // get the last element of the array (should be the name, maybe needs better check)
@@ -115,7 +116,7 @@ function findPlugin(pluginUrl) {
   // which is also used in the plugin folder as Folder name
   url = url.toLowerCase().replace(/(craft)(cms)*/gi, '');
   // find an item in the installedPlugins array which includes the string we just created
-  const pluginName = installedPluginsList.find(item => item.includes(url));
+  const pluginName = installedPluginsList.find(item => item.match(/url/gi));
   return pluginName;
 }
 
@@ -125,7 +126,7 @@ function findPlugin(pluginUrl) {
  * @returns {*|Promise.<T>}
  */
 function downloadFile(pluginUrl) {
-  console.log(`${chalk.styles.blue.open}Downloading ${pluginUrl}${chalk.styles.blue.close}`);
+  console.log(chalk`{blue Downloading {yellow ${pluginUrl}}}`);
   // construct the Plugin Url (just github)
   const pluginZip = `${pluginUrl}/archive/master.zip`;
   // create an empty tmp dir
@@ -177,7 +178,7 @@ function downloadFile(pluginUrl) {
 
       // Remove the Plugin Folder
       fs.removeSync(PluginFileDirectory);
-      console.log(chalk.green('Plugin downloaded and extracted, please activate it in the Backend'));
+      console.log(chalk`{green Plugin downloaded and extracted, please activate it in the Backend}`);
     })
     .catch(error => console.error(error));
 }
@@ -190,7 +191,7 @@ if (argv.scripts) {
     .then(() => {
       // If everything is downloaded remove the tmp Folder.
       fs.removeSync(tmpFolder);
-      console.log(`${chalk.styles.red.open}removed ${tmpFolder}${chalk.styles.red.close}`);
+      console.log(chalk`{red removed ${tmpFolder}}`);
     })
     .catch(e => console.error(e));
 }
@@ -230,7 +231,7 @@ if (argv.update) {
       // display which could not match so the user could update them by hand
       for(const prop in pluginUrls) {
         if(pluginUrls[prop] === null || pluginUrls[prop] === undefined) {
-          console.log(`${chalk.styles.red.open}Plugin ${prop} could not correctly matched, please update by hand${chalk.styles.red.close}`);
+          console.log(chalk`{red Plugin ${prop} could not correctly matched, please update by hand }`);
           delete pluginUrls[prop];
         }
       }
@@ -240,7 +241,7 @@ if (argv.update) {
         .then(() => {
           // If everything is downloaded remove the tmp Folder.
           fs.removeSync(tmpFolder);
-          console.log(`${chalk.styles.red.open}removed ${tmpFolder}${chalk.styles.red.close}`);
+          console.log(chalk`{red removed ${tmpFolder}}`);
         })
         .catch(e => console.error(e));
     });

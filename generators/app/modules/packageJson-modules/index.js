@@ -12,6 +12,7 @@ const {packageJsonGulp} = require('./devDependencies/_gulp');
 const {packageJsonCss} = require('./devDependencies/_css');
 const {packageJsonJavascript} = require('./devDependencies/_javascript');
 const {packageJsonOther} = require('./devDependencies/_other');
+const {packageJsonScriptsDependencies} = require('./devDependencies/_scripts');
 const {packageJsonCraftDownloadPluginDependencies} = require('./devDependencies/_craftDownloadPlugin');
 const {writeSrcPaths} = require('./paths/_srcPaths');
 const {writeDistPaths} = require('./paths/_distPaths');
@@ -30,6 +31,7 @@ const packageJsonModules = (files = {}, context) => {
   packageJsonCss(files);
   packageJsonJavascript(files);
   packageJsonOther(files);
+  packageJsonScriptsDependencies(files);
   writeSrcPaths({
     files
   });

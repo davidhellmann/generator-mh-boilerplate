@@ -1,0 +1,29 @@
+<%= projectUsage === 'craft' ? '{#' : '{{--' %>
+/**
+*
+* Description of what this file is for
+*
+* @package  PROJECT_NAME
+* @author   Author <author@email.de>
+*/
+
+/*
+|--------------------------------------------------------------------------
+| <%%= moduleName %%>
+|--------------------------------------------------------------------------
+*/
+<%= projectUsage === 'craft' ? '#}' : '--}}' %>
+
+<% if(projectUsage === 'craft') { %>
+
+{%% set defaults = {
+classname: 'm-<%%= moduleName.replace('-', '_') %%>'
+} %%}
+{%% set options = options is defined ? defaults|merge(options) : defaults %%}
+<% } else if (projectUsage === 'laravel') { %>
+
+<% } %>
+
+<div class="m-<%%= moduleName %%>">
+  <%%= moduleName %%>
+</div>
