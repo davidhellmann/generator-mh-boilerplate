@@ -10,7 +10,7 @@ const extend = require('deep-extend');
 
 exports.otherDependencies = {
   'browser-sync': '^2.18.8',
-  chalk: '^1.1.3',
+  chalk: '^2.0.1',
   del: '^3.0.0',
   path: '^0.12.7'
 };
