@@ -10,7 +10,7 @@ function createModule({moduleName, components = {} }) {
   var store = memFs.create();
   var fs = editor.create(store);
   const srcPath = path.resolve(pkg.srcPaths.views);
-  const vuePath = `${path.resolve(pkg.srcPaths.js)}components/`;
+  const vuePath = `${path.resolve(pkg.srcPaths.js)}`;
   const dist = {
     path: moduleName.includes('/') ? moduleName.split('/')[0] + '/' : '',
     name: moduleName.includes('/') ? '_' + moduleName.split('/')[1] : `${moduleName}/_${moduleName}`,
