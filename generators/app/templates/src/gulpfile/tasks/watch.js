@@ -22,11 +22,8 @@ const watch_task = () => {
 
 
   const paths = {
-    'move:views': `${config.srcPaths.views}**/*`,
-    'move:images': [
-      `${config.srcPaths.images.base}**/*`,
-      `!${config.srcPaths.images.base}svg/**/*`,
-    ],
+    'move:views': [`!${config.distPaths.views}webpack-header.html`, `!${config.distPaths.views}site-scripts.html`, `${config.srcPaths.views}**/*`],
+    'move:images': [`${config.srcPaths.images.base}**/*`, `!${config.srcPaths.images.base}svg/**/*`],
     'svg:sprite': `${config.srcPaths.images.svg.base + config.srcPaths.images.svg.sprite}**/*.svg`,
     'svg:single': `${config.srcPaths.images.svg.base + config.srcPaths.images.svg.single}**/*.svg`,
   };

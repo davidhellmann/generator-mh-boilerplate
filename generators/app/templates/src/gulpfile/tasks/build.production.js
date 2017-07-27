@@ -10,7 +10,6 @@ const build_production = (cb) => {
     ],
     [
       'favicons',
-      'move:fonts',
       'move:images',
       'move:systemFiles',
       'move:views',

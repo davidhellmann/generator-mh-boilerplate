@@ -63,16 +63,28 @@ const browserSyncTask = () => {
       }),
     ],
     files: [
-      `${config.distPaths.views}**/*.{php,html,twig}`,
-      `${config.distPaths.images.base}**/*.{jpg,png,gif,svg}`,
-      `${config.distPaths.css}**/*`,
+      {
+        match: [
+          `!${config.distPaths.views}parts/webpack-header.html`,
+          `!${config.distPaths.views}parts/site-scripts.html`,
+          `${config.distPaths.views}**/*.{php,html,twig}`,
+          `${config.distPaths.images.base}**/*.{jpg,png,gif,svg}`,
+        ],
+        fn: function(event, file) {
+          console.log(file);
+          if (event === 'change') {
+            browserSync.reload('*.css');
+            browserSync.reload('*.html');
+          }
+        },
+        options: {
+          ignore: [
+            `${config.distPaths.views}parts/webpack-header.html`,
+            `${config.distPaths.views}parts/site-scripts.html`,
+          ],
+        },
+      },
     ],
-  });
-
-  browserSync.watch(config.distPaths.base + '**/*.css', function(event, file) {
-    if (event === 'change') {
-      browserSync.reload('*.css');
-    }
   });
 };
 
