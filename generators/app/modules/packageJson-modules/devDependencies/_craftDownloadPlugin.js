@@ -15,8 +15,15 @@ exports.craftDownloadPluginDependencies = {
   progress: '^2.0.0'
 };
 
+exports.craftDownloadPluginScripts = {
+  'install:craftPlugins': 'node scripts/downloadPlugin.js --scripts',
+  'install:craftPlugin': 'node scripts/downloadPlugin.js',
+  'update:craftPlugins': 'node scripts/downloadPlugin.js --update'
+};
+
 exports.packageJsonCraftDownloadPluginDependencies = (files = {}) => {
   extend(files.pkg, {
-    devDependencies: exports.craftDownloadPluginDependencies
+    devDependencies: exports.craftDownloadPluginDependencies,
+    scripts: exports.craftDownloadPluginScripts
   });
 };
