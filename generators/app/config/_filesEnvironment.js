@@ -40,7 +40,7 @@ module.exports = {
       dest: '.editorconfig'
     },
     {
-      src: '_eslintrc',
+      src: '_eslintrc.js',
       dest: '.eslintrc.js'
     },
     {
