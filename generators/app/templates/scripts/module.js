@@ -1,3 +1,10 @@
+/**
+ * Create a new Module
+ *
+ * @package  generator-mh-boilerplate
+ * @author   Martin Herweg <info@martinherweg.de>
+ */
+
 const memFs = require('mem-fs');
 const argv = require('yargs').argv;
 const editor = require('mem-fs-editor');
@@ -18,9 +25,9 @@ function createModule({moduleName, components = {} }) {
   };
   const fileName = dist.path + dist.name;
   const fileExtension = <% if (projectUsage == 'craft') { -%>
-  '.svg.html'
+  '.html'
   <% } else if (projectUsage == 'laravel') { -%>
-  '_svg.blade.php'
+  '.blade.php'
   <% } %>
   try {
     if (components.js) {
