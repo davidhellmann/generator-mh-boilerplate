@@ -128,7 +128,12 @@ function findPlugin(pluginUrl) {
 function downloadFile(pluginUrl) {
   console.log(chalk`{blue Downloading {yellow ${pluginUrl}}}`);
   // construct the Plugin Url (just github)
-  const pluginZip = `${pluginUrl}/archive/master.zip`;
+  let pluginZip;
+  if (pluginUrl.includes('.zip')) {
+    pluginZip = pluginUrl;
+  } else {
+    pluginZip = `${pluginUrl}/archive/master.zip`;
+  }
   // create an empty tmp dir
   fs.emptyDirSync(tmpFolder);
 
