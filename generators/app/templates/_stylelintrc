@@ -13,14 +13,17 @@
                 "message": "Selector should be written in lowercase with underscore (selector-class-pattern)"
             }
         ],
-        "rule-empty-line-before": [
-            "always-multi-line",
-            {
+        "rule-empty-line-before"             : [
+              "always-multi-line",
+              {
+                "except": [
+                  "first-nested"
+                ],
                 "ignore": [
-                    "after-comment"
+                  "after-comment"
                 ]
-            }
-        ],
+              }
+            ],
         "order/properties-alphabetical-order": null
     }
 }
