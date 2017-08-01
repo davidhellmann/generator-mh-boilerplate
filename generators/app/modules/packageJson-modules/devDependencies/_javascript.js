@@ -14,8 +14,9 @@ const eslint = {
   'eslint-config-defaults': '^9.0.0',
   'eslint-formatter-pretty': '^1.1.0',
   'eslint-friendly-formatter': '^3.0.0',
+  'eslint-import-resolver-webpack': '^0.8.3',
   'eslint-plugin-html': '^3.0.0',
-  'eslint-plugin-import': '^2.2.0',
+  'eslint-plugin-import': '^2.7.0',
   'prettier-eslint-cli': '^4.1.1'
 };
 

@@ -5,11 +5,18 @@ module.exports = {
     "amd": true,
   },
   root: true,
-  parser: 'babel-eslint',
   parserOptions: {
+    parser: 'babel-eslint',
     sourceType: 'module'
   },
   extends: 'airbnb-base',
+  settings: {
+      'import/resolver': {
+        'webpack': {
+          config: 'webpack/webpack.config.babel.js'
+        },
+      },
+    },
   // required to lint *.vue files
   plugins: [
     'html'
@@ -50,5 +57,15 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'indent': ['error', 2],
     'import/no-unresolved': 0,
+        'import/extensions': [
+          'error', 'always', {
+            'js': 'never',
+            'vue': 'never'
+          }
+        ],
+    'no-trailing-spaces': ['error', {
+      'skipBlankLines': true,
+      'ignoreComments': true,
+    }]
   }
 }
