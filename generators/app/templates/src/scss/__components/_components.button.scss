@@ -25,7 +25,7 @@
 
   color: color('white');
   border: 0;
-  background: color('corporate', 'guardsmen-red');
+  background: color('white');
 
   font-size: fontsize('ms1');
   font-weight: 700;
@@ -33,7 +33,7 @@
 
   &:hover {
     color: color('white');
-    background: darken(color('corporate', 'guardsmen-red'), 5%);
+    background: darken(color('white'), 5%);
   }
 }
 
