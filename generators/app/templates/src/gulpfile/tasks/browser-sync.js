@@ -1,3 +1,5 @@
+import chalk from 'chalk';
+
 /**
  |--------------------------------------------------------------------------
  | gulp browser-sync
@@ -65,23 +67,19 @@ const browserSyncTask = () => {
     files: [
       {
         match: [
-          `!${config.distPaths.views}parts/webpack-header.html`,
-          `!${config.distPaths.views}parts/site-scripts.html`,
-          `${config.distPaths.views}**/*.{php,html,twig}`,
+          `${config.srcPaths.views}**/*.{php,html,twig}`,
+          `${config.distPaths.css}**/*.css`,
           `${config.distPaths.images.base}**/*.{jpg,png,gif,svg}`,
         ],
         fn: function(event, file) {
-          console.log(file);
-          if (event === 'change') {
+          console.log(chalk`{green Changed ${file}}`);
+          console.log(chalk`{red Event ${event}}`);
+          if (event === 'change' && file.includes('.css')) {
             browserSync.reload('*.css');
-            browserSync.reload('*.html');
           }
-        },
-        options: {
-          ignore: [
-            `${config.distPaths.views}parts/webpack-header.html`,
-            `${config.distPaths.views}parts/site-scripts.html`,
-          ],
+          if (event === 'change' && (file.includes('.php') || file.includes('.html') || file.includes('.twig'))) {
+            browserSync.reload();
+          }
         },
       },
     ],
