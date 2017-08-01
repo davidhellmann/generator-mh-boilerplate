@@ -37,8 +37,13 @@ describe('It is a Craft Project 🎉', () => {
     ]);
   });
 
-  it('adds pluginFolder directory to package.json', () => {
+  it('adds pluginFolder directory and download script to package.json', () => {
     assert.jsonFileContent('package.json', {
+      scripts: {
+        'install:craftPlugins': 'node scripts/downloadPlugin.js --scripts',
+        'install:craftPlugin': 'node scripts/downloadPlugin.js',
+        'update:craftPlugins': 'node scripts/downloadPlugin.js --update'
+      },
       distPaths: {
         pluginFolder: 'dist/craft/plugins'
       }
