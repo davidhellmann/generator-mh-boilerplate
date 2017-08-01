@@ -29,7 +29,7 @@ const argv = yargs.argv;
 const changed = argv.changed || true;
 
 const paths = {
-  src: `${config.srcPaths.views}**/*`,
+  src: `${config.srcPaths.views}**/*.{php,html,twig}`,
   dest: `${config.distPaths.views}`,
 };
 
