@@ -1,3 +1,11 @@
+<%
+if (projectUsage == 'vue' || projectFramework == 'vue') {
+  var extend = "['airbnb-base', 'plugin:vue/recommended']";
+} else {
+  var extend = "['airbnb-base']";
+}
+%>
+
 module.exports = {
   env: {
     "browser": true,
@@ -9,7 +17,7 @@ module.exports = {
     parser: 'babel-eslint',
     sourceType: 'module'
   },
-  extends: 'airbnb-base',
+  extends: <%- extend %>,
   settings: {
       'import/resolver': {
         'webpack': {
@@ -60,7 +68,6 @@ module.exports = {
         'import/extensions': [
           'error', 'always', {
             'js': 'never',
-            'vue': 'never'
           }
         ],
     'no-trailing-spaces': ['error', {

@@ -29,6 +29,10 @@ describe('It is a Vue Project 🎉', () => {
     await runwithVue();
   });
 
+  it('adds eslint-plugin-vue to eslintrc', () => {
+    assert.fileContent('.eslintrc.js', `extends: ['airbnb-base', 'plugin:vue/recommended'],`);
+  });
+
   it('add vue devDependencies to package.json', () => {
     assert.JSONFileContent('package.json', {
       devDependencies: vueDependencies.devDependencies

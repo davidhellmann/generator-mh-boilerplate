@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <% if(projectUsage === 'vueapp') { %>
+    <% if(projectUsage === 'vueapp' || projectVuePlugins.includes('vuerouter')) { %>
     <router-view></router-view>
     <% } %>
   </div>

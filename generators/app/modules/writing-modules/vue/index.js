@@ -85,9 +85,13 @@ exports.writingVue = () => {
 
         // Copy our Folders
         vueFiles.SRC.files.forEach(file => {
-          context.fs.copy(
+          context.fs.copyTpl(
             context.templatePath(`vue/${file.src}`),
-            context.destinationPath(file.dest)
+            context.destinationPath(file.dest),
+            {
+              projectUsage: context.props.projectUsage,
+              projectVuePlugins: context.projectVuePlugins || []
+            },
           );
         });
 
