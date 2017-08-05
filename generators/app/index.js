@@ -44,7 +44,6 @@ module.exports = class extends Generator {
 
     // CRAFT CMS
     this.writingCraft = writingCraft.bind(this);
-
     // Laravel
     this.writingLaravel = writingLaravel.bind(this);
 
@@ -88,6 +87,15 @@ module.exports = class extends Generator {
     if (this.props.projectUsage === 'craft' && this.props.craftInstall) {
       try {
         await this.writingCraft().download(this);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // Download fresh copy of craft-scripts by ny-studio
+    if (this.props.projectUsage === 'craft') {
+      try {
+        await this.writingCraft().downloadCraftScripts(this);
       } catch (e) {
         console.error(e);
       }

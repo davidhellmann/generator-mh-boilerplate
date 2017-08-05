@@ -7,10 +7,31 @@
 
 /* eslint-disable */
 const fs = require('fs-extra');
+const path = require('path');
 const ejs = require('ejs');
+const download = require('download');
 const downloadCraft = require('../../../helpers/_downloadFiles');
 const deleteFiles = require('../../../helpers/_deleteFolderRecursive');
 const writePaths = require('../../packageJson-modules/paths/_distPaths');
+const commentLog = require('../../../helpers/_logComment');
+
+const _downloadCraftScripts = () => {
+  return download(url, destination, {
+    extract: true,
+    mode: '775'
+  }).on('response', res => {
+    if (process.env.NODE_ENV === 'test') {
+      return;
+    }
+    bar.total = res.headers['content-length'];
+    res.on('data', data => bar.tick(data.length));
+  }).then(() => commentLog({
+    message: 'Finished Download',
+    color: 'green',
+    short: true
+  }))
+    .catch(error => console.error(error));
+}
 
 const craftFolders = {
   DELETE: [
@@ -67,6 +88,25 @@ const writingCraft = () => {
       const craftUrl = 'http://buildwithcraft.com/latest.zip?accept_license=yes';
       return downloadCraft({
         url: craftUrl,
+        destination: context.destinationPath('./dist/')
+      });
+    },
+    downloadCraftScripts: context => {
+      const scriptsUrl = 'https://github.com/nystudio107/craft-scripts/archive/master.zip';
+      return download(scriptsUrl, context.destinationPath('./dist/'), {
+        extract: true,
+        filter: file => {
+          const folder = path.basename(path.dirname(file.path));
+          if ((folder === 'scripts' || folder == 'common') && file.type == 'file') return file;
+        },
+        map: file => {
+          file.path = file.path.replace('craft-scripts-master/', 'craft-scripts/');
+          file.path = file.path.replace('scripts/', '');
+          return file;
+        },
+      });
+      return downloadCraft({
+        url: scriptsUrl,
         destination: context.destinationPath('./dist/')
       });
     },
