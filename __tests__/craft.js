@@ -108,6 +108,10 @@ describe('It is a Craft Project 🎉', () => {
       }\n\
     ]');
   });
+
+  it('adds a fresh copy of nystudio craft-scripts to the dist folder', () => {
+    assert.file(['dist/craft-scripts/', 'dist/craft-scripts/example.env.sh']);
+  })
 });
 
 describe('it downloads craft', () => {
