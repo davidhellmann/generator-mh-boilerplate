@@ -44,7 +44,7 @@ exports.packageJsonVue = (files = {}, context) => {
 
   extend(files.pkg, {
     scripts: {
-      'module:vue': 'yarn module -- --vue=true',
+      'module:vue': 'yarn module -- --vue=true'
     },
     dependencies: exports.dependencies
   });
