@@ -14,12 +14,10 @@
 |--------------------------------------------------------------------------
 */
 
-
 .o-media {
   @include clearfix;
   display: block;
 }
-
 
 .o-media__img {
   float: left;
@@ -28,9 +26,7 @@
   > img {
     display: block;
   }
-
 }
-
 
 .o-media__body {
   display: block;
@@ -41,12 +37,7 @@
   > :last-child {
     margin-bottom: 0;
   }
-
 }
-
-
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -58,63 +49,44 @@
  * reversible options for all available sizes.
  */
 
-
 .o-media--small {
-
   > .o-media__img {
     margin-right: space(2);
   }
 
   &.o-media--reverse {
-
     > .o-media__img {
       margin-right: 0;
       margin-left: s(2);
     }
-
   }
-
 }
 
-
 .o-media--large {
-
   > .o-media__img {
     margin-right: space(3);
   }
 
   &.o-media--reverse {
-
     > .o-media__img {
       margin-right: 0;
       margin-left: space(3);
     }
-
   }
-
 }
 
-
 .o-media--huge {
-
   > .o-media__img {
     margin-right: space(4);
   }
 
   &.o-media--reverse {
-
     > .o-media__img {
       margin-right: 0;
       margin-left: space(4);
     }
-
   }
-
 }
-
-
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -122,20 +94,13 @@
 |--------------------------------------------------------------------------
 */
 
-
 .o-media--reverse {
-
   > .o-media__img {
     float: right;
     margin-right: 0;
     margin-left: space(2);
   }
-
 }
-
-
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -143,12 +108,9 @@
 |--------------------------------------------------------------------------
 */
 
-
 .o-media--flush {
-
   > .o-media__img {
     margin-right: 0;
     margin-left: 0;
   }
-
 }

@@ -22,13 +22,10 @@
  *    this makes the object behave in a quasi-`display: block;` manner.
  */
 
-
 .o-flag {
   display: table; /* [1] */
   width: 100%; /* [2] */
 }
-
-
 
 /**
  * Items within a flag object. There should only ever be one of each.
@@ -36,13 +33,11 @@
  * 1. Default to aligning content to their middles.
  */
 
-
 .o-flag__img,
 .o-flag__body {
   display: table-cell;
   vertical-align: middle; /* [2] */
 }
-
 
 /**
  * Flag images have a space between them and the body of the object.
@@ -51,21 +46,17 @@
  *    https://pixelsvsbytes.com/2012/02/this-css-layout-grid-is-no-holy-grail/
  */
 
-
 .o-flag__img {
   width: 1px; /* [1] */
   padding-right: space(1);
-
 
   /**
    * 1. Fixes problem with images disappearing.
    */
 
-
   > img {
     max-width: none; /* [1] */
   }
-
 }
 
 /**
@@ -74,7 +65,6 @@
  * 1. Forces the `.flag__body` to take up all remaining space.
  */
 
-
 .o-flag__body {
   width: auto; /* [1] */
 
@@ -82,10 +72,7 @@
   > :last-child {
     margin-bottom: 0;
   }
-
 }
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -93,70 +80,51 @@
 |--------------------------------------------------------------------------
 */
 
-
 .o-flag--small {
-
   > .o-flag__img {
     padding-right: space(2);
   }
 
   &.o-flag--reverse {
-
     > .o-flag__img {
       padding-right: 0;
       padding-left: space(2);
     }
-
   }
-
 }
 
 .o-flag--large {
-
   > .o-flag__img {
     padding-right: space(3);
   }
 
   &.o-flag--reverse {
-
     > .o-flag__img {
       padding-right: 0;
       padding-left: space(3);
     }
-
   }
-
 }
 
 .o-flag--huge {
-
   > .o-flag__img {
     padding-right: space(4);
   }
 
   &.o-flag--reverse {
-
     > .o-flag__img {
       padding-right: 0;
       padding-left: space(4);
     }
-
   }
-
 }
 
 .o-flag--flush {
-
   > .o-flag__img {
     padding-right: 0;
     padding-left: 0;
   }
-
 }
-
-
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -168,7 +136,6 @@
  * 2. …and reset it.
  * 3. Reassign margins to the correct sides.
  */
-
 
 .o-flag--reverse {
   direction: rtl; /* [1] */
@@ -182,12 +149,7 @@
     padding-right: 0; /* [3] */
     padding-left: space(2); /* [3] */
   }
-
 }
-
-
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -198,21 +160,16 @@
  * Vertically align the image- and body-content differently. Defaults to middle.
  */
 
-
 .o-flag--top {
-
   > .o-flag__img,
   > .o-flag__body {
     vertical-align: top;
   }
-
 }
 
 .o-flag--bottom {
-
   > .o-flag__img,
   > .o-flag__body {
     vertical-align: bottom;
   }
-
 }

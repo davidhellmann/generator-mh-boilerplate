@@ -13,12 +13,9 @@
 |--------------------------------------------------------------------------
 */
 
-
 .o-table {
   width: 100%;
 }
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -33,13 +30,9 @@
  * https://developer.mozilla.org/en-US/docs/Web/CSS/table-layout#Values
  */
 
-
 .o-table--fixed {
   table-layout: fixed;
 }
-
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -47,39 +40,30 @@
 |--------------------------------------------------------------------------
 */
 
-
 .o-table--tiny {
-
   th,
   td {
     padding: space(1);
   }
-
 }
 
 .o-table--small {
-
   th,
   td {
     padding: space(2);
   }
-
 }
 
 .o-table--large {
-
   th,
   td {
     padding: space(3);
   }
-
 }
 
 .o-table--huge {
-
   th,
   td {
     padding: space(4);
   }
-
 }
