@@ -85,13 +85,18 @@ describe('It is a Craft Project 🎉', () => {
   });
 
   it('adds webpack content to scripts and header', () => {
-    assert.fileContent('src/views/parts/site-scripts.html', `<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
-  <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
-<% } %>
+    assert.fileContent('src/views/parts/site-scripts.html', `<% for (var chunk in htmlWebpackPlugin.files.chunks) { if (!chunk.match(/font/)) { %>
+<script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+<% }} %>
 `);
     assert.fileContent('src/views/parts/webpack-header.html', `<% for (var css in htmlWebpackPlugin.files.css) { %>
   <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
-<% } %>`);
+<% } %>
+<% for (var chunk of webpack.chunks) {
+for (var file of chunk.files) {
+if (file.match(/\\.(js|css)$/) && !file.match(/cp/)) { %>
+<link rel="<%= chunk.initial?'preload':'prefetch' %>" href="<%= htmlWebpackPlugin.files.publicPath + file %>" as="<%= file.match(/\\.css$/)?'style':'script' %>"><% }}} %>
+`);
   });
   /* eslint-disable */
   it('adds Craft chunks to webpack config', () => {
