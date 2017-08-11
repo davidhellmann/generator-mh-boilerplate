@@ -37,6 +37,8 @@ module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
 
+    this.option('beta');
+
     this.logComment = logComment.bind(this);
     this.promptsFunction = promptsFunction.bind(this);
     this.writePackageJson = writePackageJson.bind(this);

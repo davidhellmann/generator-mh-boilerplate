@@ -50,12 +50,15 @@ const hot_client = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20
  */
 
 const entry_points = {
-  app: './src/js/app.js',
 };
+
+const hot_points = {
+  app: './src/js/app.js',
+}
 
 
 if (ifDevelopment()) {
-  Object.keys(entry_points).forEach(entry => entry_points[entry] = [hot_client].concat(entry_points[entry]));
+  Object.keys(hot_points).forEach(entry => hot_points[entry] = [hot_client].concat(hot_points[entry]));
 }
 
 function assetsPath(_path) {
@@ -148,7 +151,7 @@ export default {
   devtool: 'source-map',
   context: BASE_PATH,
   // entry is a function so that we can use environment variables
-  entry: removeEmpty(entry_points),
+  entry: removeEmpty({...hot_points, ...entry_points}),
   output: {
     path: ASSETS_ROOT,
     publicPath: '',

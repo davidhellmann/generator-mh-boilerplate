@@ -3,5 +3,6 @@
     <% } %>
     <% for (var chunk of webpack.chunks) {
       for (var file of chunk.files) {
-      if (file.match(/\.(js|css)$/) && !file.match(/cp/)) { %>
+      if (file.match(/\.(js|css)$/) && !file.match(/hot/)) { %>
       <link rel="<%= chunk.initial?'preload':'prefetch' %>" href="<%= htmlWebpackPlugin.files.publicPath + file %>" as="<%= file.match(/\.css$/)?'style':'script' %>"><% }}} %>
+
