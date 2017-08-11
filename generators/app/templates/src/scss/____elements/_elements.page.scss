@@ -15,14 +15,13 @@
 
 html {
   overflow-y: scroll;
-
   height: 100%;
-
+  font-size: 16px;
   font-family: fontfamily('base');
-  @include fluid-type(font-size, $ms-width-min, $ms-width-max, $ms-font-min, $ms-font-max);
-  line-height: $line-height-base;
 }
 
 body {
   height: 100%;
+  @include fluid($ms-font-min, $ms-font-max);
+  line-height: $line-height-base;
 }

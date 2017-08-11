@@ -22,39 +22,44 @@ h4,
 h5,
 h6 {
   word-wrap: break-word;
-  font-family: fontfamily('headline');
+  font-family: fontfamily('alternative');
   font-weight: map-getter($fontweights, 'extra-light');
   line-height: 1.2;
 }
 
 h1,
 .h1 {
-  @include fluid-type(font-size, $ms-width-min, $ms-width-max, $ms-font-min * $ms4, $ms-font-max * $ms6);
+  font-family: fontfamily('alternative');
+  @include fluid(fontsize('ms4'), fontsize('ms6'));
+  text-transform: uppercase;
 }
 
 h2,
 .h2 {
-  @include fluid-type(font-size, $ms-width-min, $ms-width-max, $ms-font-min * $ms3, $ms-font-max * $ms5);
+  @include fluid(fontsize('ms3'), fontsize('ms5'));
 }
 
 h3,
 .h3 {
-  @include fluid-type(font-size, $ms-width-min, $ms-width-max, $ms-font-min * $ms2, $ms-font-max * $ms4);
+  @include fluid(fontsize('ms2'), fontsize('ms4'));
 }
 
 h4,
 .h4 {
-  @include fluid-type(font-size, $ms-width-min, $ms-width-max, $ms-font-min * $ms1, $ms-font-max * $ms3);
+  @include fluid(fontsize('ms1'), fontsize('ms3'));
 }
 
 h5,
 .h5 {
-  @include fluid-type(font-size, $ms-width-min, $ms-width-max, $ms-font-min * $ms1, $ms-font-max * $ms2);
+  font-family: fontfamily('bold');
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
 }
 
 h6,
 .h6 {
-  @include fluid-type(font-size, $ms-width-min, $ms-width-max, $ms-font-min * $ms1, $ms-font-max * $ms1);
+  @include fluid(fontsize('ms-1'), fontsize('ms0'));
 }
 
 /* stylelint-enable selector-class-pattern */

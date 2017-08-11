@@ -1,43 +1,57 @@
-/**
- * Fluid Type Mixin
- * Usage Description provided by Mixin Author
- *
- * @package  generator-mh-boilerplate
- * @author   Martin Herweg <info@martinherweg.de>
- * @author   David Hellmann <davidhellmann.com@gmail.com>
- */
-
-/*
-|--------------------------------------------------------------------------
-| _tools.mixin.fluid-type.scss
-|--------------------------------------------------------------------------
-*/
-
-
 /* --------------------------------------------------
     #FLUID TYPE
     Responsive Type
     More Infos: http://madebymike.com.au/writing/fluid-type-calc-examples/
-
     Single property
     html {
-      @include fluid-type(font-size, 320px, 1366px, 14px, 18px);
+      @include fluid(14px, 18px, font-size, 320px, 1366px);
     }
-
     Multiple properties with same values
     h1 {
-      @include fluid-type(padding-bottom padding-top, 20em, 70em, 2em, 4em);
+      @include fluid(20px, 100px, padding-bottom padding-top,  320px, 1440px);
     }
    -------------------------------------------------- */
+/* stylelint-disable */
+@import 'tools.function.rem_calc';
+@import 'tools.function.em_calc';
+@import 'tools.function.strip_unit';
 
-@mixin fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value) {
+@function is-number($value) {
+  @return type-of($value) == 'number';
+}
+
+@function is-px($value) {
+  @return is-number($value) and index('px', unit($value)) != null;
+}
+
+@mixin fluid($min-value, $max-value, $properties: font-size, $min-vw: $ms-width-min, $max-vw: $ms-width-max) {
+  // Check If Value is PX
+  @if is-px($min-value) {
+    $min-value: rem-calc($min-value, 16px);
+  }
+  // Check If Value is PX
+  @if is-px($max-value) {
+    $max-value: rem-calc($max-value, 16px);
+  }
+
+  @if is-px($min-vw) {
+    $min-vw: em-calc($min-vw);
+  }
+
+  // Check If Value is PX
+  @if is-px($max-vw) {
+    $max-vw: em-calc($max-vw);
+  }
+
   @each $property in $properties {
     #{$property}: $min-value;
   }
 
   @media screen and (min-width: $min-vw) {
     @each $property in $properties {
-      #{$property}: calc(#{$min-value} + #{strip-unit($max-value - $min-value)} * (100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)});
+      $min-vw-REM: strip-unit($min-vw) + 0rem;
+      $max-vw-REM: strip-unit($max-vw) + 0rem;
+      #{$property}: calc(#{$min-value} + #{strip-unit($max-value - $min-value)} * (100vw - #{$min-vw-REM}) / (#{strip-unit($max-vw-REM - $min-vw-REM)}));
     }
   }
 
@@ -49,6 +63,7 @@
 }
 
 // Shorthand Version
-@mixin ft($args...) {
-  @include fluid-type($args...);
+@mixin f($args...) {
+  @include fluid($args...);
 }
+/* stylelint-enable */
