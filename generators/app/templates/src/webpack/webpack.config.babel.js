@@ -146,7 +146,7 @@ const CSS_LOADERS = [
  |--------------------------------------------------------------------------
  */
 
-export default {
+module.exports = {
   // we have to use source map for css source maps, slightly longer compile times
   devtool: 'source-map',
   context: BASE_PATH,
