@@ -22,14 +22,14 @@ h4,
 h5,
 h6 {
   word-wrap: break-word;
-  font-family: fontfamily('alternative');
+  font-family: fontfamily('base');
   font-weight: map-getter($fontweights, 'extra-light');
   line-height: 1.2;
 }
 
 h1,
 .h1 {
-  font-family: fontfamily('alternative');
+  font-family: fontfamily('base');
   @include fluid(fontsize('ms4'), fontsize('ms6'));
   text-transform: uppercase;
 }
@@ -51,7 +51,6 @@ h4,
 
 h5,
 .h5 {
-  font-family: fontfamily('bold');
   font-size: 18px;
   text-transform: uppercase;
   letter-spacing: 3px;
