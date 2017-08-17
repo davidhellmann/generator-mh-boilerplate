@@ -17,7 +17,7 @@ blockquote {
   margin: verticalrhythm(2) 0;
 
   p {
-    @include fluid-type(20px, 26px);
+    @include fluid(20px, 26px);
     font-family: fontfamily('headline');
     font-weight: 700;
     font-style: italic;
