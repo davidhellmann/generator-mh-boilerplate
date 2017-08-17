@@ -24,6 +24,8 @@ const runwithVue = (plugins = []) => {
     });
 };
 
+const run = () => helpers.run(path.join(__dirname, '../generators/app'));
+
 describe('It is a Vue Project 🎉', () => {
   beforeAll(async () => {
     await runwithVue();
@@ -86,8 +88,90 @@ describe('It is a Vue Project 🎉', () => {
       });
     assert.file('src/views/index.html');
     assert.file('dist/index.html');
-  })
+  });
 });
+
+// projectUsage as Vue
+
+describe.only('Vue Project Usage', () => {
+  beforeEach(async () => {
+    await run()
+      .withPrompts({
+        projectUsage: 'vueapp'
+      });
+  });
+
+  it('adds eslint-plugin-vue to eslintrc', () => {
+    assert.fileContent('.eslintrc.js', `extends: ['airbnb-base', 'plugin:vue/recommended'],`);
+  });
+
+  it('add vue devDependencies to package.json', () => {
+    assert.JSONFileContent('package.json', {
+      devDependencies: vueDependencies.devDependencies
+    });
+  });
+
+  it('adds vue to package.json', () => {
+    assert.JSONFileContent('package.json', {
+      dependencies: vueDependencies.dependencies
+    });
+  });
+
+  it('adds vue instance to app.js', async () => {
+    await runwithVue();
+    const vueCode = renderInstance([]);
+    expect(vueCode).toMatchSnapshot();
+    assert.fileContent('src/js/app.js', renderInstance([]));
+  });
+
+  it('adds Vue Examples', () => {
+    assert.file([
+      'src/js/App.vue',
+      'src/js/views/Home.vue'
+    ]);
+  });
+
+
+  it('copies index.html file to dist', async () => {
+    assert.file('src/views/index.html');
+    assert.file('dist/index.html');
+  });
+
+  it('adds router and vuex dependencies', () => {
+    const pluginDependencies = Object.assign(vueDependencies.vueXDependencies, vueDependencies.routerDependencies);
+    assert.jsonFileContent('package.json', {
+      dependencies: pluginDependencies
+    });
+  });
+
+  it('adds VueX and Vue Router to Vue instance to app.js', async () => {
+    const vueCode = renderInstance(['store', 'router']);
+    expect(vueCode).toMatchSnapshot();
+    assert.fileContent('src/js/app.js', renderInstance(['store', 'router']));
+  });
+
+  it('adds vue config to webpack', () => {
+    assert.fileContent('webpack/webpack.config.babel.js', `'vue$': 'vue/dist/vue.esm.js',`);
+    /* eslint-disable */
+    assert.fileContent('webpack/webpack.config.babel.js', `{
+      test: /\\.vue$/,
+      loader: 'vue-loader',
+      options: {
+        loaders: {
+          scss: ifProduction(
+            ExtractTextPlugin.extract({
+              use: [{ loader: 'css-loader', options: {url: false}}, { loader: 'sass-loader'}],
+              fallback: 'vue-style-loader',
+            }),
+            [{ loader: 'vue-style-loader'}, { loader: 'css-loader', options: {url: false}}, { loader: 'sass-loader'}]
+          ),
+        },
+      },
+    },`);
+  });
+});
+
+// vue project with all plugins
 
 describe('Vue Project with Plugins', () => {
   describe('It uses VueX', () => {
