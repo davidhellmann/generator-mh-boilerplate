@@ -165,7 +165,7 @@ module.exports = {
       resolve('node_modules'),
     ],
     alias: {
-<%_ if (projectFramework === 'vue') { _%>
+<%_ if (projectFramework === 'vue' || projectUsage === 'vueapp') { _%>
 'vue$': 'vue/dist/vue.esm.js',
 <%_ } _%>
       'src': resolve(config.srcPaths.base),
@@ -176,7 +176,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js<%_ if (projectFramework === 'vue' ) { _%>|vue<% } %>)$/,
+        test: /\.(js<%_ if (projectFramework === 'vue' || projectUsage === 'vueapp' ) { _%>|vue<% } %>)$/,
         loader: 'eslint-loader',
         options: {
           formatter: require("eslint-friendly-formatter"),

@@ -93,7 +93,7 @@ describe('It is a Vue Project 🎉', () => {
 
 // projectUsage as Vue
 
-describe.only('Vue Project Usage', () => {
+describe('Vue Project Usage', () => {
   beforeEach(async () => {
     await run()
       .withPrompts({

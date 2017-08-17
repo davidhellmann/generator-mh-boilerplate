@@ -1,5 +1,5 @@
 <%
-if (projectUsage == 'vue' || projectFramework == 'vue') {
+if (projectUsage == 'vueapp' || projectFramework == 'vue') {
   var extend = "['airbnb-base', 'plugin:vue/recommended']";
 } else {
   var extend = "['airbnb-base']";

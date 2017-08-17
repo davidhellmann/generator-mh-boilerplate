@@ -32,7 +32,13 @@ exports.packageJsonVue = (files = {}, context) => {
     devDependencies: exports.devDependencies
   });
 
-  if (typeof context.props.projectVuePlugins !== 'undefined') {
+  if (typeof context.props.projectVuePlugins !== 'undefined' || context.props.projectUsage === 'vueapp') {
+    if (context.props.projectUsage === 'vueapp') {
+      context.props.projectVuePlugins = [];
+      context.props.projectVuePlugins.push('vuex');
+      context.props.projectVuePlugins.push('vuerouter');
+    }
+
     if (context.props.projectVuePlugins.includes('vuex')) {
       exports.dependencies = Object.assign(exports.dependencies, exports.vueXDependencies);
     }
