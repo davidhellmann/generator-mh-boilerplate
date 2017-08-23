@@ -3,7 +3,7 @@ This is kind of special and mostly suited for my own requirements
 
 Thanks to [Sascha Fuchs](https://github.com/gisu) for the help and his framework [Kittn](https://github.com/kittn/generator-kittn/) for the inspiration.
 
-Also thanks to [David Hellmann](https://github.com/davidhellmann) and his [yo boilerplate](https://github.com/davidhellmann/generator-dhBoilerplate).
+Also thanks to [David Hellmann](https://github.com/davidhellmann) and his [baukasten boilerplate](https://github.com/davidhellmann/generator-baukasten).
 
 ## Requirements
 * composer
